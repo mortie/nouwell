@@ -4,7 +4,7 @@ var fs = require("fs");
 var path = require("path");
 var Logger = require("./bin/logger");
 var Database = require("./bin/database");
-var SiteBuilder = require("./bin/siteBuilder");
+var Builder = require("./bin/builder");
 var Template = require("./bin/template");
 
 var conf;
@@ -50,7 +50,7 @@ catch (err)
 	logger.error("Couldn't connect to database.", err);
 }
 
-db.query("setup",
+db.queryNoEscape("setup",
 {
 	"db": conf.sql.database
 },
@@ -65,7 +65,7 @@ function(err)
 	});
 
 	//create new site builder instance
-	builder = new SiteBuilder(
+	builder = new Builder(
 	{
 		"outDir": conf.dir.out,
 		"themeDir": path.join(conf.dir.theme, conf.theme),

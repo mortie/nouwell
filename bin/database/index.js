@@ -21,11 +21,21 @@ module.exports = function(conf)
 
 module.exports.prototype =
 {
-	"query": function(name, args, cb)
+	"_query": function()
 	{
-		//if no arguments, callback should become the second argument
-		if (cb == undefined)
-			cb = arguments[1];
+		//interpret arguments
+		var shouldEscape = arguments[0];
+		var name = arguments[1];
+		if (arguments[3] === undefined)
+		{
+			var args = false;
+			var cb = arguments[2];
+		}
+		else
+		{
+			var args = arguments[2];
+			var cb = arguments[3];
+		}
 
 		var str = this._caches[name];
 
@@ -35,13 +45,31 @@ module.exports.prototype =
 			this._caches[name] = str;
 		}
 
-		if (cb !== undefined)
+		if (args)
 		{
 			var i;
-			for (i in args)
-				str = str.split("{"+i+"}").join(this._conn.escape(args[i]));
+			if (shouldEscape)
+			{
+				for (i in args)
+					str = str.split("{"+i+"}").join(this._conn.escape(args[i]));
+			}
+			else
+			{
+				for (i in args)
+					str = str.split("{"+i+"}").join(args[i]);
+			}
 		}
 
 		this._conn.query(str, cb);
+	},
+
+	"query": function()
+	{
+		this._query(true, arguments[0], arguments[1], arguments[2]);
+	},
+	
+	"queryNoEscape": function()
+	{
+		this._query(false, arguments[0], arguments[1], arguments[2]);
 	}
 }
