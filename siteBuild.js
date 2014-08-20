@@ -2,10 +2,10 @@
 
 var fs = require("fs");
 var path = require("path");
-var Logger = require("logger");
-var Database = require("database");
-var SiteBuilder = require("siteBuilder");
-var Template = require("template");
+var Logger = require("./bin/logger");
+var Database = require("./bin/database");
+var SiteBuilder = require("./bin/siteBuilder");
+var Template = require("./bin/template");
 
 var conf;
 var logger;
