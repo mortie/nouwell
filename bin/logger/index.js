@@ -9,19 +9,19 @@ module.exports = function(conf)
 
 module.exports.prototype =
 {
-	"info": function(message, err)
+	"info": function(msg, cb)
 	{
-		this._log("info", msg, err);
+		this._log("info", msg, true, cb);
 	},
 
-	"notice": function(msg, err)
+	"notice": function(msg, cb)
 	{
-		this._log("notice", msg, err);
+		this._log("notice", msg, true, cb);
 	},
 
-	"warning": function(msg, err)
+	"warning": function(msg, cb)
 	{
-		this._log("warning", msg, err);
+		this._log("warning", msg, true, cb);
 	},
 
 	"error": function(msg, err)
@@ -29,14 +29,18 @@ module.exports.prototype =
 		this._log("error", msg, err);
 	},
 
-	"_log": function(type, msg, err)
+	"_log": function(type, msg, err, cb)
 	{
 		//do nothing if there's no error
 		if (!err)
 			return false;
 
+		//add raw error string if it exists
+		if (err !== true)
+			msg = msg+" ("+err+")";
+
 		//write to console regardless of configuration
-		console.log(msg+" ("+err+")");
+		console.log(msg);
 
 		//don't proceed if this log type shouldn't be logged
 		if (this.log.indexOf(type) !== -1)
@@ -61,6 +65,9 @@ module.exports.prototype =
 		{
 			if (err)
 				throw new Error("Could not write to log dir! "+err);
+
+			if (typeof cb === "function")
+				cb();
 
 			if (type === "error")
 				process.exit();

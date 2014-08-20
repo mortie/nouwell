@@ -68,16 +68,20 @@ function(err)
 	builder = new Builder(
 	{
 		"outDir": conf.dir.out,
+		"adminDir": conf.dir.admin,
 		"themeDir": path.join(conf.dir.theme, conf.theme),
 		"templateDir": templateDir,
 		"db": db,
 		"logger": logger,
-		"template": template
+		"template": template,
 	});
 
 	//actually build site
 	builder.build(function()
 	{
-		console.log("done");
+		logger.info("Done!", function()
+		{
+			process.exit();
+		});
 	});
 });

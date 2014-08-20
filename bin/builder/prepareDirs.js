@@ -1,5 +1,7 @@
+var ncp = require("ncp").ncp;
 var fs = require("fs");
 var mkdirp = require("mkdirp");
+var path = require("path");
 
 //list of directories to prepare
 var dirs =
@@ -8,7 +10,8 @@ var dirs =
 	"{outDir}/admin",
 	"{outDir}/media",
 	"{themeDir}",
-	"{templateDir}"
+	"{templateDir}",
+	"{adminDir}"
 ];
 
 module.exports = function(cb)
@@ -21,7 +24,8 @@ module.exports = function(cb)
 		//replace placeholders
 		var path = dir.split("{outDir}").join(self.outDir)
 		              .split("{themeDir}").join(self.themeDir)
-		              .split("{templateDir}").join(self.templateDir);
+		              .split("{templateDir}").join(self.templateDir)
+		              .split("{adminDir}").join(self.adminDir);
 
 		//create directory
 		try
@@ -33,6 +37,15 @@ module.exports = function(cb)
 		{
 			self.logger.error("Could not create "+path+".", err);
 		}
+	});
+
+	//copy admin dir to {outDir}/admin asynchronously.
+	++self.cbs;
+	ncp(self.adminDir, self.outDir+"/admin", function(err)
+	{
+		self.logger.error("Could not copy admin dir.", err);
+
+		--self.cbs;
 	});
 
 	cb();

@@ -3,6 +3,7 @@ module.exports = function(conf)
 	this.outDir = conf.outDir;
 	this.themeDir = conf.themeDir;
 	this.templateDir = conf.templateDir;
+	this.adminDir = conf.adminDir;
 	this.db = conf.db;
 	this.logger = conf.logger;
 	this.template = conf.template;

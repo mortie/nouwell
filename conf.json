@@ -15,7 +15,8 @@
 		"log": "log",
 		"out": "public",
 		"template": "template",
-		"theme": "theme"
+		"theme": "theme",
+		"admin": "admin"
 	},
 
 	"sql":
