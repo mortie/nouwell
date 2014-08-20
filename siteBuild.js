@@ -1,14 +1,17 @@
 #!/usr/bin/env node
 
 var fs = require("fs");
+var path = require("path");
 var Logger = require("logger");
 var Database = require("database");
 var SiteBuilder = require("siteBuilder");
+var Template = require("template");
 
 var conf;
 var logger;
 var db;
 var builder;
+var template;
 
 //create logger instance
 logger = new Logger(
@@ -53,16 +56,26 @@ db.query("setup",
 },
 function(err)
 {
-	//create new site builder instance
-	try
-	{
-		builder = new SiteBuilder(conf.dir.out, db, logger);
-	}
-	catch (err)
-	{
-		logger.error("Couldn't create SiteBuilder instance.", err);
-	}
+	var templateDir = path.join(conf.dir.template, conf.template);
 
+	template = new Template(
+	{
+		"path": templateDir,
+		"suffix": ".html"
+	});
+
+	//create new site builder instance
+	builder = new SiteBuilder(
+	{
+		"outDir": conf.dir.out,
+		"themeDir": path.join(conf.dir.theme, conf.theme),
+		"templateDir": templateDir,
+		"db": db,
+		"logger": logger,
+		"template": template
+	});
+
+	//actually build site
 	builder.build(function()
 	{
 		console.log("done");

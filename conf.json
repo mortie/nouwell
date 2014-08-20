@@ -1,4 +1,7 @@
 {
+	"theme": "default",
+	"template": "default",
+
 	"log":
 	[
 		"info",
@@ -10,7 +13,9 @@
 	"dir":
 	{
 		"log": "log",
-		"out": "public"
+		"out": "public",
+		"template": "template",
+		"theme": "theme"
 	},
 
 	"sql":
