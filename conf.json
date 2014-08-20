@@ -1,0 +1,24 @@
+{
+	"log":
+	[
+		"info",
+		"notice",
+		"warning",
+		"error"
+	],
+
+	"dir":
+	{
+		"log": "log",
+		"out": "public"
+	},
+
+	"sql":
+	{
+		"username": "root",
+		"password": "",
+		"host": "localhost",
+		"port": 3306,
+		"database": "siteBuilder"
+	}
+}
