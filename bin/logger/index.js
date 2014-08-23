@@ -3,12 +3,30 @@ var path = require("path");
 
 module.exports = function(conf)
 {
-	this.log = conf.log;
-	this.dir = conf.dir;
+	this._logLevel = conf.log;
+	this._dir = conf.dir;
+
+	if (this.dir && fs.existsSync(dir))
+		fs.mkdirSync(this.dir);
+}
+
+var errorStrings =
+{
+	"info":    "Info:    ",
+	"notice":  "Notice:  ",
+	"warning": "Warning: ",
+	"error":   "Error:   "
 }
 
 module.exports.prototype =
 {
+	set dir(dir)
+	{
+		this._dir = dir;
+		if (!fs.existsSync(dir))
+			fs.mkdirSync(dir);
+	},
+
 	"info": function(msg, cb)
 	{
 		this._log("info", msg, true, cb);
@@ -39,11 +57,14 @@ module.exports.prototype =
 		if (err !== true)
 			msg = msg+" ("+err+")";
 
+		//add prefix
+		msg = errorStrings[type]+msg;
+
 		//write to console regardless of configuration
 		console.log(msg);
 
 		//don't proceed if this log type shouldn't be logged
-		if (this.log.indexOf(type) !== -1)
+		if (this._logLevel && this._logLevel.indexOf(type) !== -1)
 			return false;
 
 		//create time strings
@@ -58,10 +79,10 @@ module.exports.prototype =
 		var msg = hour+":"+minute+" "+msg+" ("+err+")";
 
 		//prepare file name
-		var fileName = month+"."+day+".log";
+		var fileName = month+"."+day+".log\n";
 
 		//finally write to file
-		fs.appendFile(path.join(this.dir, fileName), function(err)
+		fs.appendFile(path.join(this._dir, fileName), msg, function(err)
 		{
 			if (err)
 				throw new Error("Could not write to log dir! "+err);
@@ -78,8 +99,10 @@ module.exports.prototype =
 //turn single digit numeric strings into two digits
 function makeTwoDigits(num)
 {
+	//convert to string
 	num = ""+num;
 
+	//prepend a 0 if only 1 character
 	if (num.length === 1)
 		num = "0"+num;
 	

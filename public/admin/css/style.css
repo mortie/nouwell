@@ -1,0 +1,10 @@
+button .link
+{
+	background-color: transparent;
+	border: none;
+	color: blue;
+	cursor: pointer;
+	text-decoration: underline;
+	font-weight: bold;
+	padding: 0px;
+}
