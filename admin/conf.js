@@ -1,4 +1,4 @@
 window.conf =
 {
-	
+
 }

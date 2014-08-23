@@ -1,14 +1,26 @@
 <?php
 if (!$calledCorrectly) die();
 
-if (conf->adminPassword !== args->password)
-	die();
+//wrong password
+if (empty($conf->adminPassword) || $conf->adminPassword !== $args->password)
+{
+	fail();
+}
 
-$token = randomString(64);
+//correct password
+else
+{
+	$token = randomString(64);
 
-$f = fopen("$root/adminTokens", 'a');
-fwrite($f, $token);
-fclose($f);
+	$f = fopen("$root/adminTokens", 'a');
+	fwrite($f, $token."\n");
+	fclose($f);
+
+	succeed(
+	[
+		"token"=>$token
+	]);
+}
 
 function randomString($length){ 
 	$characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

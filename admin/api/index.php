@@ -1,7 +1,7 @@
 <?php
 
 //get arguments
-$args = json_decode($_POST['args']);
+$args = json_decode(file_get_contents("php://input"));
 
 //get requested page
 $method = $args->m;
@@ -12,7 +12,6 @@ if (empty($method)) die();
 //let method files make sure they're called via this script and not directly
 $calledCorrectly = true;
 
-
 //path to root directory
 $root = "../../..";
 
@@ -20,18 +19,35 @@ $root = "../../..";
 $conf = json_decode(file_get_contents("$root/conf.json"));
 
 //mysql connection
-$mysqli = new Mysqli(
-	conf.sql.host,
-	conf.sql.username,
-	conf.sql.password,
-	conf.sql.database,
-	conf.sql.port
+$mysqli = new mysqli(
+	$conf->sql->host,
+	$conf->sql->username,
+	$conf->sql->password,
+	$conf->sql->database,
+	$conf->sql->port
 );
 
-//reply to caller
-function reply($arr)
+//check whether token is valid
+function verifyToken($token)
 {
-	echo json_encode($arr);
+	global $root;
+	$validTokens = explode("\n", file_get_contents("$root/adminTokens"));
+
+	return in_array($token, $validTokens);
+}
+
+//reply to caller if success
+function succeed($arr=[])
+{
+	$arr['success'] = true;
+	die(json_encode($arr));
+}
+
+//reply to caller if failure
+function fail($arr=[])
+{
+	$arr['success'] = false;
+	die(json_encode($arr));
 }
 
 //include correct method

@@ -1,15 +1,8 @@
 (function()
 {
-	var token = lib.getCookie("token");
-
-	var noAuthPages =
-	[
-		"login",
-		"newUser"
-	];
-
 	window.router = new Router(document.getElementById("page"), function(first)
 	{
+		var token = lib.apiToken || lib.getCookie("token");
 		var path = location.hash.substring(1);
 		var page = path.split("/")[0];
 
@@ -17,14 +10,28 @@
 		//otherwise, go to home.
 		if (first)
 		{
-			if (token || noAuthPages.indexOf(page) !== -1)
-				router.path = path || "home";
+			if (token)
+			{
+				lib.callAPI("verifyToken",
+				{
+					"token": token
+				},
+				function(result)
+				{
+					if (result.valid)
+						router.path = path || "home";
+					else
+						router.path = "login";
+				});
+			}
 			else
+			{
 				router.path = "login";
+			}
 		}
 		else
 		{
-			if (noAuthPages.indexOf(page) === -1)
+			if (!token && page !== "login")
 				router.path = "login";
 		}
 	});

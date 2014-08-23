@@ -1,12 +1,12 @@
 (function()
 {
-	var fetchTemplate = function(path, callback)
+	var fetchTemplate = function(path, cb)
 	{
 		xhr = new XMLHttpRequest();
 
 		xhr.onload = function(e)
 		{
-			callback(xhr.response);
+			cb(xhr.response);
 		}
 
 		xhr.open("GET", path, true);
@@ -15,25 +15,21 @@
 
 	var replace = function(str, args)
 	{
-		var i;
-		for (i in args)
+		if (args)
 		{
-			str = str.split("{"+i+"}").join(args[i]);
+			var i;
+			for (i in args)
+			{
+				str = str.split("{"+i+"}").join(args[i]);
+			}
 		}
 
 		return str;
 	}
 
-	var handleResult = function(result, arg3, params)
+	var handleResult = function(result, params)
 	{
-		if (typeof arg3 == "function")
-			arg3(result);
-		else if (typeof arg3 == "string")
-			document.getElementById(arg3).innerHTML += result;
-		else if (arg3 instanceof HTMLElement)
-			arg3.innerHTML += result;
-		else if (!arg3 && params.defaultObject !== false)
-			params.defaultObject.innerHTML += result;
+		params.element.innerHTML += result;
 	}
 
 	window.Template = function(params)
@@ -45,24 +41,28 @@
 		{
 			"location": params.location || "templates/",
 			"postfix": params.postfix || ".html",
-			"defaultObject": params.defautltObject || false
+			"element": params.element
 		}
 
 		var cache = {};
 
-		return function(name, args, arg3)
+		return function(name, args, cb)
 		{
 			var result;
 			if (cache[name])
 			{
-				handleResult(replace(cache[name], args), arg3, params);
+				handleResult(replace(cache[name], args), params);
+				if (typeof cb === "function")
+					cb();
 			}
 			else
 			{
 				fetchTemplate(conf.location+name+conf.postfix, function(result)
 				{
-					handleResult(replace(result, args), arg3, params);
+					handleResult(replace(result, args), params);
 					cache[name] = result;
+					if (typeof cb === "function")
+						cb();
 				});
 			}
 		}

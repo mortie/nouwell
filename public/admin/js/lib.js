@@ -4,15 +4,24 @@
 
 	lib.template = new Template(
 	{
-		"defaultObject": document.getElementById("page")
+		"element": document.getElementById("page")
 	});
+
+	lib.apiToken = "";
 
 	lib.callAPI = function(method, args, cb)
 	{
+		if (lib.apiToken)
+			args.token = lib.apiToken;
 		args.m = method;
+
+		var json = JSON.stringify(args);
+
 		var xhr = new XMLHttpRequest();
 		xhr.open("post", "api/");
-		xhr.send();
+		xhr.setRequestHeader("Content-type", "application/json");
+		xhr.send(json);
+
 		xhr.onload = function()
 		{
 			console.log(xhr.responseText);

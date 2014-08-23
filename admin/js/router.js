@@ -18,6 +18,7 @@
 
 		set path(path)
 		{
+			console.log("switching to page "+path);
 			location.hash = path;
 			this.load();
 		},

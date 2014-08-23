@@ -2,6 +2,8 @@
 	"theme": "default",
 	"template": "default",
 
+	"adminPassword": "password",
+
 	"log":
 	[
 		"info",

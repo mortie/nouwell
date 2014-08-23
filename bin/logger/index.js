@@ -79,7 +79,7 @@ module.exports.prototype =
 		var msg = hour+":"+minute+" "+msg+" ("+err+")";
 
 		//prepare file name
-		var fileName = month+"."+day+".log\n";
+		var fileName = month+"."+day+".log";
 
 		//finally write to file
 		fs.appendFile(path.join(this._dir, fileName), msg, function(err)
