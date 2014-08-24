@@ -5,12 +5,14 @@
 		this._pages = [];
 		this._page = "";
 		this._element = element;
+		this._enabled = true;
 
 		this._callbacks = {};
 
 		window.onpopstate = function()
 		{
-			this.load();
+			if (this._enabled)
+				this.load();
 		}.bind(this);
 	}
 
@@ -24,6 +26,8 @@
 
 		set path(path)
 		{
+			if (!this._enabled) return false;
+
 			this._page = path.split("/")[0];
 			location.hash = path;
 		},
@@ -33,14 +37,19 @@
 			return this._page || location.hash.split("/")[0].substring(1);
 		},
 
+		"disable": function()
+		{
+			this._enabled = false;
+		},
+
+		"enable": function()
+		{
+			this._enabled = true;
+		},
+
 		"addPage": function(name, f)
 		{
 			this._pages[name] = f;
-		},
-
-		"init": function()
-		{
-			this.load(true);
 		},
 
 		"load": function(first)

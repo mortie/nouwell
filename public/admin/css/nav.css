@@ -5,6 +5,7 @@
 	width: 115px;
 	background-color: #222;
 	padding-top: 20px;
+	position: fixed;
 
 	user-select: none;
 		-webkit-user-select: none;

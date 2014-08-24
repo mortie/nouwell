@@ -33,7 +33,12 @@ $mysqli = new mysqli(
 function verifyToken($token)
 {
 	global $root;
-	$validTokens = explode("\n", file_get_contents("$root/adminTokens"));
+	$path = "$root/adminTokens";
+
+	if (!file_exists($path))
+		return false;
+
+	$validTokens = explode("\n", file_get_contents($path));
 
 	return in_array($token, $validTokens);
 }
@@ -50,6 +55,23 @@ function fail($arr=[])
 {
 	$arr['success'] = false;
 	die(json_encode($arr));
+}
+
+function requireToken()
+{
+	global $args;
+
+	if (!empty($args->token) && verifyToken($args->token))
+	{
+		return true;
+	}
+	else
+	{
+		fail(
+		[
+			"error"=>"Invalid token"
+		]);
+	}
 }
 
 //include correct method

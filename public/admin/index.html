@@ -5,30 +5,36 @@
 	<link rel="stylesheet" href="css/style.css" />
 	<link rel="stylesheet" href="css/nav.css" />
 	<link rel="stylesheet" href="css/page.css" />
+	<link rel="stylesheet" href="http://lab.lepture.com/editor/editor.css" />
 	<title>Admin</title>
 </head>
 <body>
 	<div id="nav"></div>
 	<div id="page"></div>
 
+	<!--configuration-->
 	<script src="conf.js"></script>
 
+	<!-- libraries-->
 	<script src="js/template.js"></script>
 	<script src="js/lib.js"></script>
 	<script src="js/gui.js"></script>
 
+	<!--editor-->
+	<script type="text/javascript" src="http://lab.lepture.com/editor/editor.js"></script>
+	<script type="text/javascript" src="http://lab.lepture.com/editor/marked.js"></script>
+
+	<!--router and things to do with router-->
 	<script src="js/router.js"></script>
-	<script src="js/load.js"></script>
+	<script src="js/script.js"></script>
 	<script src="js/nav.js"></script>
 
+	<!--pages-->
 	<script src="pages/login.js"></script>
+	<script src="pages/edit.js"></script>
 	<script src="pages/home.js"></script>
 	<script src="pages/new.js"></script>
 	<script src="pages/settings.js"></script>
-
-	<script>
-		router.init();
-	</script>
 
 </body>
 </html>

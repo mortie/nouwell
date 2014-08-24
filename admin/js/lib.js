@@ -49,4 +49,28 @@
 	{
 		document.cookie = name+"="+val;
 	}
+
+	lib.editor = function(element)
+	{
+		var contentArea = document.getElementById("content");
+		var submitButton = document.getElementById("submit");
+		var titleField = document.getElementById("title");
+		var slugField = document.getElementById("slug");
+
+		var editor = new Editor(
+		{
+			"element": contentArea
+		});
+
+		editor.title = titleField;
+		editor.slug = slugField;
+
+		submitButton.addEventListener("click", function()
+		{
+			if (typeof editor.onsubmit === "function")
+				editor.onsubmit();
+		});
+
+		return editor;
+	}
 })();

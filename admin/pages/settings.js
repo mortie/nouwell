@@ -22,20 +22,6 @@ router.addPage("settings", function()
 
 	function draw()
 	{
-		var entries = "";
-		var i;
-		for (i in settings)
-		{
-			entries += lib.template("settingsEntry",
-			{
-				"key": i,
-				"value": settings[i]
-			}, false);
-		}
-
-		lib.template("settings",
-		{
-			"entries": entries
-		});
+		lib.template("settings", settings);
 	}
 });
