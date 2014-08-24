@@ -1,70 +1,69 @@
 (function()
 {
-	var fetchTemplate = function(path, cb)
+	window.Template = function(conf)
 	{
-		xhr = new XMLHttpRequest();
-
-		xhr.onload = function(e)
-		{
-			cb(xhr.response);
-		}
-
-		xhr.open("GET", path, true);
-		xhr.send();
-	}
-
-	var replace = function(str, args)
-	{
-		if (args)
-		{
-			var i;
-			for (i in args)
-			{
-				str = str.split("{"+i+"}").join(args[i]);
-			}
-		}
-
-		return str;
-	}
-
-	var handleResult = function(result, params)
-	{
-		params.element.innerHTML += result;
-	}
-
-	window.Template = function(params)
-	{
-		if (!params)
-			var params = {};
-
-		var conf =
-		{
-			"location": params.location || "templates/",
-			"postfix": params.postfix || ".html",
-			"element": params.element
-		}
+		var prefix = conf.prefix || "templates/";
+		var postfix = conf.postfix || ".html";
+		var element = conf.element || null;
 
 		var cache = {};
 
-		return function(name, args, cb)
+		var template = function(name, args, modifyElement)
 		{
-			var result;
-			if (cache[name])
+			var str = cache[name] || "";
+
+			if (args)
 			{
-				handleResult(replace(cache[name], args), params);
-				if (typeof cb === "function")
-					cb();
+				var i;
+				for (i in args)
+					str = str.split("{"+i+"}").join(args[i]);
 			}
-			else
+
+			//remove arguments which aren't provided
+			var str = str.replace(/\{[a-zA-Z0-9]+\}/g, "");
+
+			if (element && modifyElement !== false)
+				element.innerHTML += str;
+
+			return str;
+		}
+
+		template.load = function(templates, cb)
+		{
+			var n = 0;
+			var loaded = false;
+			templates.forEach(function(t)
 			{
-				fetchTemplate(conf.location+name+conf.postfix, function(result)
+				if (cache[t] === undefined)
 				{
-					handleResult(replace(result, args), params);
-					cache[name] = result;
-					if (typeof cb === "function")
-						cb();
-				});
-			}
+					loaded = true;
+					++n;
+					load(prefix+t+postfix, t, function(result, t)
+					{
+						cache[t] = result;
+						--n;
+
+						if (n === 0 && typeof cb === "function")
+							cb();
+					});
+				}
+			});
+
+			if (!loaded && typeof cb === "function")
+				cb();
+		}
+
+		return template;
+	}
+
+	function load(path, t, cb)
+	{
+		var xhr = new XMLHttpRequest();
+		xhr.open("get", path);
+		xhr.send();
+		xhr.onload = function()
+		{
+			cb(xhr.responseText, t);
 		}
 	}
 })();

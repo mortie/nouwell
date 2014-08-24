@@ -1,17 +1,20 @@
 router.addPage("login", function()
 {
-	lib.template("login", {}, function()
+	lib.template.load(["login"], function()
 	{
-		var loginButton = document.getElementById("loginButton");
-		var passwordField = document.getElementById("passwordField");
-
-		loginButton.addEventListener("click", login);
-
-		passwordField.addEventListener("keypress", function(e)
+		lib.template("login", {}, function()
 		{
-			//if enter was pressed, log in
-			if (e.keyCode === 13)
-				login(e);
+			var loginButton = document.getElementById("loginButton");
+			var passwordField = document.getElementById("passwordField");
+
+			loginButton.addEventListener("click", login);
+
+			passwordField.addEventListener("keypress", function(e)
+			{
+				//if enter was pressed, log in
+				if (e.keyCode === 13)
+					login(e);
+			});
 		});
 	});
 });

@@ -1,6 +1,8 @@
 (function()
 {
-	window.router = new Router(document.getElementById("page"), function(first)
+	window.router = new Router(document.getElementById("page"));
+   
+	router.on("load", function(first)
 	{
 		var token = lib.apiToken || lib.getCookie("token");
 		var path = location.hash.substring(1);

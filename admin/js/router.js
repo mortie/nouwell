@@ -1,16 +1,22 @@
 (function()
 {
-	window.Router = function(element, onload)
+	window.Router = function(element)
 	{
 		this._pages = [];
+		this._page = "";
 		this._element = element;
-		this._onload = onload;
 
-		window.onpopstate = this.load.bind(this);
+		this._callbacks = {};
+
+		window.onpopstate = function()
+		{
+			this.load();
+		}.bind(this);
 	}
 
 	window.Router.prototype =
 	{
+
 		get path()
 		{
 			return location.hash.substring(1);
@@ -18,9 +24,13 @@
 
 		set path(path)
 		{
-			console.log("switching to page "+path);
+			this._page = path.split("/")[0];
 			location.hash = path;
-			this.load();
+		},
+
+		get page()
+		{
+			return this._page || location.hash.split("/")[0].substring(1);
 		},
 
 		"addPage": function(name, f)
@@ -30,11 +40,10 @@
 
 		"init": function()
 		{
-			if (this._onload)
-				this._onload(true);
+			this.load(true);
 		},
 
-		"load": function()
+		"load": function(first)
 		{
 			var path = location.hash.substring(1);
 
@@ -42,14 +51,32 @@
 			var page = sections[0];
 
 			//prepare element
-			this._element.innerHTML = "";
 			this._element.className = page;
+			this._element.innerHTML = "";
 
 			//execute page script
 			this._pages[page](sections);
 
-			if (this._onload)
-				this._onload(false);
+			this._emit("load", [first || false]);
+		},
+
+		"on": function(e, func)
+		{
+			if (this._callbacks[e] === undefined)
+				this._callbacks[e] = [];
+
+			this._callbacks[e].push(func);
+		},
+
+		"_emit": function(e, args)
+		{
+			if (this._callbacks[e] !== undefined)
+			{
+				this._callbacks[e].forEach(function(func)
+				{
+					func.apply(null, args || []);
+				});
+			}
 		}
 	}
 })();

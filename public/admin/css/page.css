@@ -1,0 +1,31 @@
+#page
+{
+	padding-top: 50px;
+	margin-left: 50px;
+	display: inline-block;
+	width: 60%;
+}
+
+#page .table
+{
+	width: 100%;
+}
+#page .table .title
+{
+	text-align: center;
+	width: 100%;
+}
+#page .table .key
+{
+	text-align: right;
+	width: 40%;
+	margin-right: 5px;
+	display: inline-block;
+}
+#page .table .val
+{
+	text-align: left;
+	width: 40%;
+	margin-left: 5px;
+	display: inline-block;
+}

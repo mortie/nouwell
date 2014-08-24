@@ -1,0 +1,112 @@
+#nav
+{
+	display: inline-block;
+	height: 100%;
+	width: 115px;
+	background-color: #222;
+	padding-top: 20px;
+
+	user-select: none;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+
+	float: left;
+}
+
+#nav .navEntry
+{
+	line-height: 18px;
+	padding: 8px 15px 10px 10px;
+}
+#nav .navEntry .name
+{
+	font-family: "Open Sans", sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	color: #eee;
+	margin-right: 5px;
+	margin-top: 3px;
+	display: block;
+}
+#nav .navEntry .dropdown
+{
+	display: none;
+}
+
+#nav .navEntry:hover
+{
+	background-color: #000;
+	cursor: pointer;
+	cursor: hand;
+}
+#nav .navEntry:hover .name
+{
+	color: #2ea2cc
+}
+#nav .hasDropdown:hover .dropdown
+{
+	background-color: #222;
+	display: block;
+	position: absolute;
+	margin-left: 105px;
+	margin-top: -29px;
+}
+#nav .hasDropdown:hover .dropdownEntry
+{
+	padding: 8px 15px 10px 10px;
+}
+#nav .hasDropdown:hover .dropdownEntry .name
+{
+	color: #eee;
+}
+#nav .hasDropdown:hover .dropdownEntry:hover
+{
+	background-color: #000;
+}
+#nav .hasDropdown:hover .dropdownEntry:hover .name
+{
+	color: #2ea2cc;
+}
+#nav .navEntry .arrow
+{
+	display: none;
+}
+
+#nav .current,
+#nav .current:hover
+{
+	background-color: #2ea2cc;
+}
+#nav .current .name,
+#nav .current:hover .name
+{
+	color: #fff;
+}
+#nav .current .arrow
+{
+	width: 0; 
+	height: 0; 
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent; 
+	
+	border-right: 10px solid #eee; 
+
+	display: block;
+	float: right;
+	margin-right: -15px;
+	margin-top: -18px;
+}
+#nav .hasDropdown:hover .arrow
+{
+	display: none !important;
+}
+#nav .hasDropdown .dropdown .current,
+#nav .hasDropdown .dropdown .current:hover
+{
+	background-color: #2ea2cc;
+}
+#nav .hasDropdown .dropdown .current .name,
+#nav .hasDropdown .dropdown .current:hover .name
+{
+	color: #fff;
+}

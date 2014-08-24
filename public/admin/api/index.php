@@ -3,7 +3,9 @@
 //get arguments
 $args = json_decode(file_get_contents("php://input"));
 
-//get requested page
+//get requested page, or die trying
+if (empty($args->m))
+	die("no method provided");
 $method = $args->m;
 
 //die if no method requested

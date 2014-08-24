@@ -24,8 +24,10 @@
 
 		xhr.onload = function()
 		{
-			console.log(xhr.responseText);
-			cb(JSON.parse(xhr.responseText));
+			if (xhr.responseText && cb)
+				cb(JSON.parse(xhr.responseText));
+			else if (cb)
+				cb(false);
 		}
 	}
 
