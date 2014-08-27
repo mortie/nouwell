@@ -8,10 +8,6 @@ router.addPage("new", function(args)
 	function draw()
 	{
 		lib.template("editor");
-		lib.template("uploadMedia",
-		{
-			"token": lib.apiToken
-		});
 
 		var editor = lib.editor();
 

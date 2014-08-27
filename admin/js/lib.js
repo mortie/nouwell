@@ -76,7 +76,7 @@
 		return editor;
 	}
 
-	lib.fileUpload = function(form, action_url)
+	lib.fileUpload = function(form, action_url, cb)
 	{
 		// Create the iframe...
 		var iframe = document.createElement("iframe");
@@ -107,7 +107,7 @@
 			else if (iframeId.document)
 				content = iframeId.document.body.innerHTML;
 
-			gui.notify(content);
+			cb(content);
 
 			// Del the iframe...
 			setTimeout('iframeId.parentNode.removeChild(iframeId)', 250);

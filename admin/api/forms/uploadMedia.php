@@ -1,19 +1,31 @@
 <?php
 if (!$calledCorrectly) die();
-var_dump($args);
 requireToken();
 
-$fileNameParts = pathinfo($_FILES->file->name);
-$tmpName = $_FILES->file->file-tmp_name;
-$size = $_FILES->file->size;
+$file = $_FILES['file'];
 
-$type = $mysqli->real_escape_string($_FILES->file->type);
-$title = $mysqli->real_escape_string($fileNameParts->basename);
-$extension = $mysqli->real_escape_string($fileNameParts->extension);
+$fileNameParts = pathinfo($file['name']);
+$tmpName = $file['tmp_name'];
+$size = $file['size'];
 
-$f = fopen($tmpName, "r");
-$content = $mysqli->real_escape_string(fread($f, $size));
-fclose($f);
+$type = $mysqli->real_escape_string($file['type']);
+$title = $mysqli->real_escape_string($fileNameParts['filename']);
+$extension = $mysqli->real_escape_string($fileNameParts['extension']);
 
-$mysqli->query("INSERT INTO media (title, type, content, extension)".
+$rawContent = file_get_contents($tmpName);
+$contente = $mysqli->real_escape_string($rawContent);
+
+$mysqli->query("INSERT INTO media (title, type, content, extension) ".
                "VALUES ('$title', '$type', '$content', '$extension')");
+
+$id = $mysqli->insert_id;
+$publicDir = $conf->dir->out;
+
+file_put_contents("$root/$publicDir/media/$id.$extension", $rawContent);
+
+succeed(
+[
+	"title"=>$title,
+	"type"=>$type,
+	"extension"=>$extension,
+]);
