@@ -1,8 +1,5 @@
 (function()
 {
-	window.router = new Router(document.getElementById("page"));
-	router.disable();
-
 	var token = lib.apiToken || lib.getCookie("token");
 	var path = location.hash.substring(1);
 	var page = path.split("/")[0];
@@ -11,6 +8,7 @@
 	{
 		router.enable();
 		router.path = "login";
+		router.load();
 		router.disable();
 	}
 	else

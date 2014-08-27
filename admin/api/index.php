@@ -1,15 +1,26 @@
 <?php
 
-//get arguments
-$args = json_decode(file_get_contents("php://input"));
-
 //get requested page, or die trying
-if (empty($args->m))
+if (!empty($_GET['form']))
+{
+	$form = $_GET['form'];
+	$type = "form";
+}
+else if (!empty($_GET['method']))
+{
+	$method = $_GET['method'];
+	$type = "method";
+}
+else
+{
 	die("no method provided");
-$method = $args->m;
+}
 
-//die if no method requested
-if (empty($method)) die();
+//get arguments
+if ($type == "form")
+	$args = json_decode(json_encode($_POST)); //convert to object
+else if ($type == "method")
+	$args = json_decode(file_get_contents("php://input"));
 
 //let method files make sure they're called via this script and not directly
 $calledCorrectly = true;
@@ -74,5 +85,8 @@ function requireToken()
 	}
 }
 
-//include correct method
-include "methods/$method.php";
+//include correct method or form
+if ($type == "form")
+	include "forms/$form.php";
+else if ($type == "method")
+	include "methods/$method.php";

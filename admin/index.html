@@ -26,7 +26,10 @@
 
 	<!--router and things to do with router-->
 	<script src="js/router.js"></script>
-	<script src="js/script.js"></script>
+	<script>
+		window.router = new Router(document.getElementById("page"));
+		router.disable();
+	</script>
 	<script src="js/nav.js"></script>
 
 	<!--pages-->
@@ -36,5 +39,6 @@
 	<script src="pages/new.js"></script>
 	<script src="pages/settings.js"></script>
 
+	<script src="js/script.js"></script>
 </body>
 </html>

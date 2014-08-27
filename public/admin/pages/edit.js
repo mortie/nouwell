@@ -13,7 +13,7 @@ router.addPage("new", function(args)
 		--callbacks;
 		if (callbacks === 0)
 			draw();
-	}
+	});
 
 	lib.template.load(["editor"], function()
 	{

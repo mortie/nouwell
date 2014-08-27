@@ -2,7 +2,7 @@
 {
 	window.Router = function(element)
 	{
-		this._pages = [];
+		this._pages = {};
 		this._page = "";
 		this._element = element;
 		this._enabled = true;
@@ -62,6 +62,8 @@
 			//prepare element
 			this._element.className = page;
 			this._element.innerHTML = "";
+
+			console.log("loading '"+page+"'");
 
 			//execute page script
 			this._pages[page](sections);

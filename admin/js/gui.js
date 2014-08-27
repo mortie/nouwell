@@ -9,7 +9,14 @@
 
 	window.gui = {};
 
+	//TODO: fix this
 	gui.error = function(message)
+	{
+		alert(message);
+	}
+
+	//TODO: fix this
+	gui.notify = function(message)
 	{
 		alert(message);
 	}
