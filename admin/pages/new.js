@@ -9,7 +9,7 @@ router.addPage("new", function(args)
 	{
 		lib.template("editor");
 
-		var editor = lib.editor();
+		window.editor = lib.editor();
 
 		editor.onsubmit = function()
 		{

@@ -55,10 +55,16 @@
 		});
 	}
 
-	gui.updateMediaSelect = function(element)
+	gui.mediaSelectUpdate = function(element)
 	{
 		gui.removeElement(element);
 		gui.mediaSelect();
+	}
+
+	gui.mediaSelectSelection = function(path, title)
+	{
+		guiElement.innerHTML = "";
+		editor.codemirror.doc.replaceSelection("!["+title+"]("+path+")");
 	}
 
 	gui.removeElement = function(element)

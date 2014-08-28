@@ -61,7 +61,25 @@
 
 		var editor = new Editor(
 		{
-			"element": contentArea
+			"element": contentArea,
+			"toolbar": [
+				{name: 'bold'},
+				{name: 'italic'},
+				'|',
+
+				{name: 'quote'},
+				{name: 'unordered-list'},
+				{name: 'ordered-list'},
+				'|',
+
+				{name: 'link'},
+				{name: 'image', action: gui.mediaSelect},
+				'|',
+
+				{name: 'info', action: 'http://lab.lepture.com/editor/markdown'},
+				{name: 'preview'},
+				{name: 'fullscreen'}
+			]
 		});
 
 		editor.title = titleField;

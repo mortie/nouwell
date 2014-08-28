@@ -2,5 +2,8 @@
 	<div class="name">
 		{title}
 	</div>
-	<img class="thumbnail" src="/media/{id}.{extension}" />
+	<div class="thumbnailContainer">
+		<img class="thumbnail" src="/media/{id}.{extension}" 
+			onclick="gui.mediaSelectSelection('/media/{id}.{extension}', '{title}')" />
+	</div>
 </div>
