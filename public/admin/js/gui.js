@@ -10,7 +10,6 @@
 	[
 		"mediaSelect",
 		"mediaSelectEntry",
-		"uploadMedia"
 	]);
 
 	window.gui = {};
@@ -48,23 +47,22 @@
 				}, false);
 			});
 
-			var upload = template("uploadMedia",
-			{
-				"token": lib.apiToken,
-				"onload": "gui.updateMediaSelect()"
-			}, false);
-
 			template("mediaSelect",
 			{
 				"entries": entries,
-				"upload": upload
+				"token": lib.apiToken
 			});
 		});
 	}
 
-	gui.updateMediaSelect = function()
+	gui.updateMediaSelect = function(element)
 	{
-		guiElement.innerHTML = "";
+		gui.removeElement(element);
 		gui.mediaSelect();
+	}
+
+	gui.removeElement = function(element)
+	{
+		element.parentNode.removeChild(element);
 	}
 })();

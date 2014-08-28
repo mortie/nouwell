@@ -1,6 +1,16 @@
 <div class="mediaSelect">
 	<div class="buttons">
-{upload}
+
+		<!--upload-->
+		<form class="uploadMedia">
+			<button type="button" onclick="this.nextElementSibling.click()">Upload</button>
+			<input class="fileInput" type="file" name="file"
+				onchange="lib.fileUpload(this.form, function(){gui.updateMediaSelect(this.parentNode.parentNode.parentNode)}.bind(this))">
+			<input type="hidden" name="token" value="{token}">
+		</form>
+
+		<!--close-->
+		<button onclick="gui.removeElement(this.parentNode.parentNode)">Close</button>
 	</div>
 	<div class="entries">
 {entries}

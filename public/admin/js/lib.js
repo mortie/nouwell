@@ -76,8 +76,10 @@
 		return editor;
 	}
 
-	lib.fileUpload = function(form, action_url, cb)
+	lib.fileUpload = function(form, cb)
 	{
+		var action_url = "api/?form=uploadMedia";
+
 		// Create the iframe...
 		var iframe = document.createElement("iframe");
 		iframe.setAttribute("id", "upload_iframe");
