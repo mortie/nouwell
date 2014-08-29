@@ -9,6 +9,7 @@ var dirs =
 	"{outDir}",
 	"{outDir}/admin",
 	"{outDir}/media",
+	"{outDir}/media/thumbs",
 	"{themeDir}",
 	"{templateDir}",
 	"{adminDir}"

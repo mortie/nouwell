@@ -32,6 +32,11 @@
 			location.hash = path;
 		},
 
+		get element()
+		{
+			return this._element;
+		},
+
 		get page()
 		{
 			return this._page || location.hash.split("/")[0].substring(1);

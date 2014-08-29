@@ -13,13 +13,14 @@ $title = $mysqli->real_escape_string($fileNameParts['filename']);
 $extension = $mysqli->real_escape_string($fileNameParts['extension']);
 
 $rawContent = file_get_contents($tmpName);
-$contente = $mysqli->real_escape_string($rawContent);
+$content = $mysqli->real_escape_string($rawContent);
 
 $mysqli->query("INSERT INTO media (title, type, content, extension) ".
                "VALUES ('$title', '$type', '$content', '$extension')");
 
 $id = $mysqli->insert_id;
 $publicDir = $conf->dir->out;
+
 
 file_put_contents("$root/$publicDir/media/$id.$extension", $rawContent);
 

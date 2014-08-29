@@ -41,8 +41,11 @@ $mysqli = new mysqli(
 );
 
 //check whether token is valid
-function verifyToken($token)
+function verifyToken($token=false)
 {
+	if ($token == false)
+		return false;
+
 	global $root;
 	$path = "$root/adminTokens";
 

@@ -1,6 +1,6 @@
 router.addPage("new", function(args)
 {
-	lib.template.load(["editor", "uploadMedia"], function()
+	lib.template.load(["editor"], function()
 	{
 		draw();
 	});

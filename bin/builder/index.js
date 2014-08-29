@@ -20,6 +20,7 @@ module.exports.prototype =
 		this._series(
 		[
 			require("./prepareDirs.js"),
+			require("./prepareDatabase.js"),
 			require("./prepareMedia.js"),
 			require("./prepareTheme.js"),
 			require("./buildTree.js"),

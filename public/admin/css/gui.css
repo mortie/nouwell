@@ -3,6 +3,7 @@
 	position: fixed;
 	z-index: 10;
 	padding: 0px;
+	overflow: hidden;
 
 	width: 75%;
 	height: 75%;
@@ -18,20 +19,67 @@
 	box-shadow: 0px 0px 5px 3px #000;
 }
 
+#gui .mediaSelect .buttons
+{
+	background-color: #222;
+
+	position: fixed;
+	height: 100%;
+	width: 20%;
+	min-width: 100px;
+}
+
+#gui .mediaSelect .buttons .button
+{
+	padding: 8px 10px 10px 10px;
+	margin: 0;
+
+	font-family: "Open Sans", sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	text-align: left;
+	line-height: 18px;
+
+	background-color: #222;
+	color: #eee;
+	border-style: none;
+	border-width: 0px;
+
+	user-select: none;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+}
+
+#gui .mediaSelect .buttons .button:hover
+{
+	background-color: #000 !important;
+	color: #2ea2cc !important;
+
+	cursor: pointer;
+	cursor: hand;
+}
+
+#gui .mediaSelect .buttons .button:active
+{
+	background-color: #2ea2cc !important;
+	color: #fff !important;
+}
+
 #gui .mediaSelect .entries
 {
 	margin: 10px 0px;
-	width: 90%;
+	width: 80%;
 	height: 100%;
 	margin: 0;
-	overflow-y: scroll;
-	text-align: center;
+	overflow-y: auto;
+	text-align: left;
 	float: right;
 }
 
 #gui .mediaSelect .entry
 {
 	display: inline-block;
+	text-align: center;
 }
 
 #gui .mediaSelect .thumbnailContainer
@@ -44,9 +92,11 @@
 	height: 150px;
 
 	margin: 5px;
+	margin-top: 0px;
 	overflow: hidden;
 
 	border-style: solid;
+	background-color: #000;
 }
 
 #gui .mediaSelect .thumbnailContainer .thumbnail
@@ -65,13 +115,10 @@
 		-ms-transform: scale(1.3);
 		-o-transform: scale(1.3);
 
-	opacity: 0.9;
-}
+	opacity: 0.8;
 
-#gui .mediaSelect .buttons
-{
-	margin: 10px;
-	position: fixed;
+	cursor: pointer;
+	cursor: hand;
 }
 
 #gui .uploadMedia .fileInput

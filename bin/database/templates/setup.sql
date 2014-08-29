@@ -11,16 +11,15 @@ USE `{db}` ;
 CREATE TABLE IF NOT EXISTS `{db}`.`entries` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `html` TEXT NULL ,
-  `updated` BOOL NOT NULL DEFAULT FALSE ,
-  `markdown` TEXT NOT NULL ,
+  `raw` TEXT NOT NULL ,
   `title` VARCHAR(255) NOT NULL ,
   `slug` VARCHAR(255) NOT NULL ,
-  `dateSeconds` INT NOT NULL ,
+  `date_seconds` INT NOT NULL ,
   `display` BOOL NOT NULL DEFAULT TRUE ,
   `sort` INT NOT NULL DEFAULT 0 ,
-  `category` INT NOT NULL DEFAULT 0 ,
+  `categories_id` INT NOT NULL DEFAULT 0 ,
   `type` INT NOT NULL DEFAULT 0 ,
-  `listCategory` INT NOT NULL DEFAULT 0 ,
+  `list_categories_id` INT DEFAULT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 

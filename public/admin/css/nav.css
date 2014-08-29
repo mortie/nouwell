@@ -50,7 +50,8 @@
 	display: block;
 	position: absolute;
 	margin-left: 105px;
-	margin-top: -29px;
+	margin-top: -28px;
+	white-space: nowrap;
 }
 #nav .hasDropdown:hover .dropdownEntry
 {

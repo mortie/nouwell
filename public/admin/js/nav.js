@@ -10,8 +10,8 @@
 	var pages =
 	[
 		["Home", "home"],
-		["New", [["Shit", "shit"], ["More Shit", "moreShit"]], "new"],
-		["Entries", "entries"],
+		["New", [], "new"],
+		["Entries", [], "entries"],
 		["Categories", "categories"],
 		["Media", "media"],
 		["Settings", "settings"]
@@ -22,13 +22,18 @@
 	//populate "new"
 	lib.callAPI("getCategories", {}, function(result)
 	{
-		var New = pages.filter(function(p)
+		pages = pages.map(function(p)
 		{
-			if (p[0] === "New") return true;
-			else return false;
+			if (typeof p[1] === "string")
+			{
+				return p;
+			}
+			else
+			{
+				p[1] = result.categories;
+				return p;
+			}
 		});
-
-		//New[1] = result.categories;
 
 		--callbacks;
 		if (callbacks === 0)
@@ -88,16 +93,17 @@
 
 		page[1].forEach(function(p)
 		{
-			if (router.path.split("/")[1] === p[1])
+			console.log(p);
+			if (router.page === page[2] && router.path.split("/")[1] === p.id)
 				var current = "current";
 			else
 				var current = "";
 
 			dropdown += template("navEntryDropdown",
 			{
-				"name": p[0],
+				"name": p.name,
 				"current": current,
-				"onclick": "router.path = '"+page[2]+"/"+p[1]+"'"
+				"onclick": "router.path = '"+page[2]+"/"+p.id+"'"
 			}, false);
 		});
 
