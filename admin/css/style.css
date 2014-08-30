@@ -7,3 +7,34 @@ html, body
 	background-color: #eee;
 }
 
+.button
+{
+	user-select: none;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+
+	line-height: 18px;
+	font-family: "Open Sans", sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+
+	color: #eee;
+	background-color: #222;
+
+	display: block;
+	padding: 8px 15px 10px 10px;
+}
+.button:hover
+{
+	background-color: #000;
+	cursor: pointer;
+	cursor: hand;
+	color: #2ea2cc
+}
+.button.current,
+.button.current:hover,
+.button:active
+{
+	background-color: #2ea2cc;
+	color: #fff;
+}

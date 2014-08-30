@@ -29,42 +29,6 @@
 	min-width: 100px;
 }
 
-#gui .mediaSelect .buttons .button
-{
-	padding: 8px 10px 10px 10px;
-	margin: 0;
-
-	font-family: "Open Sans", sans-serif;
-	font-size: 16px;
-	font-weight: 400;
-	text-align: left;
-	line-height: 18px;
-
-	background-color: #222;
-	color: #eee;
-	border-style: none;
-	border-width: 0px;
-
-	user-select: none;
-		-webkit-user-select: none;
-		-moz-user-select: none;
-}
-
-#gui .mediaSelect .buttons .button:hover
-{
-	background-color: #000 !important;
-	color: #2ea2cc !important;
-
-	cursor: pointer;
-	cursor: hand;
-}
-
-#gui .mediaSelect .buttons .button:active
-{
-	background-color: #2ea2cc !important;
-	color: #fff !important;
-}
-
 #gui .mediaSelect .entries
 {
 	margin: 10px 0px;

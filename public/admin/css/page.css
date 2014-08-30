@@ -20,3 +20,65 @@
 	width: 100%;
 }
 
+#page.media .button
+{
+	display: inline-block;
+	border-radius: 10px;
+}
+
+#page.media .entries
+{
+	margin: 10px 0px;
+}
+
+#page.media .entry
+{
+	display: inline-block;
+	text-align: center;
+}
+
+#page.media .thumbnailContainer
+{
+	transition: all 0.5s;
+
+	position: relative;
+	display: block;
+
+	width: 150px;
+	height: 150px;
+
+	margin: 5px;
+	margin-top: 0px;
+	overflow: hidden;
+
+	border-style: solid;
+	border-color: #000;
+	background-color: #000;
+}
+
+#page.media .thumbnailContainer .thumbnail
+{
+	transition: all 0.5s;
+
+	width: 100%;
+	height: 100%;
+}
+
+#page.media .thumbnailContainer:hover .thumbnail
+{
+	transform: scale(1.3);
+		-webkit-transform: scale(1.3);
+		-moz-transform: scale(1.3);
+		-ms-transform: scale(1.3);
+		-o-transform: scale(1.3);
+
+	opacity: 0.8;
+
+	cursor: pointer;
+	cursor: hand;
+}
+
+#page.media .fileInput
+{
+	display: none;
+};
