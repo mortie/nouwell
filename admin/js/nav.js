@@ -1,5 +1,15 @@
 (function()
 {
+	window.nav = {};
+
+	nav.load = function()
+	{
+		populateDropdowns(function()
+		{
+			draw();
+		});
+	}
+
 	var template = new Template(
 	{
 		"element": document.getElementById("nav")
@@ -19,39 +29,22 @@
 
 	var callbacks = 3;
 
-	//populate "new"
-	lib.callAPI("getCategories", {}, function(result)
+	populateDropdowns(function()
 	{
-		pages = pages.map(function(p)
-		{
-			if (typeof p[1] === "string")
-			{
-				return p;
-			}
-			else
-			{
-				p[1] = result.categories;
-				return p;
-			}
-		});
-
 		--callbacks;
-		if (callbacks === 0)
-			draw();
+		if (callbacks === 0) draw();
 	});
 
 	template.load(["navEntry", "navEntryDropdown"], function()
 	{
 		--callbacks;
-		if (callbacks === 0)
-			draw();
+		if (callbacks === 0) draw();
 	});
 
 	router.on("load", function(first)
 	{
 		--callbacks;
-		if (!first || callbacks === 0)
-			draw();
+		if (!first || callbacks === 0) draw();
 	});
 
 	function draw()
@@ -113,6 +106,26 @@
 			"current": current,
 			"dropdown": dropdown,
 			"hasDropdown": "hasDropdown"
+		});
+	}
+
+	function populateDropdowns(cb)
+	{
+		lib.callAPI("getCategories", {}, function(result)
+		{
+			pages = pages.map(function(p)
+			{
+				if (typeof p[1] === "string")
+				{
+					return p;
+				}
+				else
+				{
+					p[1] = result.categories;
+					return p;
+				}
+			});
+			cb();
 		});
 	}
 })();

@@ -35,6 +35,27 @@ router.addPage("categories", function()
 			"entries": entries
 		});
 
+		var elements = document.querySelectorAll(".entry .name");
+		
+		var i;
+		for (i=0; i<elements.length; ++i)
+		{
+			gui.onEditAndPause(elements[i], function(element)
+			{
+				var id = element.className.split(/\s+/)[0];
+
+				lib.callAPI("updateCategory",
+				{
+					"id": id,
+					"name": element.value
+				},
+				function(result)
+				{
+					nav.load();
+				});
+			});
+		}
+
 		var addButton = document.getElementById("add");
 		var newField = document.getElementById("new");
 
@@ -59,6 +80,7 @@ router.addPage("categories", function()
 		function()
 		{
 			router.load();
+			nav.load();
 		});
 	}
 });
