@@ -4,7 +4,7 @@ if (!$calledCorrectly) die();
 //wrong password
 if (empty($conf->adminPassword) || $conf->adminPassword !== $args->password)
 {
-	fail();
+	fail("incorrect password");
 }
 
 //correct password

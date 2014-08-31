@@ -65,9 +65,11 @@ function succeed($arr=[])
 }
 
 //reply to caller if failure
-function fail($arr=[])
+function fail($err="")
 {
+	$arr = [];
 	$arr['success'] = false;
+	$arr['error'] = $err;
 	die(json_encode($arr));
 }
 

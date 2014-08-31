@@ -7,10 +7,7 @@ $mysqli->query("DELETE FROM categories WHERE id=$id");
 
 if ($mysqli->error)
 {
-	fail(
-	[
-		"error"=>$mysqli->error
-	]);
+	fail($mysqli->error);
 }
 else
 {

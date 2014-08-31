@@ -71,4 +71,17 @@
 	{
 		element.parentNode.removeChild(element);
 	}
+
+	gui.onEditAndPause = function(element, cb)
+	{
+		var timeout;
+		element.addEventListener("input", function()
+		{
+			clearTimeout(timeout);
+			timeout = setTimeout(function()
+			{
+				cb(element);
+			}, 500);
+		});
+	}
 })();

@@ -36,5 +36,25 @@ router.addPage("media", function()
 			"entries": entries,
 			"token": lib.apiToken
 		});
+
+		var elements = document.querySelectorAll(".entries .entry .name");
+		
+		var i;
+		for (i=0; i<elements.length; ++i)
+		{
+			gui.onEditAndPause(elements[i], function(element)
+			{
+				var id = element.className.split(/\s+/)[0];
+				lib.callAPI("updateMediaTitle",
+				{
+					"id": id,
+					"title": element.value
+				},
+				function(result)
+				{
+					console.log(result);
+				});
+			});
+		}
 	}
 });

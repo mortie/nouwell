@@ -1,33 +1,26 @@
 {
-	"title": "Your Website",
-	"theme": "default",
-	"template": "default",
-
-	"adminPassword": "password",
-
-	"log":
-	[
-		"info",
-		"notice",
-		"warning",
-		"error"
-	],
-
-	"dir":
-	{
-		"log": "log",
-		"out": "public",
-		"template": "template",
-		"theme": "theme",
-		"admin": "admin"
-	},
-
-	"sql":
-	{
-		"username": "root",
-		"password": "",
-		"host": "localhost",
-		"port": 3306,
-		"database": "siteBuilder"
-	}
+    "title": "Your Website",
+    "theme": "default",
+    "template": "default",
+    "adminPassword": "password",
+    "log": [
+        "info",
+        "notice",
+        "warning",
+        "error"
+    ],
+    "dir": {
+        "log": "log",
+        "out": "public",
+        "template": "template",
+        "theme": "theme",
+        "admin": "admin"
+    },
+    "sql": {
+        "username": "root",
+        "password": "",
+        "host": "localhost",
+        "port": 3306,
+        "database": "siteBuilder"
+    }
 }

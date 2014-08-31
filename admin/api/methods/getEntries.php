@@ -7,10 +7,7 @@ $entries = $mysqli->query("SELECT id, title, sort ".
                           "FROM entries ".
                           "WHERE categories_id = $category");
 
-if (!$entries) fail(
-[
-	"error"=>$mysqli->error
-]);
+if (!$entries) fail($mysqli->error);
 
 $results = [];
 

@@ -8,10 +8,7 @@ $mysqli->query("INSERT INTO categories (name) VALUES ('$name')");
 
 if ($mysqli->error)
 {
-	fail(
-	[
-		"error"=>$mysqli->error
-	]);
+	fail($mysqli->error);
 }
 else
 {

@@ -5,10 +5,7 @@ verifyToken();
 $media = $mysqli->query("SELECT id, title, extension, type ".
                         "FROM media");
 
-if (!$media) fail(
-[
-	"error"=>$mysqli->error
-]);
+if ($mysqli->error) fail($mysqli->error);
 
 $result = [];
 

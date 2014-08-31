@@ -5,10 +5,7 @@ verifyToken();
 $categories = $mysqli->query("SELECT id, name ".
                              "FROM categories");
 
-if (!$categories) fail(
-[
-	"error"=>$mysqli->error
-]);
+if (!$categories) fail($mysqli->error);
 
 $result = [];
 
