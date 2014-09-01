@@ -37,12 +37,12 @@ router.addPage("media", function()
 			"token": lib.apiToken
 		});
 
-		var elements = document.querySelectorAll(".entries .entry .name");
+		var inputElements = document.querySelectorAll(".entries .entry .name");
 		
 		var i;
-		for (i=0; i<elements.length; ++i)
+		for (i=0; i<inputElements.length; ++i)
 		{
-			gui.onEditAndPause(elements[i], function(element)
+			gui.onEditAndPause(inputElements[i], function(element)
 			{
 				var id = element.className.split(/\s+/)[0];
 				lib.callAPI("updateMediaTitle",
@@ -55,6 +55,28 @@ router.addPage("media", function()
 					console.log(result);
 				});
 			});
+		}
+
+		var deleteElements = document.querySelectorAll(".entries .entry .delete");
+		for (i=0; i<deleteElements.length; ++i)
+		{
+			//create scope
+			(function()
+			{
+				var element = deleteElements[i];
+				element.addEventListener("click", function()
+				{
+					var id = element.className.split(/\s+/)[0];
+					lib.callAPI("deleteMedia",
+					{
+						"id": id
+					},
+					function(result)
+					{
+						router.load();
+					});
+				});
+			})();
 		}
 	}
 });

@@ -1,10 +1,9 @@
 (function()
 {
-	var token = lib.apiToken || lib.getCookie("token");
 	var path = location.hash.substring(1);
 	var page = path.split("/")[0];
 
-	if (!token)
+	if (!lib.apiToken)
 	{
 		router.enable();
 		router.path = "login";
@@ -15,13 +14,12 @@
 	{
 		lib.callAPI("verifyToken",
 		{
-			"token": token
+			"token": lib.apiToken
 		},
 		function(result)
 		{
 			if (result.valid)
 			{
-				lib.apiToken = token;
 				router.enable();
 				if (path)
 				{

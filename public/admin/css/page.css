@@ -35,6 +35,44 @@
 {
 	display: inline-block;
 	text-align: center;
+	margin: 5px 5px;
+	position: relative;
+}
+
+#page.media .entry .name
+{
+	width: 150px;
+	padding: 2px;
+}
+
+#page.media .entry .delete
+{
+	position: absolute;
+	display: inline-block;
+	line-height: 25px;
+	top: -5px;
+	right: -5px;
+	width: 25px;
+	height: 25px;
+
+	border-radius: 25px;
+	border-style: solid;
+	border-color: black;
+
+	color: white;
+	background-color: #b11;
+
+	font-weight: bold;
+	text-align: center;
+	vertical-align: middle;
+
+	cursor: pointer;
+	cursor: hand;
+}
+
+#page.media .entry .delete:hover
+{
+	background-color: #f11;
 }
 
 #page.media .thumbnailContainer
@@ -47,8 +85,7 @@
 	width: 150px;
 	height: 150px;
 
-	margin: 5px;
-	margin-top: 0px;
+	margin: 0 auto;
 	overflow: hidden;
 
 	border-style: solid;

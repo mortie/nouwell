@@ -36,8 +36,9 @@
 	display: inline-block;
 	text-align: center;
 	margin: 5px 5px;
-	position: relative;
+
 }
+
 
 #page.media .entry .name
 {
@@ -47,32 +48,7 @@
 
 #page.media .entry .delete
 {
-	position: absolute;
-	display: inline-block;
-	line-height: 25px;
-	top: -5px;
-	right: -5px;
-	width: 25px;
-	height: 25px;
-
-	border-radius: 25px;
-	border-style: solid;
-	border-color: black;
-
-	color: white;
-	background-color: #b11;
-
-	font-weight: bold;
-	text-align: center;
-	vertical-align: middle;
-
-	cursor: pointer;
-	cursor: hand;
-}
-
-#page.media .entry .delete:hover
-{
-	background-color: #f11;
+	margin-left: 0px;
 }
 
 #page.media .thumbnailContainer

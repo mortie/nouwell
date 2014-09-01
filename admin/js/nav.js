@@ -115,6 +115,7 @@
 	{
 		lib.callAPI("getCategories", {}, function(result)
 		{
+			console.log(result);
 			pages = pages.map(function(p)
 			{
 				if (typeof p[1] === "string")
