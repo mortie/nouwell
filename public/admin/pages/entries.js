@@ -92,11 +92,6 @@ router.addPage("entries", function(args)
 					"raw": markdown,
 					"html": html,
 					"id": args[2]
-				},
-				function(result)
-				{
-					if (result.success)
-						gui.notify("Updated");
 				});
 			}
 		}

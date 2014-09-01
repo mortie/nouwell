@@ -6,7 +6,6 @@ router.addPage("logout", function()
 		lib.apiToken = "";
 		router.path = "login";
 		nav.load();
-		router.load();
 		router.disable();
 	});
 });
