@@ -21,6 +21,17 @@
 	width: 100%;
 }
 
+#page.entries .entry .name
+{
+	display: inline;
+}
+#page.entries .entry .name:hover
+{
+	text-decoration: underline;
+	cursor: pointer;
+	cursor: hand;
+}
+
 #page.media .entries
 {
 	margin-top: 10px;

@@ -51,9 +51,45 @@ router.addPage("categories", function()
 				},
 				function(result)
 				{
-					nav.load();
+					console.log(result);
+					if (result.success)
+						nav.load();
+					else
+						gui.error("Can't delete category. It contains entries.");
 				});
 			});
+		}
+
+		elements = document.querySelectorAll(".entry .delete");
+
+		for (i=0; i<elements.length; ++i)
+		{
+			//create scope
+			(function()
+			{
+				var element = elements[i];
+				element.addEventListener("click", function()
+				{
+					var id = element.className.split(/\s+/)[0];
+
+					lib.callAPI("deleteCategory",
+					{
+						"id": id
+					},
+					function(result)
+					{
+						if (!result.success)
+						{
+							gui.error("Couldn't delete category because it contains entries.");
+						}
+						else
+						{
+							router.load();
+							nav.load();
+						}
+					});
+				});
+			})();
 		}
 
 		var addButton = document.getElementById("add");

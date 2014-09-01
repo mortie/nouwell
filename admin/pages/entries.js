@@ -31,11 +31,18 @@ router.addPage("entries", function(args)
 
 		function draw()
 		{
-			var entriesStr = "";
-			entries.forEach(function(entry)
+			if (!entries.length)
 			{
-				entriesStr += lib.template("entriesEntry", entry, false);
-			});
+				var entriesStr = "No entries.";
+			}
+			else
+			{
+				var entriesStr = "";
+				entries.forEach(function(entry)
+				{
+					entriesStr += lib.template("entriesEntry", entry, false);
+				});
+			}
 
 			lib.template("entries",
 			{
