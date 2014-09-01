@@ -31,6 +31,7 @@ function login()
 			lib.apiToken = result.token;
 			lib.setCookie("token", result.token);
 			router.enable();
+			nav.load();
 			router.path = "home";
 		}
 		else

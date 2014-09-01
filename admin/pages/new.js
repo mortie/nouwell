@@ -15,17 +15,21 @@ router.addPage("new", function(args)
 		{
 			var markdown = editor.codemirror.doc.getValue();
 			var html = marked(markdown);
+			var title = editor.title.value;
 			
-			lib.callAPI("createEntry",
+			lib.callAPI("addEntry",
 			{
-				"title": editor.title,
-				"slug": editor.slug,
-				"raw": editor.markdown,
-				"html": editor.html
+				"title": title,
+				"raw": markdown,
+				"html": html,
+				"slug": title.replace(/\s+/, "-")
+				             .replace(/[^a-zA-Z0-9]/, ""),
+				"categories_id": args[1],
 			},
 			function(result)
 			{
-				router.path = "edit/"+editor.title;
+				console.log(result);
+				router.path = "entries/edit/"+result.id;
 			});
 		}
 	}

@@ -1,7 +1,7 @@
 <div class="buttons">
 	<!--upload-->
 	<form class="uploadMedia">
-		<div class="button" onclick="this.nextElementSibling.click()">Upload</div>
+		<div class="button rounded" onclick="this.nextElementSibling.click()">Upload</div>
 		<input class="fileInput" type="file" name="file"
 			onchange="lib.fileUpload(this.form, function(){router.load()})">
 		<input type="hidden" name="token" value="{token}">
@@ -9,5 +9,5 @@
 </div>
 
 <div class="entries">
-{entries}
+	{entries}
 </div>

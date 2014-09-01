@@ -2,12 +2,12 @@
 if (!$calledCorrectly) die();
 requireToken();
 
-$category = $mysqli->real_escape_string($args->category);
+$categories_id = $mysqli->real_escape_string($args->categories_id);
 $entries = $mysqli->query("SELECT id, title, sort ".
                           "FROM entries ".
-                          "WHERE categories_id = $category");
+                          "WHERE categories_id = $categories_id");
 
-if (!$entries) fail($mysqli->error);
+if ($mysqli->error) fail($mysqli->error);
 
 $results = [];
 

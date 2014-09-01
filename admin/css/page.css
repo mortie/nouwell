@@ -15,15 +15,10 @@
 	margin-bottom: 10px;
 }
 
-#page.new
+#page.new,
+#page.entries.edit
 {
 	width: 100%;
-}
-
-#page.media .button
-{
-	display: inline-block;
-	border-radius: 10px;
 }
 
 #page.media .entries

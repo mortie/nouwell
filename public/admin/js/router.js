@@ -65,7 +65,7 @@
 			var page = sections[0];
 
 			//prepare element
-			this._element.className = page;
+			this._element.className = path.replace(/\//g, " ");
 			this._element.innerHTML = "";
 
 			console.log("loading '"+page+"'");
