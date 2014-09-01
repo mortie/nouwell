@@ -83,10 +83,7 @@ function requireToken()
 	}
 	else
 	{
-		fail(
-		[
-			"error"=>"Invalid token"
-		]);
+		fail("Invalid token");
 	}
 }
 

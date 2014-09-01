@@ -23,6 +23,7 @@
 
 		xhr.onload = function()
 		{
+			console.log(xhr.responseText);
 			if (xhr.responseText && cb)
 				cb(JSON.parse(xhr.responseText));
 			else if (cb)

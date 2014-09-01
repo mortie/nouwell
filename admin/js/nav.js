@@ -84,21 +84,23 @@
 
 		dropdown = "";
 
-		page[1].forEach(function(p)
+		if (page[1])
 		{
-			console.log(p);
-			if (router.page === page[2] && router.path.split("/")[1] === p.id)
-				var current = "current";
-			else
-				var current = "";
-
-			dropdown += template("navEntryDropdown",
+			page[1].forEach(function(p)
 			{
-				"name": p.name,
-				"current": current,
-				"onclick": "router.path = '"+page[2]+"/"+p.id+"'"
-			}, false);
-		});
+				if (router.page === page[2] && router.path.split("/")[1] === p.id)
+					var current = "current";
+				else
+					var current = "";
+
+				dropdown += template("navEntryDropdown",
+				{
+					"name": p.name,
+					"current": current,
+					"onclick": "router.path = '"+page[2]+"/"+p.id+"'"
+				}, false);
+			});
+		}
 
 		template("navEntry",
 		{

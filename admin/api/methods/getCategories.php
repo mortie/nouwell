@@ -1,6 +1,6 @@
 <?php
 if (!$calledCorrectly) die();
-verifyToken();
+requireToken();
 
 $categories = $mysqli->query("SELECT id, name ".
                              "FROM categories");

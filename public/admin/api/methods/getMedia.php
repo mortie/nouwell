@@ -1,6 +1,6 @@
 <?php
 if (!$calledCorrectly) die();
-verifyToken();
+requireToken();
 
 $media = $mysqli->query("SELECT id, title, extension, type ".
                         "FROM media");
