@@ -24,7 +24,8 @@
 		["Entries", [], "entries"],
 		["Categories", "categories"],
 		["Media", "media"],
-		["Settings", "settings"]
+		["Settings", "settings"],
+		["Log Out", "logout"]
 	]
 
 	var callbacks = 3;
