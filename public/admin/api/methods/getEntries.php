@@ -2,10 +2,10 @@
 if (!$calledCorrectly) die();
 requireToken();
 
-$categories_id = $mysqli->real_escape_string($args->categories_id);
+$pages_id = $mysqli->real_escape_string($args->pages_id);
 $entries = $mysqli->query("SELECT id, title, sort ".
                           "FROM entries ".
-                          "WHERE categories_id = $categories_id");
+                          "WHERE pages_id = $pages_id");
 
 if ($mysqli->error) fail($mysqli->error);
 

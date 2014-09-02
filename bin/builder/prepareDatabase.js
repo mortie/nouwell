@@ -3,14 +3,17 @@ module.exports = function(cb)
 	var self = this;
 
 	++self.cbs;
-	self.db.query("getCategories", function(err, result)
+	self.db.query("getPages", function(err, result)
 	{
+		self.logger.error("Couldn't get pages!", err);
+
 		if (!result.length)
 		{
-			self.logger.info("No categories, adding default 'Page' category");
-			self.db.query("addCategory",
+			self.logger.info("No pages, adding default page 'Home'");
+			self.db.query("addPage",
 			{
-				"name": "Page"
+				"title": "Home",
+				"slug": "home"
 			}, function() {});
 		}
 

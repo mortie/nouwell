@@ -2,12 +2,12 @@
 if (!$calledCorrectly) die();
 requireToken();
 
-$name = $mysqli->real_escape_string($args->name);
+$title = $mysqli->real_escape_string($args->title);
 $id = $mysqli->real_escape_string($args->id);
 
-if (!$name || !$id) fail();
+if (!$title || !$id) fail();
 
-$mysqli->query("UPDATE categories SET name='$name' WHERE id=$id");
+$mysqli->query("UPDATE categories SET title='$title' WHERE id=$id");
 
 if ($mysqli->error) fail($mysqli->error);
 

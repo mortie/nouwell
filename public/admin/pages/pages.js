@@ -1,18 +1,18 @@
-router.addPage("categories", function()
+router.addPage("pages", function()
 {
-	var categories;
+	var pages;
 
 	var callbacks = 2;
 
-	lib.template.load(["categories", "categoriesEntry"], function()
+	lib.template.load(["pages", "pagesEntry"], function()
 	{
 		--callbacks;
 		if (callbacks === 0) draw();
 	});
 
-	lib.callAPI("getCategories", {}, function(result)
+	lib.callAPI("getPages", {}, function(result)
 	{
-		categories = result.categories;
+		pages = result.pages || [];
 
 		--callbacks;
 		if (callbacks === 0) draw();
@@ -21,16 +21,16 @@ router.addPage("categories", function()
 	function draw()
 	{
 		var entries = "";
-		categories.forEach(function(category)
+		pages.forEach(function(page)
 		{
-			entries += lib.template("categoriesEntry",
+			entries += lib.template("pagesEntry",
 			{
-				"name": category.name,
-				"id": category.id
+				"title": page.title,
+				"id": page.id
 			}, false);
 		});
 
-		lib.template("categories",
+		lib.template("pages",
 		{
 			"entries": entries
 		});
@@ -43,19 +43,17 @@ router.addPage("categories", function()
 			gui.onEditAndPause(elements[i], function(element)
 			{
 				var id = element.className.split(/\s+/)[0];
+				var title = element.title;
+				var slug = title.replace(/\s+/g, "-").toLowerCase();
 
-				lib.callAPI("updateCategory",
+				lib.callAPI("updatePage",
 				{
 					"id": id,
-					"name": element.value
+					"title": title,
 				},
 				function(result)
 				{
-					console.log(result);
-					if (result.success)
-						nav.load();
-					else
-						gui.error("Can't delete category. It contains entries.");
+					nav.load();
 				});
 			});
 		}
@@ -72,7 +70,7 @@ router.addPage("categories", function()
 				{
 					var id = element.className.split(/\s+/)[0];
 
-					lib.callAPI("deleteCategory",
+					lib.callAPI("deletePage",
 					{
 						"id": id
 					},
@@ -80,7 +78,7 @@ router.addPage("categories", function()
 					{
 						if (!result.success)
 						{
-							gui.error("Couldn't delete category because it contains entries.");
+							gui.error("Couldn't delete page because it contains entries.");
 						}
 						else
 						{
@@ -107,11 +105,12 @@ router.addPage("categories", function()
 		});
 	}
 
-	function add(name)
+	function add(title)
 	{
-		lib.callAPI("addCategory",
+		lib.callAPI("addPage",
 		{
-			"name": name
+			"title": title,
+			"slug": lib.slugify(title)
 		},
 		function()
 		{

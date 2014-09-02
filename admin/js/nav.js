@@ -22,7 +22,7 @@
 		["Home", "home"],
 		["New", [], "new"],
 		["Entries", [], "entries"],
-		["Categories", "categories"],
+		["Pages", "pages"],
 		["Media", "media"],
 		["Settings", "settings"],
 		["Log Out", "logout"]
@@ -96,7 +96,7 @@
 
 				dropdown += template("navEntryDropdown",
 				{
-					"name": p.name,
+					"name": p.title,
 					"current": current,
 					"onclick": "router.path = '"+page[2]+"/"+p.id+"'"
 				}, false);
@@ -114,7 +114,7 @@
 
 	function populateDropdowns(cb)
 	{
-		lib.callAPI("getCategories", {}, function(result)
+		lib.callAPI("getPages", {}, function(result)
 		{
 			console.log(result);
 			pages = pages.map(function(p)
@@ -125,7 +125,7 @@
 				}
 				else
 				{
-					p[1] = result.categories;
+					p[1] = result.pages;
 					return p;
 				}
 			});

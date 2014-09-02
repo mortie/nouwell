@@ -17,13 +17,15 @@ CREATE TABLE IF NOT EXISTS `{db}`.`entries` (
   `date_seconds` INT NOT NULL ,
   `display` BOOL NOT NULL DEFAULT TRUE ,
   `sort` INT NOT NULL DEFAULT 0 ,
-  `categories_id` INT NOT NULL DEFAULT 0 ,
+  `pages_id` INT NOT NULL DEFAULT 0 ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `{db}`.`categories` (
+CREATE TABLE IF NOT EXISTS `{db}`.`pages` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `name` VARCHAR(60) NOT NULL ,
+  `title` VARCHAR(60) NOT NULL ,
+  `slug` VARCHAR(60) NOT NULL ,
+  `sort` INT NOT NULL DEFAULT 0 ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 

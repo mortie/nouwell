@@ -22,9 +22,9 @@ router.addPage("new", function(args)
 				"title": title,
 				"raw": markdown,
 				"html": html,
-				"slug": title.replace(/\s+/, "-")
-				             .replace(/[^a-zA-Z0-9]/, ""),
-				"categories_id": args[1],
+				"slug": lib.slugify(title),
+				"date_seconds": new Date().getTime() / 1000,
+				"pages_id": args[1],
 			},
 			function(result)
 			{

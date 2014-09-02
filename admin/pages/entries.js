@@ -19,11 +19,11 @@ router.addPage("entries", function(args)
 
 		lib.callAPI("getEntries",
 		{
-			"categories_id": args[1]
+			"pages_id": args[1]
 		},
 		function(result)
 		{
-			entries = result.entries;
+			entries = result.entries || [];
 
 			--callbacks;
 			if (callbacks === 0) draw();

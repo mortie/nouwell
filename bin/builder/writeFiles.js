@@ -4,9 +4,9 @@ module.exports = function(cb)
 
 	var first = true;
 
-	self.tree.forEach(function(category)
+	self.tree.forEach(function(page)
 	{
-		buildCategory(category, first, self);
+		buildPage(page, first, self);
 
 		first = false;
 	});
@@ -14,22 +14,24 @@ module.exports = function(cb)
 	cb();
 }
 
-function buildCategory(category, first, self)
+function buildPage(page, first, self)
 {
-	var menu = buildMenu(category, self);
+	var menu = buildMenu(page, self);
 
 	var allEntries = "";
-	category.entries.forEach(function(entry)
+	page.entries.forEach(function(entry)
 	{
 		var e = self.template("entry",
 		{
 			"title": entry.title,
-			"content": entry.html
+			"content": entry.html,
+			"category": page.slug,
+			"slug": entry.slug
 		});
 
 		allEntries += e;
 
-		var page = self.template("index",
+		var p = self.template("index",
 		{
 			"menu": menu,
 			"content": e,
@@ -39,27 +41,27 @@ function buildCategory(category, first, self)
 
 		self.logger.info("Writing entry '"+entry.title+"'...");
 
-		write(category.name, entry.slug, page, self);
+		write(page.slug, entry.slug, p, self);
 	});
 
-	var page = self.template("index",
+	var p = self.template("index",
 	{
 		"menu": menu,
 		"content": allEntries,
-		"pageTtile": self.title,
-		"postTitle": category.name
+		"pageTitle": self.title,
+		"postTitle": page.title
 	});
 
-	write(category.name, "", page, self);
+	write(page.slug, "", p, self);
 
 	if (first)
-		write("", "", page, self);
+		write("", "", p, self);
 }
 
-function write(category, name, content, self)
+function write(page, name, content, self)
 {
-	var dir = self.path.join(self.outDir, category);
-	var path = self.path.join(self.outDir, category, name);
+	var dir = self.path.join(self.outDir, page);
+	var path = self.path.join(self.outDir, page, name);
 
 	if (!self.fs.existsSync(dir))
 		self.fs.mkdirSync(dir);
@@ -84,13 +86,14 @@ function buildMenu(category, self)
 	self.tree.forEach(function(c)
 	{
 		if (c === category)
-			var current = true;
+			var current = "current";
 		else
-			var current = false;
+			var current = "";
 
 		menuEntries += self.template("menuEntry",
 		{
-			"name": c.name,
+			"title": c.title,
+			"slug": c.slug,
 			"current": current
 		});
 	});

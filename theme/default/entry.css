@@ -1,0 +1,25 @@
+.entry
+{
+	background-color: #fff;
+}
+
+.entry .title
+{
+	color: #222;
+	text-decoration: none;
+	font-size: 15pt;
+}
+.entry .title:hover
+{
+	text-decoration: underline;
+}
+
+.entry img
+{
+	width: 100%;
+}
+
+.entry p
+{
+	margin-bottom: 0px;
+}

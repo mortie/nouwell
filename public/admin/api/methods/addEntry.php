@@ -10,9 +10,7 @@ $properties =
 	"slug",
 	"date_seconds",
 	"sort",
-	"categories_id",
-	"type",
-	"list_categories_id"
+	"pages_id",
 ];
 
 $keys = "";

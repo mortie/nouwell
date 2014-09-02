@@ -4,13 +4,13 @@ module.exports = function(cb)
 
 	var callbacks = 2;
 
-	var categories;
+	var pages;
 	var entries;
 
-	self.db.query("getCategories", function(err, result)
+	self.db.query("getPages", function(err, result)
 	{
-		self.logger.error("Could not fetch categories.", err);
-		categories = result;
+		self.logger.error("Could not fetch pages.", err);
+		pages = result;
 
 		--callbacks;
 		if (callbacks === 0) build();
@@ -29,16 +29,17 @@ module.exports = function(cb)
 	{
 		self.tree = [];
 
-		categories.forEach(function(category, i)
+		pages.forEach(function(page, i)
 		{
-			category.entries = [];
-			self.tree[category.id] = category;
-		});
+			page.entries = [];
 
-		entries.forEach(function(entry)
-		{
-			if (self.tree[entry.categories_id])
-				self.tree[entry.categories_id].entries.push(entry);
+			entries.forEach(function(entry)
+			{
+				if (entry.pages_id === page.id)
+					page.entries.push(entry);
+			});
+
+			self.tree[i] = page;
 		});
 
 		cb();

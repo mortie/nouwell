@@ -24,9 +24,15 @@
 		xhr.onload = function()
 		{
 			if (xhr.responseText && cb)
-				cb(JSON.parse(xhr.responseText));
+			{
+				var obj = JSON.parse(xhr.responseText);
+				cb(obj);
+				if (!obj.success) console.log(obj.error);
+			}
 			else if (cb)
+			{
 				cb(false);
+			}
 		}
 	}
 
@@ -146,5 +152,12 @@
 
 		// Submit the form...
 		form.submit();
+	}
+
+	lib.slugify = function(title)
+	{
+		return title.toLowerCase()
+		            .replace(/[^a-zA-Z0-9\s]/g, "")
+		            .replace(/\s+/g, "-");
 	}
 })();

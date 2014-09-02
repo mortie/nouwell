@@ -21,6 +21,12 @@
 	width: 100%;
 }
 
+#page.new #title,
+#page.entries.edit #title
+{
+	width: 100%;
+}
+
 #page.entries .entry .name
 {
 	display: inline;
