@@ -72,16 +72,63 @@
 		element.parentNode.removeChild(element);
 	}
 
-	gui.onEditAndPause = function(element, cb)
+	gui.onEditAndPause = function(query, cb)
 	{
-		var timeout;
-		element.addEventListener("input", function()
+		var elements = document.querySelectorAll(query);
+
+		if (elements instanceof NodeList)
 		{
-			clearTimeout(timeout);
-			timeout = setTimeout(function()
+			var i;
+			for (i=0; i<elements.length; ++i) (function()
 			{
-				cb(element);
-			}, 500);
-		});
+				var element = elements[i];
+				var timeout;
+				element.addEventListener("input", function()
+				{
+					clearTimeout(timeout);
+					timeout = setTimeout(function()
+					{
+						cb(element);
+					}, 500);
+				});
+			})();
+		}
+		else if (elements instanceof Node)
+		{
+			var timeout;
+			element.addEventListener("input", function()
+			{
+				clearTimeout(timeout);
+				timeout = setTimeout(function()
+				{
+					cb(elements);
+				}, 500);
+			});
+		}
+	}
+
+	gui.on = function(query, event, cb)
+	{
+		var elements = document.querySelectorAll(query);
+
+		if (elements instanceof NodeList)
+		{
+			var i;
+			for (i=0; i<elements.length; ++i) (function()
+			{
+				var element = elements[i];
+				element.addEventListener(event, function()
+				{
+					cb(element);
+				});
+			})();
+		}
+		else if (elements instanceof Node)
+		{
+			elements.addEventListener(event, function()
+			{
+				cb(elements)
+			});
+		}
 	}
 })();
