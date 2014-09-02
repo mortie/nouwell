@@ -11,9 +11,9 @@
     ],
     "dir": {
         "log": "log",
-        "out": "public",
-        "template": "template",
         "theme": "theme",
+        "template": "template",
+        "out": "public",
         "admin": "admin"
     },
     "sql": {

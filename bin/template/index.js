@@ -1,16 +1,21 @@
 var path = require("path");
+var fs = require("fs");
 
 module.exports = function(conf)
 {
-	var path = conf.path;
 	var suffix = conf.suffix;
+	var templateDir = conf.path;
 
 	return function(name, args)
 	{
-		var str = fs.readFileSync(path.join(path, name+suffix));
+		var fileName = path.join(templateDir, name+suffix);
+
+		var str = fs.readFileSync(fileName, "utf8");
 		var i;
 		for (i in args)
-			str.split("{"+i+"}").join(args[i]);
+		{
+			str = str.split("{"+i+"}").join(args[i]);
+		}
 
 		return str;
 	}

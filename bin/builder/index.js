@@ -1,3 +1,6 @@
+var fs = require("fs");
+var path = require("path");
+
 module.exports = function(conf)
 {
 	this.outDir = conf.outDir;
@@ -7,6 +10,9 @@ module.exports = function(conf)
 	this.db = conf.db;
 	this.logger = conf.logger;
 	this.template = conf.template;
+	this.title = conf.title;
+	this.fs = fs;
+	this.path = path;
 
 	this.cbs = 0;
 }

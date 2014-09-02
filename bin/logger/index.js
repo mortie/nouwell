@@ -82,7 +82,7 @@ module.exports.prototype =
 		var fileName = month+"."+day+".log";
 
 		//finally write to file
-		fs.appendFile(path.join(this._dir, fileName), msg, function(err)
+		fs.appendFile(path.join(this._dir, fileName), msg+"\n", function(err)
 		{
 			if (err)
 				throw new Error("Could not write to log dir! "+err);

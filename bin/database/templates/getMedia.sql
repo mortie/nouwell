@@ -1,2 +1,2 @@
-SELECT id, title, type, extension
+SELECT *
 FROM media;

@@ -18,8 +18,6 @@ CREATE TABLE IF NOT EXISTS `{db}`.`entries` (
   `display` BOOL NOT NULL DEFAULT TRUE ,
   `sort` INT NOT NULL DEFAULT 0 ,
   `categories_id` INT NOT NULL DEFAULT 0 ,
-  `type` INT NOT NULL DEFAULT 0 ,
-  `list_categories_id` INT DEFAULT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 

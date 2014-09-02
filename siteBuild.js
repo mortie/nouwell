@@ -56,12 +56,14 @@ db.queryNoEscape("setup",
 },
 function(err)
 {
-	var templateDir = path.join(conf.dir.template, conf.template);
+	logger.error("Database error.", err);
+
+	templateDir = path.join(conf.dir.template, conf.template);
 
 	template = new Template(
 	{
-		"path": templateDir,
-		"suffix": ".html"
+		"suffix": ".html",
+		"path": templateDir
 	});
 
 	//create new site builder instance
@@ -74,6 +76,7 @@ function(err)
 		"db": db,
 		"logger": logger,
 		"template": template,
+		"title": conf.title
 	});
 
 	//actually build site
