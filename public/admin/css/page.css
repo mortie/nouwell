@@ -130,4 +130,11 @@
 #page.media .fileInput
 {
 	display: none;
-};
+}
+
+#page.build #response
+{
+	white-space: pre;
+	font-family: monospace;
+	margin-top: 10px;
+}

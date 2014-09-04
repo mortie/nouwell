@@ -25,6 +25,7 @@
 		["Pages", "pages"],
 		["Media", "media"],
 		["Settings", "settings"],
+		["Build", "build"],
 		["Log Out", "logout"]
 	]
 

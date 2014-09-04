@@ -1,3 +1,6 @@
+var fs = require("fs");
+var path = require("path");
+
 module.exports = function(cb)
 {
 	var self = this;
@@ -60,19 +63,19 @@ function buildPage(page, first, self)
 
 function write(page, name, content, self)
 {
-	var dir = self.path.join(self.outDir, page);
-	var path = self.path.join(self.outDir, page, name);
+	var pageDir = path.join(self.outDir, page);
+	var fileDir = path.join(self.outDir, page, name);
 
-	if (!self.fs.existsSync(dir))
-		self.fs.mkdirSync(dir);
+	if (!fs.existsSync(pageDir))
+		fs.mkdirSync(pageDir);
 
-	if (!self.fs.existsSync(path))
-		self.fs.mkdirSync(path);
+	if (!fs.existsSync(fileDir))
+		fs.mkdirSync(fileDir);
 
-	var fileName = self.path.join(path, "index.html");
+	var fileName = path.join(fileDir, "index.html");
 
 	++self.cbs;
-	self.fs.writeFile(fileName, content, function(err)
+	fs.writeFile(fileName, content, function(err)
 	{
 		self.logger.error("Oh noes!", err);
 

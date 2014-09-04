@@ -39,7 +39,7 @@ module.exports = function(cb)
 					page.entries.push(entry);
 			});
 
-			self.tree[i] = page;
+			self.tree.push(page);
 		});
 
 		cb();

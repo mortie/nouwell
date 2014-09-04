@@ -48,6 +48,27 @@ router.addPage("entries", function(args)
 			{
 				"entries": entriesStr
 			});
+
+			gui.on(".entry .delete", "click", function(element)
+			{
+				var id = element.className.split(/\s+/)[0];
+
+				lib.callAPI("deleteEntry",
+				{
+					"id": id
+				},
+				function()
+				{
+					router.load();
+				});
+			});
+
+			gui.on(".entry .name", "click", function(element)
+			{
+				var id = element.className.split(/\s+/)[0];
+
+				router.path = "entries/edit/"+id;
+			});
 		}
 	};
 

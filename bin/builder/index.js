@@ -11,8 +11,6 @@ module.exports = function(conf)
 	this.logger = conf.logger;
 	this.template = conf.template;
 	this.title = conf.title;
-	this.fs = fs;
-	this.path = path;
 
 	this.cbs = 0;
 }
@@ -29,7 +27,7 @@ module.exports.prototype =
 			require("./prepareDatabase.js"),
 			require("./prepareMedia.js"),
 			require("./prepareTheme.js"),
-			require("./buildTree.js"),
+			require("./prepareTree.js"),
 			require("./writeFiles.js")
 		],
 		function()

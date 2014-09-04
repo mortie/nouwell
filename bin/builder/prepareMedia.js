@@ -1,3 +1,6 @@
+var path = require("path");
+var fs = require("fs");
+
 module.exports = function(cb)
 {
 	var self = this;
@@ -9,7 +12,7 @@ module.exports = function(cb)
 
 		result.forEach(function(media)
 		{
-			var fileName = self.path.join(
+			var fileName = path.join(
 				self.outDir,
 				"media",
 				media.id+"."+media.extension
@@ -18,7 +21,7 @@ module.exports = function(cb)
 			self.logger.info("Writing media file '"+media.title+"'...");
 
 			++self.cbs;
-			self.fs.writeFile(fileName, media.content, function(err)
+			fs.writeFile(fileName, media.content, function(err)
 			{
 				self.logger.error("Coludn't write media file!", err);
 

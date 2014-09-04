@@ -74,15 +74,15 @@ router.addPage("pages", function()
 			});
 		});
 
-		gui.on("#add", "click", function()
+		gui.on("#add", "click", function(element)
 		{
-			add(newField.value);
+			add(element.value);
 		});
 
-		gui.on("#new", "keypress", function(e)
+		gui.on("#new", "keypress", function(element, e)
 		{
 			if (e.keyCode === 13)
-				add(newField.value)
+				add(element.value)
 		});
 	}
 
