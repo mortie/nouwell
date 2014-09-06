@@ -27,21 +27,48 @@ module.exports = function(cb)
 
 	function build()
 	{
-		self.tree = [];
+		var tree = [];
 
-		pages.forEach(function(page, i)
+		//prepare parents
+		pages.forEach(function(page)
 		{
-			page.entries = [];
-
-			entries.forEach(function(entry)
+			if (!page.parent_page_id)
 			{
-				if (entry.pages_id === page.id)
-					page.entries.push(entry);
-			});
-
-			self.tree.push(page);
+				preparePage(page);
+				tree[page.id] = page;
+			}
 		});
 
+		//prepare children
+		pages.forEach(function(page)
+		{
+			if (page.parent_page_id)
+			{
+				preparePage(page);
+				tree[page.parent_page_id].push(page);
+			}
+		});
+
+		//sort
+		self.tree = [];
+		tree.forEach(function(page)
+		{
+			self.tree = tree[page.id];
+		});
+
+		//we're done preparing the tree!
 		cb();
+	}
+
+	function preparePage(page)
+	{
+		page.childs = [];
+		page.entries = [];
+
+		entries.forEach(function(entry)
+		{
+			if (entry.page_id === page.id)
+				page.entries.push(entry);
+		});
 	}
 }

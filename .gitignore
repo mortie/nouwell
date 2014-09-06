@@ -1,4 +1,12 @@
 log/
-public/media/
-apiToken
+
+public/*
+!public/admin/
+
+themes/*
+!themes/default/
+
+templates/*
+!templates/default
+
 adminTokens
