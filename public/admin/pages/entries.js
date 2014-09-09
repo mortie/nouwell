@@ -19,7 +19,7 @@ router.addPage("entries", function(args)
 
 		lib.callAPI("getEntries",
 		{
-			"pages_id": args[1]
+			"page_id": args[1]
 		},
 		function(result)
 		{

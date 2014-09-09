@@ -10,7 +10,7 @@ $properties =
 	"slug",
 	"date_seconds",
 	"sort",
-	"pages_id",
+	"page_id",
 ];
 
 $keys = "";

@@ -24,7 +24,7 @@ router.addPage("new", function(args)
 				"html": html,
 				"slug": lib.slugify(title),
 				"date_seconds": new Date().getTime() / 1000,
-				"pages_id": args[1],
+				"page_id": args[1],
 			},
 			function(result)
 			{

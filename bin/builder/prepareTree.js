@@ -45,7 +45,7 @@ module.exports = function(cb)
 			if (page.parent_page_id)
 			{
 				preparePage(page);
-				tree[page.parent_page_id].push(page);
+				tree[page.parent_page_id].children.push(page);
 			}
 		});
 
@@ -53,7 +53,7 @@ module.exports = function(cb)
 		self.tree = [];
 		tree.forEach(function(page)
 		{
-			self.tree = tree[page.id];
+			self.tree.push(tree[page.id]);
 		});
 
 		//we're done preparing the tree!
@@ -62,7 +62,7 @@ module.exports = function(cb)
 
 	function preparePage(page)
 	{
-		page.childs = [];
+		page.children = [];
 		page.entries = [];
 
 		entries.forEach(function(entry)
