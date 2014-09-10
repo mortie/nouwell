@@ -77,6 +77,7 @@ function buildPage(dirPath, page, menu, self)
 	var entries = "";
 	page.entries.forEach(function(entry)
 	{
+		self.logger.info("Building "+entry.title+"...");
 		var e = self.template("entry",
 		{
 			"url": dirPath+"/"+entry.slug,
@@ -89,8 +90,10 @@ function buildPage(dirPath, page, menu, self)
 		var p = self.template("index",
 		{
 			"menu": menu,
-			"entries": e
-		});
+			"entries": e,
+			"postTitle": entry.title,
+			"siteTitle": self.title
+		}, false);
 
 		write(dirPath+"/"+entry.slug, p, self);
 	});
@@ -98,8 +101,10 @@ function buildPage(dirPath, page, menu, self)
 	var p = self.template("index",
 	{
 		"menu": menu,
-		"entries": entries
-	});
+		"entries": entries,
+		"postTitle": page.title,
+		"siteTitle": self.title
+	}, false);
 
 	write(dirPath, p, self);
 }
@@ -107,7 +112,6 @@ function buildPage(dirPath, page, menu, self)
 function write(dirPath, content, self)
 {
 	dirPath = path.join(self.outDir, dirPath);
-	console.log(dirPath);
 
 	try
 	{

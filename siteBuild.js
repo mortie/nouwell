@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+var startTime = new Date();
+
 var fs = require("fs");
 var path = require("path");
 var Logger = require("./bin/logger");
@@ -82,7 +84,11 @@ function(err)
 	//actually build site
 	builder.build(function()
 	{
-		logger.info("Done!", function()
+		var endTime = new Date();
+
+		var elapsed = endTime.getTime() - startTime.getTime();
+
+		logger.info("Done in "+elapsed+" milliseconds.", function()
 		{
 			process.exit();
 		});

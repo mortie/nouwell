@@ -17,6 +17,9 @@ module.exports = function(conf)
 			str = str.split("{"+i+"}").join(args[i]);
 		}
 
+		//minimize
+		str = str.replace(/\s+/g, " ");
+
 		return str;
 	}
 }

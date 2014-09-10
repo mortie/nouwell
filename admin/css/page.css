@@ -138,3 +138,31 @@
 	font-family: monospace;
 	margin-top: 10px;
 }
+
+#page.pages .entry .children
+{
+	margin-left: 55px;
+	margin-bottom: 5px;
+}
+
+#page.pages .entry .delete
+{
+	border-radius: 5px;
+	border-style: solid;
+	border-color: black;
+
+	color: white;
+	background-color: #b11;
+
+	font-weight: bold;
+	text-align: center;
+	vertical-align: middle;
+
+	cursor: pointer;
+	cursor: hand;
+}
+
+#page.pages .entry .delete:hover
+{
+	background-color: #f11;
+}

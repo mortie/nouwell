@@ -2,7 +2,7 @@
 if (!$calledCorrectly) die();
 requireToken();
 
-$pages = $mysqli->query("SELECT id, title, slug ".
+$pages = $mysqli->query("SELECT id, title, slug, parent_page_id ".
                              "FROM pages");
 
 if ($mysqli->error) fail($mysqli->error);
