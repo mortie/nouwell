@@ -11,6 +11,9 @@ $result = [];
 
 while ($page = $pages->fetch_assoc())
 {
+	if (!$page['parent_page_id'])
+		$page['parent_page_id'] = false;
+
 	array_push($result, $page);
 }
 
