@@ -60,7 +60,7 @@ function(err)
 {
 	logger.error("Database error.", err);
 
-	templateDir = path.join(conf.dir.template, conf.template);
+	templateDir = path.join(conf.dir.theme, conf.theme, "html");
 
 	template = new Template(
 	{
@@ -73,8 +73,7 @@ function(err)
 	{
 		"outDir": conf.dir.out,
 		"adminDir": conf.dir.admin,
-		"themeDir": path.join(conf.dir.theme, conf.theme),
-		"templateDir": templateDir,
+		"themeDir": path.join(conf.dir.theme, conf.theme, "css"),
 		"db": db,
 		"logger": logger,
 		"template": template,

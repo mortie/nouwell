@@ -24,25 +24,19 @@ router.addPage("settings", function()
 	{
 		lib.template("settings", settings);
 
-		var elements = document.querySelectorAll(".settingsEntry");
-
-		var i;
-		for (i=0; i<elements.length; ++i)
+		gui.onEditAndPause(".settingsEntry", function(element)
 		{
-			gui.onEditAndPause(elements[i], function(element)
-			{
-				var key = element.className.split(/\s+/)[0];
+			var key = element.className.split(/\s+/)[0];
 
-				lib.callAPI("updateSetting",
-				{
-					"key": key,
-					"val": element.value
-				},
-				function(result)
-				{
-					console.log(result)
-				});
+			lib.callAPI("updateSetting",
+			{
+				"key": key,
+				"val": element.value
+			},
+			function(result)
+			{
+				console.log(result)
 			});
-		};
+		});
 	}
 });

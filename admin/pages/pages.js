@@ -42,6 +42,7 @@ router.addPage("pages", function()
 		{
 			if (!page.parent_page_id)
 			{
+				console.log(page);
 				var pageChildren = children[page.id] || "";
 
 				entries += lib.template("pagesEntry",

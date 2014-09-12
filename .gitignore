@@ -10,3 +10,5 @@ templates/*
 !templates/default
 
 adminTokens
+
+conf.json

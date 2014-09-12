@@ -1,7 +1,6 @@
 {
     "title": "Your Website",
     "theme": "default",
-    "template": "default",
     "adminPassword": "password",
     "log": [
         "info",
@@ -12,7 +11,6 @@
     "dir": {
         "log": "log",
         "theme": "theme",
-        "template": "template",
         "out": "public",
         "admin": "admin"
     },

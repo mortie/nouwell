@@ -84,7 +84,7 @@
 		else
 			var current = "";
 
-		dropdown = "";
+		var dropdown = "";
 
 		if (page[1])
 		{
@@ -117,7 +117,6 @@
 	{
 		lib.callAPI("getPages", {}, function(result)
 		{
-			console.log(result);
 			pages = pages.map(function(p)
 			{
 				if (typeof p[1] === "string")
