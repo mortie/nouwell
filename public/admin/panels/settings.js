@@ -1,24 +1,16 @@
-router.addPage("settings", function()
+router.addPanel("settings", function()
 {
 	var settings;
 
-	var callbacks = 2;
+	var async = new lib.Async(2, draw);
 
 	lib.callAPI("getSettings", {}, function(result)
 	{
 		settings = result.settings;
-
-		--callbacks;
-		if (callbacks === 0)
-			draw();
+		async();
 	});
 
-	lib.template.load(["settings"], function()
-	{
-		--callbacks;
-		if (callbacks === 0)
-			draw();
-	});
+	lib.template.load(["settings"], async);
 
 	function draw()
 	{

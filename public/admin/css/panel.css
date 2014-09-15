@@ -1,4 +1,4 @@
-#page
+#panel
 {
 	margin-top: 50px;
 	margin-left: calc(115px + 50px);
@@ -9,41 +9,41 @@
 	max-width: calc(100% - 190px - 50px);
 }
 
-#page dd
+#panel dd
 {
 	margin-left: 0px;
 	margin-bottom: 10px;
 }
 
-#page.new,
-#page.entries.edit
+#panel.new,
+#panel.entries.edit
 {
 	width: 100%;
 }
 
-#page.new #title,
-#page.entries.edit #title
+#panel.new #title,
+#panel.entries.edit #title
 {
 	width: 100%;
 }
 
-#page.entries .entry .name
+#panel.entries .entry .name
 {
 	display: inline;
 }
-#page.entries .entry .name:hover
+#panel.entries .entry .name:hover
 {
 	text-decoration: underline;
 	cursor: pointer;
 	cursor: hand;
 }
 
-#page.media .entries
+#panel.media .entries
 {
 	margin-top: 10px;
 }
 
-#page.media .entry
+#panel.media .entry
 {
 	display: inline-block;
 	text-align: center;
@@ -51,13 +51,13 @@
 	position: relative;
 }
 
-#page.media .entry .name
+#panel.media .entry .name
 {
 	width: 150px;
 	padding: 2px;
 }
 
-#page.media .entry .delete
+#panel.media .entry .delete
 {
 	position: absolute;
 	display: inline-block;
@@ -82,12 +82,12 @@
 	cursor: hand;
 }
 
-#page.media .entry .delete:hover
+#panel.media .entry .delete:hover
 {
 	background-color: #f11;
 }
 
-#page.media .thumbnailContainer
+#panel.media .thumbnailContainer
 {
 	transition: all 0.5s;
 
@@ -105,7 +105,7 @@
 	background-color: #000;
 }
 
-#page.media .thumbnailContainer .thumbnail
+#panel.media .thumbnailContainer .thumbnail
 {
 	transition: all 0.5s;
 
@@ -113,7 +113,7 @@
 	height: 100%;
 }
 
-#page.media .thumbnailContainer:hover .thumbnail
+#panel.media .thumbnailContainer:hover .thumbnail
 {
 	transform: scale(1.3);
 		-webkit-transform: scale(1.3);
@@ -127,25 +127,25 @@
 	cursor: hand;
 }
 
-#page.media .fileInput
+#panel.media .fileInput
 {
 	display: none;
 }
 
-#page.build #response
+#panel.build #response
 {
 	white-space: pre;
 	font-family: monospace;
 	margin-top: 10px;
 }
 
-#page.pages .entry .children
+#panel.pages .entry .children
 {
 	margin-left: 55px;
 	margin-bottom: 5px;
 }
 
-#page.pages .entry .delete
+#panel.pages .entry .delete
 {
 	border-radius: 5px;
 	border-style: solid;
@@ -162,7 +162,7 @@
 	cursor: hand;
 }
 
-#page.pages .entry .delete:hover
+#panel.pages .entry .delete:hover
 {
 	background-color: #f11;
 }

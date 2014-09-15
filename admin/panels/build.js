@@ -1,9 +1,8 @@
-router.addPage("build", function()
+router.addPanel("build", function()
 {
-	lib.template.load(["build"], function()
-	{
-		draw();
-	});
+	var async = new lib.Async(1, draw);
+
+	lib.template.load(["build"], async);
 
 	function draw()
 	{

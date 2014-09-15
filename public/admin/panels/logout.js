@@ -1,4 +1,4 @@
-router.addPage("logout", function()
+router.addPanel("logout", function()
 {
 	lib.callAPI("logout", {}, function(result)
 	{

@@ -17,7 +17,7 @@
 
 	var navElement = document.getElementById("nav");
 
-	var pages =
+	var panels =
 	[
 		["Home", "home"],
 		["New", [], "new"],
@@ -29,68 +29,59 @@
 		["Log Out", "logout"]
 	]
 
-	var callbacks = 3;
+	var async = new lib.Async(3, draw);
 
-	populateDropdowns(function()
-	{
-		--callbacks;
-		if (callbacks === 0) draw();
-	});
+	populateDropdowns(async);
 
-	template.load(["navEntry", "navEntryDropdown"], function()
-	{
-		--callbacks;
-		if (callbacks === 0) draw();
-	});
+	template.load(["navEntry", "navEntryDropdown"], async)
 
 	router.on("load", function(first)
 	{
-		--callbacks;
-		if (!first || callbacks === 0) draw();
+		async();
 	});
 
 	function draw()
 	{
 		navElement.innerHTML = "";
-		pages.forEach(function(page)
+		panels.forEach(function(panel)
 		{
-			if (typeof page[1] === "string")
-				drawWithoutDropdown(page);
+			if (typeof panel[1] === "string")
+				drawWithoutDropdown(panel);
 			else
-				drawWithDropdown(page);
+				drawWithDropdown(panel);
 			
 		});
 	}
 
-	function drawWithoutDropdown(page)
+	function drawWithoutDropdown(panel)
 	{
-		if (router.page === page[1])
+		if (router.panel === panel[1])
 			var current = "current";
 		else
 			var current = "";
 
 		template("navEntry",
 		{
-			"name": page[0],
+			"name": panel[0],
 			"current": current,
-			"onclick": "router.path = '"+page[1]+"'",
+			"onclick": "router.path = '"+panel[1]+"'",
 		});
 	}
 
-	function drawWithDropdown(page)
+	function drawWithDropdown(panel)
 	{
-		if (router.page === page[2])
+		if (router.panel === panel[2])
 			var current = "current";
 		else
 			var current = "";
 
 		var dropdown = "";
 
-		if (page[1])
+		if (panel[1])
 		{
-			page[1].forEach(function(p)
+			panel[1].forEach(function(p)
 			{
-				if (router.page === page[2] && router.path.split("/")[1] === p.id)
+				if (router.panel === panel[2] && router.path.split("/")[1] === p.id)
 					var current = "current";
 				else
 					var current = "";
@@ -99,14 +90,14 @@
 				{
 					"name": p.title,
 					"current": current,
-					"onclick": "router.path = '"+page[2]+"/"+p.id+"'"
+					"onclick": "router.path = '"+panel[2]+"/"+p.id+"'"
 				}, false);
 			});
 		}
 
 		template("navEntry",
 		{
-			"name": page[0],
+			"name": panel[0],
 			"current": current,
 			"dropdown": dropdown,
 			"hasDropdown": "hasDropdown"
@@ -117,7 +108,7 @@
 	{
 		lib.callAPI("getPages", {}, function(result)
 		{
-			pages = pages.map(function(p)
+			panels = panels.map(function(p)
 			{
 				if (typeof p[1] === "string")
 				{

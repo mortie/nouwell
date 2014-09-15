@@ -4,7 +4,7 @@
 
 	lib.template = new Template(
 	{
-		"element": document.getElementById("page")
+		"element": document.getElementById("panel")
 	});
 
 	lib.apiToken = "";
@@ -159,5 +159,16 @@
 		return title.toLowerCase()
 		            .replace(/[^a-zA-Z0-9\s]/g, "")
 		            .replace(/\s+/g, "-");
+	}
+
+	lib.Async = function(times, f)
+	{
+		return function()
+		{
+			if (times > 1)
+				--times;
+			else
+				f();
+		}
 	}
 })();

@@ -1,21 +1,15 @@
-router.addPage("media", function()
+router.addPanel("media", function()
 {
-	var callbacks = 2;
-
 	var media;
 
-	lib.template.load(["media", "mediaEntry"], function()
-	{
-		--callbacks;
-		if (callbacks === 0) draw();
-	});
+	var async = new lib.Async(2, draw);
+
+	lib.template.load(["media", "mediaEntry"], async);
 
 	lib.callAPI("getMedia", {}, function(results)
 	{
 		media = results.media;
-
-		--callbacks;
-		if (callbacks === 0) draw();
+		async();
 	});
 
 	function draw()

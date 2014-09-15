@@ -1,9 +1,8 @@
-router.addPage("new", function(args)
+router.addPanel("new", function(args)
 {
-	lib.template.load(["editor"], function()
-	{
-		draw();
-	});
+	var async = new lib.Async(1, draw);
+
+	lib.template.load(["editor"], async);
 
 	function draw()
 	{

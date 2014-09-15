@@ -1,21 +1,15 @@
-router.addPage("pages", function()
+router.addPanel("pages", function()
 {
 	var pages;
 
-	var callbacks = 2;
+	var async = new lib.Async(2, draw);
 
-	lib.template.load(["pages", "pagesEntry", "pagesEntryChild"], function()
-	{
-		--callbacks;
-		if (callbacks === 0) draw();
-	});
+	lib.template.load(["pages", "pagesEntry", "pagesEntryChild"], async);
 
 	lib.callAPI("getPages", {}, function(result)
 	{
 		pages = result.pages || [];
-
-		--callbacks;
-		if (callbacks === 0) draw();
+		async();
 	});
 
 	function draw()

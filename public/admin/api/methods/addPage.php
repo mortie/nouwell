@@ -9,7 +9,7 @@ $parent = $mysqli->real_escape_string($args->parent_page_id);
 if ($parent)
 	$mysqli->query("INSERT INTO pages (title, slug, parent_page_id) VALUES ('$title', '$slug', '$parent')");
 else
-	$mysqli->query("INSERT INTO pages (title, slug) VALUES ('$title','$sluga)");
+	$mysqli->query("INSERT INTO pages (title, slug) VALUES ('$title','$slug')");
 
 if ($mysqli->error)
 {

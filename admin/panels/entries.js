@@ -1,4 +1,4 @@
-router.addPage("entries", function(args)
+router.addPanel("entries", function(args)
 {
 	if (args[1] === "edit")
 		edit();
@@ -9,13 +9,9 @@ router.addPage("entries", function(args)
 	{
 		var entries;
 
-		var callbacks = 2;
+		var async = new lib.Async(2, draw);
 
-		lib.template.load(["entries", "entriesEntry"], function()
-		{
-			--callbacks;
-			if (callbacks === 0) draw();
-		});
+		lib.template.load(["entries", "entriesEntry"], async);
 
 		lib.callAPI("getEntries",
 		{
@@ -24,9 +20,7 @@ router.addPage("entries", function(args)
 		function(result)
 		{
 			entries = result.entries || [];
-
-			--callbacks;
-			if (callbacks === 0) draw();
+			async();
 		});
 
 		function draw()
@@ -76,13 +70,9 @@ router.addPage("entries", function(args)
 	{
 		var entry;
 
-		var callbacks = 2;
+		var async = new lib.Async(2, draw);
 
-		lib.template.load(["editor"], function()
-		{
-			--callbacks;
-			if (callbacks === 0) draw();
-		});
+		lib.template.load(["editor"], async);
 
 		lib.callAPI("getEntry",
 		{
@@ -91,9 +81,7 @@ router.addPage("entries", function(args)
 		function(result)
 		{
 			entry = result.entry;
-
-			--callbacks;
-			if (callbacks === 0) draw();
+			async();
 		});
 
 		function draw()

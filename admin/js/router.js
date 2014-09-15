@@ -2,8 +2,8 @@
 {
 	window.Router = function(element)
 	{
-		this._pages = {};
-		this._page = "";
+		this._panels = {};
+		this._panel = "";
 		this._element = element;
 		this._enabled = true;
 
@@ -28,7 +28,7 @@
 		{
 			if (!this._enabled) return false;
 
-			this._page = path.split("/")[0];
+			this._panel = path.split("/")[0];
 			location.hash = path;
 		},
 
@@ -37,9 +37,9 @@
 			return this._element;
 		},
 
-		get page()
+		get panel()
 		{
-			return this._page || location.hash.split("/")[0].substring(1);
+			return this._panel || location.hash.split("/")[0].substring(1);
 		},
 
 		"disable": function()
@@ -52,9 +52,9 @@
 			this._enabled = true;
 		},
 
-		"addPage": function(name, f)
+		"addPanel": function(name, f)
 		{
-			this._pages[name] = f;
+			this._panels[name] = f;
 		},
 
 		"load": function(first)
@@ -62,16 +62,16 @@
 			var path = location.hash.substring(1);
 
 			var sections = path.split("/");
-			var page = sections[0];
+			var panel = sections[0];
 
 			//prepare element
 			this._element.className = path.replace(/\//g, " ");
 			this._element.innerHTML = "";
 
-			console.log("loading '"+page+"'");
+			console.log("loading '"+panel+"'");
 
 			//execute page script
-			this._pages[page](sections);
+			this._panels[panel](sections);
 
 			this._emit("load", [first || false]);
 		},

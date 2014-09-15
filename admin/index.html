@@ -4,15 +4,15 @@
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 	<link rel="stylesheet" href="css/style.css" />
 	<link rel="stylesheet" href="css/nav.css" />
-	<link rel="stylesheet" href="css/page.css" />
+	<link rel="stylesheet" href="css/panel.css" />
 	<link rel="stylesheet" href="css/gui.css" />
-	<link rel="stylesheet" href="http://lab.lepture.com/editor/editor.css" />
+	<link rel="stylesheet" href="lib/lepture/editor.css" />
 	<title>Admin</title>
 </head>
 <body>
 	<div id="gui"></div>
 	<div id="nav"></div>
-	<div id="page"></div>
+	<div id="panel"></div>
 
 	<!--configuration-->
 	<script src="conf.js"></script>
@@ -21,30 +21,28 @@
 	<script src="js/template.js"></script>
 	<script src="js/lib.js"></script>
 	<script src="js/gui.js"></script>
-
-	<!--editor-->
-	<script type="text/javascript" src="http://lab.lepture.com/editor/editor.js"></script>
-	<script type="text/javascript" src="http://lab.lepture.com/editor/marked.js"></script>
+	<script src="lib/lepture/editor.js"></script>
+	<script src="lib/marked/marked.js"></script>
 
 	<!--router and things to do with router-->
 	<script src="js/router.js"></script>
 	<script>
-		window.router = new Router(document.getElementById("page"));
+		window.router = new Router(document.getElementById("panel"));
 		router.disable();
 		lib.apiToken = lib.getCookie("token");
 	</script>
 	<script src="js/nav.js"></script>
 
 	<!--pages-->
-	<script src="pages/login.js"></script>
-	<script src="pages/home.js"></script>
-	<script src="pages/new.js"></script>
-	<script src="pages/entries.js"></script>
-	<script src="pages/pages.js"></script>
-	<script src="pages/media.js"></script>
-	<script src="pages/settings.js"></script>
-	<script src="pages/build.js"></script>
-	<script src="pages/logout.js"></script>
+	<script src="panels/login.js"></script>
+	<script src="panels/home.js"></script>
+	<script src="panels/new.js"></script>
+	<script src="panels/entries.js"></script>
+	<script src="panels/pages.js"></script>
+	<script src="panels/media.js"></script>
+	<script src="panels/settings.js"></script>
+	<script src="panels/build.js"></script>
+	<script src="panels/logout.js"></script>
 
 	<script src="js/script.js"></script>
 </body>

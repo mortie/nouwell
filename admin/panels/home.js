@@ -1,4 +1,4 @@
-router.addPage("home", function()
+router.addPanel("home", function()
 {
 	lib.template.load(["home"], function()
 	{

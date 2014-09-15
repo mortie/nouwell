@@ -10,6 +10,9 @@
 
 		var template = function(name, args, modifyElement)
 		{
+			if(!cache[name])
+				console.log("WARNING: Template "+name+" doesn't exist!");
+
 			var str = cache[name] || "";
 
 			if (args)
@@ -40,6 +43,9 @@
 					++n;
 					load(prefix+t+postfix, t, function(result, t)
 					{
+						if (!result)
+							console.log("WARNINGN: Failed to load template "+t+"!");
+
 						cache[t] = result;
 						--n;
 
