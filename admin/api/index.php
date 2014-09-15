@@ -39,6 +39,7 @@ $mysqli = new mysqli(
 	$conf->sql->database,
 	$conf->sql->port
 );
+$mysqli->set_charset("utf8");
 
 //check whether token is valid
 function verifyToken($token=false)

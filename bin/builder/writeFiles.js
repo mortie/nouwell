@@ -21,9 +21,7 @@ module.exports = function(cb)
 
 		var menu = buildMenu(page, false, self);
 
-		buildPage(page.slug, page, menu, self);
-		if (first)
-			buildPage("", page, menu, self);
+		buildPage(page.slug, page, menu, self, first);
 
 		first = false;
 	});
@@ -72,15 +70,18 @@ function buildMenu(page, child, self)
 	});
 }
 
-function buildPage(dirPath, page, menu, self)
+function buildPage(dirPath, page, menu, self, first)
 {
 	var entries = "";
 	page.entries.forEach(function(entry)
 	{
+		var url = dirPath+"/"+entry.slug;
+		if (url[0] === "/") url = url.substring(1);
+
 		self.logger.info("Building "+entry.title+"...");
 		var e = self.template("entry",
 		{
-			"url": dirPath+"/"+entry.slug,
+			"url": url,
 			"title": entry.title,
 			"content": entry.html
 		});
@@ -107,6 +108,8 @@ function buildPage(dirPath, page, menu, self)
 	}, false);
 
 	write(dirPath, p, self);
+	if (first)
+		write("", p, self);
 }
 
 function write(dirPath, content, self)
@@ -119,7 +122,7 @@ function write(dirPath, content, self)
 	}
 	catch (err)
 	{
-		self.logger.error("Couldn't create directory "+dirPath, err);
+		self.logger.error("Couldn't create directory "+dirPath+".", err);
 	}
 
 	var fileName = path.join(dirPath, "index.html");
@@ -127,7 +130,7 @@ function write(dirPath, content, self)
 	++self.cbs;
 	fs.writeFile(fileName, content, function(err)
 	{
-		self.logger.error("Oh noes!", err);
+		self.logger.error("Couldn't write file.", err);
 
 		--self.cbs;
 	});

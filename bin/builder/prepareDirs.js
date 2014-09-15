@@ -11,7 +11,6 @@ var dirs =
 	"{outDir}/media",
 	"{outDir}/media/thumbs",
 	"{themeDir}",
-	"{templateDir}",
 	"{adminDir}"
 ];
 
@@ -25,13 +24,12 @@ module.exports = function(cb)
 		//replace placeholders
 		var path = dir.split("{outDir}").join(self.outDir)
 		              .split("{themeDir}").join(self.themeDir)
-		              .split("{templateDir}").join(self.templateDir)
 		              .split("{adminDir}").join(self.adminDir);
 
 		//create directory
 		try
 		{
-			//mkdirp to create paretn dirs if necessary
+			//mkdirp to create parent dirs if necessary
 			mkdirp.sync(path);
 		}
 		catch (err)

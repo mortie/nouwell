@@ -17,8 +17,7 @@ module.exports = function(conf)
 			str = str.split("{"+i+"}").join(args[i]);
 		}
 
-		//minimize
-		str = str.replace(/\s+/g, " ");
+		str = "<!--start: "+name+"-->\n"+str+"<!--end: "+name+"-->";
 
 		return str;
 	}
