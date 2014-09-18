@@ -4,10 +4,10 @@ var startTime = new Date();
 
 var fs = require("fs");
 var path = require("path");
-var Logger = require("./bin/logger");
-var Database = require("./bin/database");
-var Builder = require("./bin/builder");
-var Template = require("./bin/template");
+var Logger = require("./js/logger");
+var Database = require("./js/database");
+var Builder = require("./js/builder");
+var Template = require("./js/template");
 
 var conf;
 var logger;

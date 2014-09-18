@@ -19,9 +19,16 @@ module.exports = function(cb)
 			});
 		}
 
-		var menu = buildMenu(page, false, self);
-
-		buildPage(page.slug, page, menu, self, first);
+		if (!page.children.length)
+		{
+			var menu = buildMenu(page, false, self);
+			buildPage(page.slug, page, menu, self, first);
+		}
+		else
+		{
+			var menu = buildMenu(page, page.children[0], self);
+			buildPage(page.slug, page.children[0], menu, self);
+		}
 
 		first = false;
 	});
