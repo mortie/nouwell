@@ -33,7 +33,12 @@
 
 	populateDropdowns(async);
 
-	template.load(["navEntry", "navEntryDropdown"], async)
+	template.load(
+	[
+		"navEntry",
+		"navEntryDropdown",
+		"navEntryDropdownChild"
+	], async)
 
 	router.on("load", function(first)
 	{
@@ -68,6 +73,7 @@
 		});
 	}
 
+	//I'm sorry...
 	function drawWithDropdown(panel)
 	{
 		if (router.panel === panel[2])
@@ -79,19 +85,48 @@
 
 		if (panel[1])
 		{
+			var children = [];
 			panel[1].forEach(function(p)
 			{
-				if (router.panel === panel[2] && router.path.split("/")[1] === p.id)
-					var current = "current";
-				else
-					var current = "";
+				var parentId = p.parent_page_id;
 
-				dropdown += template("navEntryDropdown",
+				if (parentId)
 				{
-					"name": p.title,
-					"current": current,
-					"onclick": "router.path = '"+panel[2]+"/"+p.id+"'"
-				}, false);
+					if (router.panel === panel[2] && router.path.split("/")[1] === p.id)
+						var current = "current";
+					else
+						var current = "";
+
+					if (!children[parentId])
+						children[parentId] = "";
+
+					children[parentId] += template("navEntryDropdownChild",
+					{
+						"name": p.title,
+						"current": current,
+						"onclick": "router.path = '"+panel[2]+"/"+p.id+"'"
+					}, false);
+				}
+			});
+
+			panel[1].forEach(function(p)
+			{
+				if (!p.parent_page_id)
+				{
+					if (router.panel === panel[2] && router.path.split("/")[1] === p.id)
+						var current = "current";
+					else
+						var current = "";
+
+					dropdown += template("navEntryDropdown",
+					{
+						"name": p.title,
+						"current": current,
+						"onclick": "router.path = '"+panel[2]+"/"+p.id+"'",
+					}, false);
+
+					dropdown += children[p.id] || "";
+				}
 			});
 		}
 

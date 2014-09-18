@@ -12,6 +12,7 @@
 		-moz-user-select: none;
 
 	float: left;
+	left: 0px;
 }
 
 #nav .navEntry .name
@@ -24,7 +25,8 @@
 	display: none;
 }
 
-#nav .hasDropdown:hover .dropdown
+#nav .hasDropdown:hover .dropdown,
+#nav .hasDropdown .dropdown:hover
 {
 	background-color: #222;
 	display: block;
@@ -32,10 +34,23 @@
 	margin-left: 105px;
 	margin-top: -29px;
 	white-space: nowrap;
+
+	border-left-style: solid;
+	border-width: 1px;
+	border-color: #000;
 }
 #nav .hasDropdown:hover .dropdownEntry
 {
 	padding: 8px 15px 10px 10px;
+}
+#nav .hasDropdown:hover .dropdownEntry.child
+{
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+#nav .hasDropdown:hover .dropdownEntry.child .name
+{
+	margin-left: 20px;
 }
 #nav .hasDropdown:hover .dropdownEntry .name
 {
