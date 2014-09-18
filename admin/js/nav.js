@@ -26,6 +26,7 @@
 		["Media", "media"],
 		["Settings", "settings"],
 		["Build", "build"],
+		["Update", "update"],
 		["Log Out", "logout"]
 	]
 

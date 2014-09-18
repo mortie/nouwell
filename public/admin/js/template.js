@@ -11,7 +11,7 @@
 		var template = function(name, args, modifyElement)
 		{
 			if(!cache[name])
-				console.log("WARNING: Template "+name+" doesn't exist!");
+				console.log("WARNING: Template '"+name+"' isn't loaded!");
 
 			var str = cache[name] || "";
 
