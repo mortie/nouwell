@@ -6,7 +6,7 @@ chdir($root);
 
 exec("git reset --hard; git pull", $output);
 
-$newConf = json_parse(file_get_contents("conf.json"));
+$newConf = json_decode(file_get_contents("conf.json"));
 
 array_merge_recursive($newConf, $conf);
 
