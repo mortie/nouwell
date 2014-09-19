@@ -7,7 +7,6 @@ router.addPanel("update", function()
 
 	lib.callAPI("getUpdates", {}, function(result)
 	{
-		console.log(result.updates);
 		updates = result.updates;
 		async();
 	});
@@ -39,7 +38,11 @@ router.addPanel("update", function()
 
 		gui.on("#update", "click", function()
 		{
-			console.log("update");
+			lib.callAPI("update", {}, function(response)
+			{
+				console.log("Updated.");
+				document.getElementById("output").innerHTML = response.output;
+			});
 		});
 	}
 });

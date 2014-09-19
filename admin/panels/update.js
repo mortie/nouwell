@@ -40,6 +40,7 @@ router.addPanel("update", function()
 		{
 			lib.callAPI("update", {}, function(response)
 			{
+				console.log("Updated.");
 				document.getElementById("output").innerHTML = response.output;
 			});
 		});
