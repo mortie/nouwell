@@ -1,7 +1,5 @@
 .menu
 {
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
 	background-color: #222;
 }
 
@@ -24,7 +22,8 @@
 	text-decoration: none;
 }
 
-.menu .page .name:hover
+.menu .page .name:hover,
+.menu .page:hover > .name
 {
 	background-color: #000;
 	color: #2ea2cc;
@@ -73,10 +72,10 @@
 
 .menu .page .dropdown
 {
-	transition: all 1s;
-		-webkit-transition: all 1s;
-		-moz-transition: all 1s;
-		-ms-transition: all 1s;
+	transition: all 0.4s;
+		-webkit-transition: all 0.4s;
+		-moz-transition: all 0.4s;
+		-ms-transition: all 0.4s;
 
 	display: inline-block;
 	background-color: #222;
@@ -88,14 +87,14 @@
 
 .menu .page:hover .dropdown
 {
-	transition: all 1s;
-		-webkit-transition: all 1s;
-		-moz-transition: all 1s;
-		-ms-transition: all 1s;
+	transition: all 0.4s, max-height 1s;
+		-webkit-transition: all 0.4s, max-height 1s;
+		-moz-transition: all 0.4s, max-height 1s;
+		-ms-transition: all 0.4s, max-height 1s;
 
-	box-shadow: 0px 0px 20px black;
+	box-shadow: 0px 4px 20px black;
 	max-height: 500px;
-	margin-top: 10px;
+	margin-top: 14px;
 }
 
 .menu .page .dropdown .name

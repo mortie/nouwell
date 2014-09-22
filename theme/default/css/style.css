@@ -1,21 +1,6 @@
 body
 {
+	margin: 0px;
+	padding: 0px;
 	overflow-y: scroll;
-}
-
-.menu,
-.entry
-{
-	width: 50%;
-	margin: 10px auto;
-}
-
-.menu
-{
-	padding: 0px 20px;
-}
-
-.entry
-{
-	padding: 20px 20px;
 }
