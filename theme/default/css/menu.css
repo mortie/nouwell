@@ -40,11 +40,22 @@
 .meru .page .arrow,
 .menu .page.current:hover .arrow
 {
-	display: none;
+	transition: border-bottom 0.2s, margin-top 0.2s;
+		-webkit-transition: border-bottom 0.2s, margin-top 0.2s;
+		-moz-transition: border-bottom 0.2s, margin-top 0.2s;
+		-ms-transition: border-bottom 0.2s, margin-top 0.2s;
+
+	border-bottom: 0px solid #fff;
+	margin-top: 0px;
 }
 
 .menu .page.current .arrow
 {
+	transition: border-bottom 0.2s, margin-top 0.2s;
+		-webkit-transition: border-bottom 0.2s, margin-top 0.2s;
+		-moz-transition: border-bottom 0.2s, margin-top 0.2s;
+		-ms-transition: border-bottom 0.2s, margin-top 0.2s;
+
 	width: 0; 
 	height: 0; 
 	border-left: 15px solid transparent;
@@ -62,17 +73,29 @@
 
 .menu .page .dropdown
 {
-	display: none;
+	transition: max-height 0.2s;
+		-webkit-transition: max-height 0.2s;
+		-moz-transition: max-height 0.2s;
+		-ms-transition: max-height 0.2s;
+
+	display: inline-block;
+	background-color: #222;
+	max-height: 0px;
+	position: absolute;
+	overflow: hidden;
 }
 
 .menu .page:hover .dropdown
 {
-	display: inline-block;
-	position: absolute;
-	background-color: #222;
+	transition: max-height 0.2s;
+		-webkit-transition: max-height 0.2s;
+		-moz-transition: max-height 0.2s;
+		-ms-transition: max-height 0.2s;
+
+	max-height: 100px;
 }
 
-.menu .page:hover .dropdown .name
+.menu .page .dropdown .name
 {
 	width: 100%;
 }
@@ -81,5 +104,4 @@
 {
 	background-color: #2ea2cc;
 	color: #fff;
-	text-align: center;
 }

@@ -74,6 +74,7 @@ function(err)
 		"outDir": conf.dir.out,
 		"adminDir": conf.dir.admin,
 		"themeDir": path.join(conf.dir.theme, conf.theme, "css"),
+		"jsDir": path.join(conf.dir.theme, conf.theme, "js"),
 		"db": db,
 		"logger": logger,
 		"template": template,

@@ -3,6 +3,41 @@
 	background-color: #fff;
 }
 
+.entry .content
+{
+	transition: max-height 2s;
+		-webkit-transition: max-height 2s;
+		-moz-transition: max-height 2s;
+		-ms-transition: max-height 2s;
+
+	overflow: hidden;
+
+	max-height: 300px;
+	box-shadow: inset 0px -20px 20px -20px black;
+}
+.entry.expand .content
+{
+	max-height: 2000px;
+	box-shadow: none;
+}
+.entry.expanded .content
+{
+	max-height: none;
+	box-shadow: none;
+}
+.entry.expand .readMore,
+.entry.expanded .readMore
+{
+	display: none;
+}
+
+.entry .readMore:hover
+{
+	text-decoration: underline;
+	cursor: pointer;
+	cursor: hand;
+}
+
 .entry .title
 {
 	color: #222;
