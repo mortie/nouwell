@@ -73,13 +73,14 @@
 
 .menu .page .dropdown
 {
-	transition: max-height 0.2s;
-		-webkit-transition: max-height 0.2s;
-		-moz-transition: max-height 0.2s;
-		-ms-transition: max-height 0.2s;
+	transition: all 1s;
+		-webkit-transition: all 1s;
+		-moz-transition: all 1s;
+		-ms-transition: all 1s;
 
 	display: inline-block;
 	background-color: #222;
+	box-shadow: none;
 	max-height: 0px;
 	position: absolute;
 	overflow: hidden;
@@ -87,12 +88,14 @@
 
 .menu .page:hover .dropdown
 {
-	transition: max-height 0.2s;
-		-webkit-transition: max-height 0.2s;
-		-moz-transition: max-height 0.2s;
-		-ms-transition: max-height 0.2s;
+	transition: all 1s;
+		-webkit-transition: all 1s;
+		-moz-transition: all 1s;
+		-ms-transition: all 1s;
 
-	max-height: 100px;
+	box-shadow: 0px 0px 20px black;
+	max-height: 500px;
+	margin-top: 10px;
 }
 
 .menu .page .dropdown .name
