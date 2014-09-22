@@ -27,6 +27,7 @@
 .entry.expanded .content
 {
 	max-height: none;
+	overflow: visible;
 	box-shadow: none;
 }
 .entry.expand .readMore,

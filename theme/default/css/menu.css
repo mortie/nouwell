@@ -77,7 +77,7 @@
 		-moz-transition: all 0.4s;
 		-ms-transition: all 0.4s;
 
-	display: inline-block;
+	display: block;
 	background-color: #222;
 	box-shadow: none;
 	max-height: 0px;

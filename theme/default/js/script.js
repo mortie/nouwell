@@ -4,11 +4,6 @@ $(".readMore").on("click", function(element)
 	var baseClass = article.className;
 
 	article.className = baseClass+" expand";
-
-	setTimeout(function()
-	{
-		article.className = baseClass+" expanded";
-	}, 2000);
 });
 
 var posts = $(".entry .content");

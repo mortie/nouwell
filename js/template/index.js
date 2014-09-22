@@ -17,8 +17,6 @@ module.exports = function(conf)
 			str = str.split("{"+i+"}").join(args[i]);
 		}
 
-		str = "<!--start: "+name+"-->\n"+str+"<!--end: "+name+"-->";
-
 		return str;
 	}
 }
