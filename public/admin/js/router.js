@@ -28,8 +28,15 @@
 		{
 			if (!this._enabled) return false;
 
-			this._panel = path.split("/")[0];
-			location.hash = path;
+			if (path[0] === "/")
+			{
+				window.location = path;
+			}
+			else
+			{
+				this._panel = path.split("/")[0];
+				location.hash = path;
+			}
 		},
 
 		get element()

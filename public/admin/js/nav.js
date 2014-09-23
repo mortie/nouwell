@@ -19,10 +19,10 @@
 
 	var panels =
 	[
-		["Home", "home"],
+		["Home", "/"],
+		["Pages", "pages"],
 		["New", [], "new"],
 		["Entries", [], "entries"],
-		["Pages", "pages"],
 		["Media", "media"],
 		["Settings", "settings"],
 		["Build", "build"],

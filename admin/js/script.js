@@ -28,7 +28,7 @@
 				}
 				else
 				{
-					router.path = "home";
+					router.path = "pages";
 				}
 			}
 			else

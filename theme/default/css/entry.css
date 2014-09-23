@@ -1,6 +1,7 @@
 .entry
 {
 	background-color: #fff;
+	font-family: Verdana, sans-serif;
 	padding: 20px 20px;
 	width: 50%;
 	margin-left: auto;
@@ -27,8 +28,8 @@
 	position: relative;
 	z-index: 10;
 
-	height: 70px;
-	margin-top: -70px;
+	height: 90px;
+	margin-top: -90px;
 
 	background: -moz-linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%); /* ff3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255,255,255,0)), color-stop(100%, rgba(255,255,255,1))); /* safari4+,chrome */

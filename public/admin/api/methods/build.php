@@ -3,7 +3,7 @@ if (!$calledCorrectly) die();
 requireToken();
 
 chdir($root);
-$output = shell_exec("node siteBuild.js");
+$output = shell_exec("node build.js");
 
 succeed(
 [

@@ -6,6 +6,7 @@
 .menu .page
 {
 	display: inline-block;
+	font-family: Verdana, sans-serif;
 }
 
 .menu .page .name
@@ -72,6 +73,8 @@
 
 .menu .page .dropdown
 {
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
 	transition: all 0.4s;
 		-webkit-transition: all 0.4s;
 		-moz-transition: all 0.4s;
@@ -92,7 +95,7 @@
 		-moz-transition: all 0.4s, max-height 1s;
 		-ms-transition: all 0.4s, max-height 1s;
 
-	box-shadow: 0px 4px 20px black;
+	box-shadow: 1px 3px 20px black;
 	max-height: 500px;
 	margin-top: 14px;
 }
