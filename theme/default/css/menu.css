@@ -75,10 +75,10 @@
 {
 	border-bottom-right-radius: 5px;
 	border-bottom-left-radius: 5px;
-	transition: all 0.4s;
-		-webkit-transition: all 0.4s;
-		-moz-transition: all 0.4s;
-		-ms-transition: all 0.4s;
+	transition: all 0s 0.4s, max-height 0.4s;
+		-webkit-transition: all 0s 0.4s, max-height 0.4s;
+		-moz-transition: all 0s 0.4s, max-height 0.4s;
+		-ms-transition: all 0s 0.4s, max-height 0.4s;
 
 	display: block;
 	background-color: #222;
@@ -86,18 +86,23 @@
 	max-height: 0px;
 	position: absolute;
 	overflow: hidden;
+	z-index: 0;
 }
 
-.menu .page:hover .dropdown
+.menu .page:hover .dropdown,
+.menu .dropdown:hover
 {
-	transition: all 0.4s, max-height 1s;
-		-webkit-transition: all 0.4s, max-height 1s;
-		-moz-transition: all 0.4s, max-height 1s;
-		-ms-transition: all 0.4s, max-height 1s;
+	transition: max-height 1s;
+		-webkit-transition: max-height 1s;
+		-moz-transition: max-height 1s;
+		-ms-transition: max-height 1s;
 
-	box-shadow: 1px 3px 20px black;
+	box-shadow: 0px 0px 8px 0px #000;
 	max-height: 500px;
-	margin-top: 14px;
+}
+.menu .page.current:hover .dropdown
+{
+	z-index: -1;
 }
 
 .menu .page .dropdown .name

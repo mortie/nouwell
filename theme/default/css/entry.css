@@ -28,8 +28,10 @@
 	position: relative;
 	z-index: 10;
 
-	height: 90px;
-	margin-top: -90px;
+	height: 35px;
+	margin-top: -35px;
+
+	border-bottom: 1px solid black;
 
 	background: -moz-linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%); /* ff3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255,255,255,0)), color-stop(100%, rgba(255,255,255,1))); /* safari4+,chrome */
@@ -48,10 +50,12 @@
 {
 	height: 0px;
 	margin-top: 0px;
+	border-style: none;
 }
 .entry.expanded .obfuscator
 {
 	display: none;
+	border-style: none;
 }
 
 .entry.expanded .content
