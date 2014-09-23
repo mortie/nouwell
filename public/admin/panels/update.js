@@ -36,6 +36,9 @@ router.addPanel("update", function()
 			"updates": entries
 		});
 
+		if (!updates)
+			document.getElementById("update").className = "hidden";
+
 		gui.on("#update", "click", function()
 		{
 			lib.callAPI("update", {}, function(response)

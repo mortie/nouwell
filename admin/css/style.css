@@ -43,3 +43,8 @@ html, body
 	background-color: #2ea2cc;
 	color: #fff;
 }
+
+.hidden
+{
+	display: none;
+}
