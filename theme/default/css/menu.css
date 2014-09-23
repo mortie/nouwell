@@ -1,17 +1,21 @@
 .menu
 {
 	background-color: #222;
+	font-size: 0px;
 }
 
 .menu .page
 {
 	display: inline-block;
+	font-size: 16px;
 	font-family: Verdana, sans-serif;
 }
 
 .menu .page .name
 {
 	display: inline-block;
+	position: relative;
+	z-index: 5;
 	height: 50px;
 	padding: 0px 10px;
 
@@ -99,10 +103,6 @@
 
 	box-shadow: 0px 0px 8px 0px #000;
 	max-height: 500px;
-}
-.menu .page.current:hover .dropdown
-{
-	z-index: -1;
 }
 
 .menu .page .dropdown .name
