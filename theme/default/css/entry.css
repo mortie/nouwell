@@ -1,97 +1,40 @@
-.entry
+.entry .title,
+.entry .title:visited
 {
-	background-color: #fff;
-	font-family: Verdana, sans-serif;
-	padding: 20px 20px;
-	width: 50%;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.entry .content
-{
-	transition: max-height 2s;
-		-webkit-transition: max-height 2s;
-		-moz-transition: max-height 2s;
-		-ms-transition: max-height 2s;
-
-	overflow: hidden;
-	max-height: 300px;
-}
-.entry .obfuscator
-{
-	transition: height 0.7s, margin-top 0.7s;
-		-webkit-transition: height 0.7s, margin-top 0.7s;
-		-moz-transition: height 0.7s, margin-top 0.7s;
-		-ms-transition: height 0.7s, margin-top 0.7s;
-
-	position: relative;
-	z-index: 10;
-
-	height: 35px;
-	margin-top: -35px;
-
-	background: -moz-linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%); /* ff3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255,255,255,0)), color-stop(100%, rgba(255,255,255,1))); /* safari4+,chrome */
-	background: -webkit-linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%); /* safari5.1+,chrome10+ */
-	background: -o-linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%); /* opera 11.10+ */
-	background: -ms-linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%); /* ie10+ */
-	background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%); /* w3c */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 ); /* ie6-9 */
-}
-
-.entry.expand .content
-{
-	max-height: 2000px;
-}
-.entry.expand .obfuscator
-{
-	height: 0px;
-	margin-top: 0px;
-	border-style: none;
-}
-.entry.expanded .obfuscator
-{
-	display: none;
-	border-style: none;
-}
-
-.entry.expanded .content
-{
-	max-height: none;
-	overflow: visible;
-}
-
-.entry.expand .readMore,
-.entry.expanded .readMore
-{
-	display: none;
-}
-
-.entry .readMore:hover
-{
-	text-decoration: underline;
-	cursor: pointer;
-	cursor: hand;
-}
-
-.entry .title
-{
-	color: #222;
+	color: #777;
 	text-decoration: none;
-	font-size: 15pt;
+	font-size: 25px;
 }
 .entry .title:hover
 {
 	text-decoration: underline;
 }
 
-.entry img
+.entry .content a,
+.entry .content a:visited
 {
-	width: 100%;
+	color: #777;
+	text-decoration: none;
+}
+.entry .content a:hover
+{
+	text-decoration: underline;
 }
 
-.entry p
+.entry .content p
 {
 	margin-bottom: 0px;
+}
+
+.entry .content img
+{
+	width: 100%;
+	border-radius: 5px;
+}
+
+.entry .content pre code
+{
+	display: block;
+	margin-left: 5%;
+	overflow-x: auto;
 }

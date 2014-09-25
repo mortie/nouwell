@@ -1,8 +1,19 @@
-window.$ = function(str)
+window.$ = function()
 {
+	if (arguments[1])
+	{
+		var p = arguments[0];
+		var str = arguments[1];
+	}
+	else
+	{
+		var p = document;
+		var str = arguments[0];
+	}
+
 	if (str)
 	{
-		var rawElements = document.querySelectorAll(str);
+		var rawElements = p.querySelectorAll(str);
 
 		var elements = [];
 		var i;

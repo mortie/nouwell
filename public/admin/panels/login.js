@@ -35,7 +35,7 @@ router.addPanel("login", function()
 				lib.setCookie("token", result.token);
 				router.enable();
 				nav.load();
-				router.path = "home";
+				router.path = "pages";
 			}
 			else
 			{
