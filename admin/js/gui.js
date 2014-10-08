@@ -26,7 +26,7 @@
 		alert(message);
 	}
 
-	gui.mediaSelect = function()
+	gui.mediaSelect = function(cb)
 	{
 		lib.callAPI("getMedia", {}, function(result)
 		{
@@ -52,24 +52,33 @@
 				"entries": entries,
 				"token": lib.apiToken
 			});
+
+			gui.on(".mediaSelect .entry .thumbnail", "click", function(element)
+			{
+				var className = element.className.split(/\s+/);
+				var title = className[1];
+				var path = className[2];
+				gui.clearElement(guiElement);
+				cb(path, title);
+			});
 		});
 	}
 
 	gui.mediaSelectUpdate = function(element)
 	{
-		gui.removeElement(element);
+		gui.removeElement(guiElement);
 		gui.mediaSelect();
-	}
-
-	gui.mediaSelectSelection = function(path, title)
-	{
-		guiElement.innerHTML = "";
-		editor.codemirror.doc.replaceSelection("!["+title+"]("+path+")");
 	}
 
 	gui.removeElement = function(element)
 	{
 		element.parentNode.removeChild(element);
+	}
+
+	gui.clearElement = function(element)
+	{
+		while (element.firstChild)
+			element.removeChild(element.firstChild);
 	}
 
 	gui.onEditAndPause = function(query, cb)

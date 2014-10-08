@@ -73,7 +73,8 @@ function buildMenu(page, child, self)
 
 	return self.template("menu",
 	{
-		"entries": menuEntries
+		"entries": menuEntries,
+		"headerImage": self.headerImage || ""
 	});
 }
 
@@ -100,7 +101,8 @@ function buildPage(dirPath, page, menu, self, first)
 			"menu": menu,
 			"entries": e,
 			"postTitle": entry.title,
-			"siteTitle": self.title
+			"siteTitle": self.title,
+			"favicon": self.favicon || ""
 		}, false);
 
 		write(dirPath+"/"+entry.slug, p, self);

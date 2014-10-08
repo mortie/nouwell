@@ -8,6 +8,8 @@ succeed(
 	[
 		"title"=>$conf->title,
 		"theme"=>$conf->theme,
-		"adminPassword"=>$conf->adminPassword
+		"adminPassword"=>$conf->adminPassword,
+		"favicon"=>$conf->favicon,
+		"headerImage"=>$conf->headerImage
 	]
 ]);

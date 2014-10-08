@@ -79,10 +79,17 @@
 				'|',
 
 				{name: 'link', action: Editor.drawLink},
-				{name: 'image', action: gui.mediaSelect},
+				{name: 'image', action: function()
+				{
+					gui.mediaSelect(function(path, title)
+					{
+						editor.codemirror.doc.replaceSelection("!["+title+"]("+path+")");
+					});
+				}},
 				'|',
 
 				{name: 'info', action: 'http://lab.lepture.com/editor/markdown'},
+				{name: 'preview', action: Editor.togglePreview},
 				{name: 'fullscreen', action: Editor.toggleFullScreen}
 			]
 		});

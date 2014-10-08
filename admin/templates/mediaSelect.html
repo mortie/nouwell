@@ -5,7 +5,7 @@
 		<form class="uploadMedia">
 			<div class="button" onclick="this.nextElementSibling.click()">Upload</div>
 			<input class="fileInput" type="file" name="file"
-				onchange="lib.fileUpload(this.form, function(){gui.mediaSelectUpdate(this.parentNode.parentNode.parentNode)}.bind(this))">
+				onchange="lib.fileUpload(this.form, function(){gui.mediaSelectUpdate()})">
 			<input type="hidden" name="token" value="{token}">
 		</form>
 

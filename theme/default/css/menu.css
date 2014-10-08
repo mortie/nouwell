@@ -11,6 +11,15 @@
 	font-family: Verdana, sans-serif;
 }
 
+.menu .header
+{
+	display: block;
+}
+.menu .header img
+{
+	width: 100%;
+}
+
 .menu .page .name
 {
 	display: inline-block;

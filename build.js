@@ -78,7 +78,9 @@ function(err)
 		"db": db,
 		"logger": logger,
 		"template": template,
-		"title": conf.title
+		"title": conf.title,
+		"headerImage": conf.headerImage,
+		"favicon": conf.favicon
 	});
 
 	//actually build site

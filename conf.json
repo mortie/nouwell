@@ -20,5 +20,7 @@
         "host": "localhost",
         "port": 3306,
         "database": "siteBuilder"
-    }
+    },
+    "favicon": false,
+    "headerImage": false
 }

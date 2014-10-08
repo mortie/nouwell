@@ -16,7 +16,7 @@ router.addPanel("settings", function()
 	{
 		lib.template("settings", settings);
 
-		gui.onEditAndPause(".settingsEntry", function(element)
+		gui.onEditAndPause(".settingsEntry input", function(element)
 		{
 			var key = element.className.split(/\s+/)[0];
 
@@ -28,6 +28,22 @@ router.addPanel("settings", function()
 			function(result)
 			{
 				console.log(result)
+			});
+		});
+
+		gui.on(".mediaSelect", "click", function(element)
+		{
+			gui.mediaSelect(function(path, title)
+			{
+				var key = element.className.split(/\s+/)[0];
+
+				lib.callAPI("updateSetting",
+				{
+					"key": key,
+					"val": path
+				});
+
+				router.load();
 			});
 		});
 	}

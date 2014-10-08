@@ -12,6 +12,8 @@ module.exports = function(conf)
 	this.logger = conf.logger;
 	this.template = conf.template;
 	this.title = conf.title;
+	this.headerImage = conf.headerImage;
+	this.favicon = conf.favicon;
 
 	this.cbs = 0;
 }

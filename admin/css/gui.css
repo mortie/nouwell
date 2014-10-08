@@ -46,6 +46,13 @@
 	text-align: center;
 }
 
+#gui .mediaSelect .name
+{
+	width: 150px;
+	margin-left: 5px;
+	overflow-x: hidden;
+}
+
 #gui .mediaSelect .thumbnailContainer
 {
 	transition: all 0.5s;

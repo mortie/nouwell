@@ -167,3 +167,10 @@
 {
 	background-color: #f11;
 }
+
+#panel.settings .entries .thumbnail
+{
+	height: 30px;
+	cursor: pointer;
+	cursor: hand;
+}

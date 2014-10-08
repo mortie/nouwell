@@ -6982,142 +6982,142 @@ function redo(editor) {
  * Preview action.
  */
 function togglePreview(editor) {
-  var toolbar = editor.toolbar.preview;
-  var parse = editor.constructor.markdown;
-  var cm = editor.codemirror;
-  var wrapper = cm.getWrapperElement();
-  var preview = wrapper.lastChild;
-  if (!/editor-preview/.test(preview.className)) {
-    preview = document.createElement('div');
-    preview.className = 'editor-preview';
-    wrapper.appendChild(preview);
-  }
-  if (/editor-preview-active/.test(preview.className)) {
-    preview.className = preview.className.replace(
-      /\s*editor-preview-active\s*/g, ''
-    );
-    toolbar.className = toolbar.className.replace(/\s*active\s*/g, '');
-  } else {
-    /* When the preview button is clicked for the first time,
-     * give some time for the transition from editor.css to fire and the view to slide from right to left,
-     * instead of just appearing.
-     */
-    setTimeout(function() {preview.className += ' editor-preview-active'}, 1);
-    toolbar.className += ' active';
-  }
-  var text = cm.getValue();
-  preview.innerHTML = parse(text);
+	var toolbar = editor.toolbar.preview;
+	var parse = editor.constructor.markdown;
+	var cm = editor.codemirror;
+	var wrapper = cm.getWrapperElement();
+	var preview = wrapper.lastChild;
+	if (!/editor-preview/.test(preview.className)) {
+		preview = document.createElement('div');
+		preview.className = 'editor-preview';
+		wrapper.appendChild(preview);
+	}
+	if (/editor-preview-active/.test(preview.className)) {
+		preview.className = preview.className.replace(
+				/\s*editor-preview-active\s*/g, ''
+				);
+		toolbar.className = toolbar.className.replace(/\s*active\s*/g, '');
+	} else {
+		/* When the preview button is clicked for the first time,
+		 * give some time for the transition from editor.css to fire and the view to slide from right to left,
+		 * instead of just appearing.
+		 */
+		setTimeout(function() {preview.className += ' editor-preview-active'}, 1);
+		toolbar.className += ' active';
+	}
+	var text = cm.getValue();
+	preview.innerHTML = parse(text);
 }
 
 function _replaceSelection(cm, active, start, end) {
-  var text;
-  var startPoint = cm.getCursor('start');
-  var endPoint = cm.getCursor('end');
-  if (active) {
-    text = cm.getLine(startPoint.line);
-    start = text.slice(0, startPoint.ch);
-    end = text.slice(startPoint.ch);
-    cm.setLine(startPoint.line, start + end);
-  } else {
-    text = cm.getSelection();
-    cm.replaceSelection(start + text + end);
+	var text;
+	var startPoint = cm.getCursor('start');
+	var endPoint = cm.getCursor('end');
+	if (active) {
+		text = cm.getLine(startPoint.line);
+		start = text.slice(0, startPoint.ch);
+		end = text.slice(startPoint.ch);
+		cm.setLine(startPoint.line, start + end);
+	} else {
+		text = cm.getSelection();
+		cm.replaceSelection(start + text + end);
 
-    startPoint.ch += start.length;
-    endPoint.ch += start.length;
-  }
-  cm.setSelection(startPoint, endPoint);
-  cm.focus();
+		startPoint.ch += start.length;
+		endPoint.ch += start.length;
+	}
+	cm.setSelection(startPoint, endPoint);
+	cm.focus();
 }
 
 
 function _toggleLine(cm, name) {
-  var stat = getState(cm);
-  var startPoint = cm.getCursor('start');
-  var endPoint = cm.getCursor('end');
-  var repl = {
-    quote: /^(\s*)\>\s+/,
-    'unordered-list': /^(\s*)(\*|\-|\+)\s+/,
-    'ordered-list': /^(\s*)\d+\.\s+/
-  };
-  var map = {
-    quote: '> ',
-    'unordered-list': '* ',
-    'ordered-list': '1. '
-  };
-  for (var i = startPoint.line; i <= endPoint.line; i++) {
-    (function(i) {
-      var text = cm.getLine(i);
-      if (stat[name]) {
-        text = text.replace(repl[name], '$1');
-      } else {
-        text = map[name] + text;
-      }
-      cm.setLine(i, text);
-    })(i);
-  }
-  cm.focus();
+	var stat = getState(cm);
+	var startPoint = cm.getCursor('start');
+	var endPoint = cm.getCursor('end');
+	var repl = {
+		quote: /^(\s*)\>\s+/,
+		'unordered-list': /^(\s*)(\*|\-|\+)\s+/,
+		'ordered-list': /^(\s*)\d+\.\s+/
+	};
+	var map = {
+		quote: '> ',
+		'unordered-list': '* ',
+		'ordered-list': '1. '
+	};
+	for (var i = startPoint.line; i <= endPoint.line; i++) {
+		(function(i) {
+			var text = cm.getLine(i);
+			if (stat[name]) {
+				text = text.replace(repl[name], '$1');
+			} else {
+				text = map[name] + text;
+			}
+			cm.setLine(i, text);
+		})(i);
+	}
+	cm.focus();
 }
 
 
 /* The right word count in respect for CJK. */
 function wordCount(data) {
-  var pattern = /[a-zA-Z0-9_\u0392-\u03c9]+|[\u4E00-\u9FFF\u3400-\u4dbf\uf900-\ufaff\u3040-\u309f\uac00-\ud7af]+/g;
-  var m = data.match(pattern);
-  var count = 0;
-  if( m === null ) return count;
-  for (var i = 0; i < m.length; i++) {
-    if (m[i].charCodeAt(0) >= 0x4E00) {
-      count += m[i].length;
-    } else {
-      count += 1;
-    }
-  }
-  return count;
+	var pattern = /[a-zA-Z0-9_\u0392-\u03c9]+|[\u4E00-\u9FFF\u3400-\u4dbf\uf900-\ufaff\u3040-\u309f\uac00-\ud7af]+/g;
+	var m = data.match(pattern);
+	var count = 0;
+	if( m === null ) return count;
+	for (var i = 0; i < m.length; i++) {
+		if (m[i].charCodeAt(0) >= 0x4E00) {
+			count += m[i].length;
+		} else {
+			count += 1;
+		}
+	}
+	return count;
 }
 
 var toolbar = [
-  {name: 'bold', action: toggleBold},
-  {name: 'italic', action: toggleItalic},
-  '|',
+{name: 'bold', action: toggleBold},
+{name: 'italic', action: toggleItalic},
+	'|',
 
-  {name: 'quote', action: toggleBlockquote},
-  {name: 'unordered-list', action: toggleUnOrderedList},
-  {name: 'ordered-list', action: toggleOrderedList},
-  '|',
+{name: 'quote', action: toggleBlockquote},
+{name: 'unordered-list', action: toggleUnOrderedList},
+{name: 'ordered-list', action: toggleOrderedList},
+	'|',
 
-  {name: 'link', action: drawLink},
-  {name: 'image', action: drawImage},
-  '|',
+{name: 'link', action: drawLink},
+{name: 'image', action: drawImage},
+	'|',
 
-  {name: 'info', action: 'http://lab.lepture.com/editor/markdown'},
-  {name: 'preview', action: togglePreview},
-  {name: 'fullscreen', action: toggleFullScreen}
+{name: 'info', action: 'http://lab.lepture.com/editor/markdown'},
+{name: 'preview', action: togglePreview},
+{name: 'fullscreen', action: toggleFullScreen}
 ];
 
 /**
  * Interface of Editor.
  */
 function Editor(options) {
-  options = options || {};
+	options = options || {};
 
-  if (options.element) {
-    this.element = options.element;
-  }
+	if (options.element) {
+		this.element = options.element;
+	}
 
-  options.toolbar = options.toolbar || Editor.toolbar;
-  // you can customize toolbar with object
-  // [{name: 'bold', shortcut: 'Ctrl-B', className: 'icon-bold'}]
+	options.toolbar = options.toolbar || Editor.toolbar;
+	// you can customize toolbar with object
+	// [{name: 'bold', shortcut: 'Ctrl-B', className: 'icon-bold'}]
 
-  if (!options.hasOwnProperty('status')) {
-    options.status = ['lines', 'words', 'cursor'];
-  }
+	if (!options.hasOwnProperty('status')) {
+		options.status = ['lines', 'words', 'cursor'];
+	}
 
-  this.options = options;
+	this.options = options;
 
-  // If user has passed an element, it should auto rendered
-  if (this.element) {
-    this.render();
-  }
+	// If user has passed an element, it should auto rendered
+	if (this.element) {
+		this.render();
+	}
 }
 
 /**
@@ -7129,158 +7129,158 @@ Editor.toolbar = toolbar;
  * Default markdown render.
  */
 Editor.markdown = function(text) {
-  if (window.marked) {
-    // use marked as markdown parser
-    return marked(text);
-  }
+	if (window.marked) {
+		// use marked as markdown parser
+		return marked(text);
+	}
 };
 
 /**
  * Render editor to the given element.
  */
 Editor.prototype.render = function(el) {
-  if (!el) {
-    el = this.element || document.getElementsByTagName('textarea')[0];
-  }
+	if (!el) {
+		el = this.element || document.getElementsByTagName('textarea')[0];
+	}
 
-  if (this._rendered && this._rendered === el) {
-    // Already rendered.
-    return;
-  }
+	if (this._rendered && this._rendered === el) {
+		// Already rendered.
+		return;
+	}
 
-  this.element = el;
-  var options = this.options;
+	this.element = el;
+	var options = this.options;
 
-  var self = this;
-  var keyMaps = {};
+	var self = this;
+	var keyMaps = {};
 
-  for (var key in shortcuts) {
-    (function(key) {
-      keyMaps[fixShortcut(key)] = function(cm) {
-        shortcuts[key](self);
-      };
-    })(key);
-  }
+	for (var key in shortcuts) {
+		(function(key) {
+			keyMaps[fixShortcut(key)] = function(cm) {
+				shortcuts[key](self);
+			};
+		})(key);
+	}
 
-  keyMaps["Enter"] = "newlineAndIndentContinueMarkdownList";
+	keyMaps["Enter"] = "newlineAndIndentContinueMarkdownList";
 
-  this.codemirror = CodeMirror.fromTextArea(el, {
-    mode: 'markdown',
-    theme: 'paper',
-    indentWithTabs: true,
-    lineNumbers: false,
-    extraKeys: keyMaps
-  });
+	this.codemirror = CodeMirror.fromTextArea(el, {
+		mode: 'markdown',
+		theme: 'paper',
+		indentWithTabs: true,
+		lineNumbers: false,
+		extraKeys: keyMaps
+	});
 
-  if (options.toolbar !== false) {
-    this.createToolbar();
-  }
-  if (options.status !== false) {
-    this.createStatusbar();
-  }
+	if (options.toolbar !== false) {
+		this.createToolbar();
+	}
+	if (options.status !== false) {
+		this.createStatusbar();
+	}
 
-  this._rendered = this.element;
+	this._rendered = this.element;
 };
 
 Editor.prototype.createToolbar = function(items) {
-  items = items || this.options.toolbar;
+	items = items || this.options.toolbar;
 
-  if (!items || items.length === 0) {
-    return;
-  }
+	if (!items || items.length === 0) {
+		return;
+	}
 
-  var bar = document.createElement('div');
-  bar.className = 'editor-toolbar';
+	var bar = document.createElement('div');
+	bar.className = 'editor-toolbar';
 
-  var self = this;
+	var self = this;
 
-  var el;
-  self.toolbar = {};
+	var el;
+	self.toolbar = {};
 
-  for (var i = 0; i < items.length; i++) {
-    (function(item) {
-      var el;
-      if (item.name) {
-        el = createIcon(item.name, item);
-      } else if (item === '|') {
-        el = createSep();
-      } else {
-        el = createIcon(item);
-      }
+	for (var i = 0; i < items.length; i++) {
+		(function(item) {
+			var el;
+			if (item.name) {
+				el = createIcon(item.name, item);
+			} else if (item === '|') {
+				el = createSep();
+			} else {
+				el = createIcon(item);
+			}
 
-      // bind events, special for info
-      if (item.action) {
-        if (typeof item.action === 'function') {
-          el.onclick = function(e) {
-            item.action(self);
-          };
-        } else if (typeof item.action === 'string') {
-          el.href = item.action;
-          el.target = '_blank';
-        }
-      }
-      self.toolbar[item.name || item] = el;
-      bar.appendChild(el);
-    })(items[i]);
-  }
+			// bind events, special for info
+			if (item.action) {
+				if (typeof item.action === 'function') {
+					el.onclick = function(e) {
+						item.action(self);
+					};
+				} else if (typeof item.action === 'string') {
+					el.href = item.action;
+					el.target = '_blank';
+				}
+			}
+			self.toolbar[item.name || item] = el;
+			bar.appendChild(el);
+		})(items[i]);
+	}
 
-  var cm = this.codemirror;
-  cm.on('cursorActivity', function() {
-    var stat = getState(cm);
+	var cm = this.codemirror;
+	cm.on('cursorActivity', function() {
+		var stat = getState(cm);
 
-    for (var key in self.toolbar) {
-      (function(key) {
-        var el = self.toolbar[key];
-        if (stat[key]) {
-          el.className += ' active';
-        } else {
-          el.className = el.className.replace(/\s*active\s*/g, '');
-        }
-      })(key);
-    }
-  });
+		for (var key in self.toolbar) {
+			(function(key) {
+				var el = self.toolbar[key];
+				if (stat[key]) {
+					el.className += ' active';
+				} else {
+					el.className = el.className.replace(/\s*active\s*/g, '');
+				}
+			})(key);
+		}
+	});
 
-  var cmWrapper = cm.getWrapperElement();
-  cmWrapper.parentNode.insertBefore(bar, cmWrapper);
-  return bar;
+	var cmWrapper = cm.getWrapperElement();
+	cmWrapper.parentNode.insertBefore(bar, cmWrapper);
+	return bar;
 };
 
 Editor.prototype.createStatusbar = function(status) {
-  status = status || this.options.status;
+	status = status || this.options.status;
 
-  if (!status || status.length === 0) return;
+	if (!status || status.length === 0) return;
 
-  var bar = document.createElement('div');
-  bar.className = 'editor-statusbar';
+	var bar = document.createElement('div');
+	bar.className = 'editor-statusbar';
 
-  var pos, cm = this.codemirror;
-  for (var i = 0; i < status.length; i++) {
-    (function(name) {
-      var el = document.createElement('span');
-      el.className = name;
-      if (name === 'words') {
-        el.innerHTML = '0';
-        cm.on('update', function() {
-          el.innerHTML = wordCount(cm.getValue());
-        });
-      } else if (name === 'lines') {
-        el.innerHTML = '0';
-        cm.on('update', function() {
-          el.innerHTML = cm.lineCount();
-        });
-      } else if (name === 'cursor') {
-        el.innerHTML = '0:0';
-        cm.on('cursorActivity', function() {
-          pos = cm.getCursor();
-          el.innerHTML = pos.line + ':' + pos.ch;
-        });
-      }
-      bar.appendChild(el);
-    })(status[i]);
-  }
-  var cmWrapper = this.codemirror.getWrapperElement();
-  cmWrapper.parentNode.insertBefore(bar, cmWrapper.nextSibling);
-  return bar;
+	var pos, cm = this.codemirror;
+	for (var i = 0; i < status.length; i++) {
+		(function(name) {
+			var el = document.createElement('span');
+			el.className = name;
+			if (name === 'words') {
+				el.innerHTML = '0';
+				cm.on('update', function() {
+					el.innerHTML = wordCount(cm.getValue());
+				});
+			} else if (name === 'lines') {
+				el.innerHTML = '0';
+				cm.on('update', function() {
+					el.innerHTML = cm.lineCount();
+				});
+			} else if (name === 'cursor') {
+				el.innerHTML = '0:0';
+				cm.on('cursorActivity', function() {
+					pos = cm.getCursor();
+					el.innerHTML = pos.line + ':' + pos.ch;
+				});
+			}
+			bar.appendChild(el);
+		})(status[i]);
+	}
+	var cmWrapper = this.codemirror.getWrapperElement();
+	cmWrapper.parentNode.insertBefore(bar, cmWrapper.nextSibling);
+	return bar;
 };
 
 
@@ -7296,6 +7296,7 @@ Editor.drawLink = drawLink;
 Editor.drawImage = drawImage;
 Editor.undo = undo;
 Editor.redo = redo;
+Editor.togglePreview = togglePreview;
 Editor.toggleFullScreen = toggleFullScreen;
 
 /**
