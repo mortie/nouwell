@@ -15,7 +15,8 @@ module.exports = function(cb)
 			page.children.forEach(function(child)
 			{
 				var menu = buildMenu(page, child, self);
-				buildPage(page.slug+"/"+child.slug, child, menu, self);
+				buildPage(page.slug+"/"+child.slug, child, menu, self, first);
+				first = false;
 			});
 		}
 
@@ -29,7 +30,6 @@ module.exports = function(cb)
 			var menu = buildMenu(page, page.children[0], self);
 			buildPage(page.slug, page.children[0], menu, self);
 		}
-
 		first = false;
 	});
 
