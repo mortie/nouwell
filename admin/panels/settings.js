@@ -16,7 +16,7 @@ router.addPanel("settings", function()
 	{
 		lib.template("settings", settings);
 
-		gui.onEditAndPause(".settingsEntry input", function(element)
+		gui.onEditAndPause(".settingsEntry", function(element)
 		{
 			var key = element.className.split(/\s+/)[0];
 
