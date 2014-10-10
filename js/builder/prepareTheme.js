@@ -5,12 +5,38 @@ module.exports = function(cb)
 {
 	var self = this;
 
-	compileToFile(self.themeDir, path.join(self.outDir, "style.css"), self);
+	//css
+	compileToFile(path.join(self.themeDir, "css"), path.join(self.outDir, "style.css"), self);
 
-	compileToFile(self.jsDir, path.join(self.outDir, "script.js"), self,
+	//js
+	compileToFile(path.join(self.themeDir, "js"), path.join(self.outDir, "script.js"), self,
 		"(function(){\n",
 		"})();\n\n"
 	);
+
+	//img
+	++self.cbs;
+	fs.readdir(path.join(self.themeDir, "img"), function(err, files)
+	{
+		self.logger.error("Couldn't read theme dir.", err);
+
+		files.forEach(function(file)
+		{
+			++self.cbs;
+
+			var newFile = fs.createWriteStream(path.join(self.outDir, "_img", file));
+			var oldFile = fs.createReadStream(path.join(self.themeDir, "img", file));
+
+			oldFile.pipe(newFile);
+
+			oldFile.on("end", function()
+			{
+				--self.cbs;
+			});
+		});
+
+		--self.cbs;
+	});
 
 	cb();
 }
@@ -23,7 +49,7 @@ function compileToFile(from, to, self, prefix, postfix)
 	++self.cbs;
 	fs.readdir(from, function(err, files)
 	{
-		self.logger.error(err);
+		self.logger.error("Couldn't read theme dir.", err);
 
 		files.sort(function(a, b)
 		{

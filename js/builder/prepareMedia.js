@@ -14,7 +14,7 @@ module.exports = function(cb)
 		{
 			var fileName = path.join(
 				self.outDir,
-				"media",
+				"_media",
 				media.id+"."+media.extension
 			);
 

@@ -22,7 +22,7 @@ $id = $mysqli->insert_id;
 $publicDir = $conf->dir->out;
 
 
-file_put_contents("$root/$publicDir/media/$id.$extension", $rawContent);
+file_put_contents("$root/$publicDir/_media/$id.$extension", $rawContent);
 
 succeed(
 [

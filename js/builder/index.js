@@ -5,8 +5,6 @@ module.exports = function(conf)
 {
 	this.outDir = conf.outDir;
 	this.themeDir = conf.themeDir;
-	this.templateDir = conf.templateDir;
-	this.jsDir = conf.jsDir;
 	this.adminDir = conf.adminDir;
 	this.db = conf.db;
 	this.logger = conf.logger;

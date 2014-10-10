@@ -8,8 +8,8 @@ var dirs =
 [
 	"{outDir}",
 	"{outDir}/admin",
-	"{outDir}/media",
-	"{outDir}/media/thumbs",
+	"{outDir}/_media",
+	"{outDir}/_img",
 	"{themeDir}",
 	"{adminDir}"
 ];

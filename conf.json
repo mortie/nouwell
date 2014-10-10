@@ -22,5 +22,5 @@
         "database": "siteBuilder"
     },
     "favicon": false,
-    "headerImage": false
+    "headerImage": ""
 }
