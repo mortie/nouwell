@@ -18,22 +18,25 @@ module.exports = function(cb)
 	++self.cbs;
 	fs.readdir(path.join(self.themeDir, "img"), function(err, files)
 	{
-		self.logger.error("Couldn't read theme dir.", err);
+		self.logger.notice("Can't read theme dir's 'img' dir.", err);
 
-		files.forEach(function(file)
+		if (files)
 		{
-			++self.cbs;
-
-			var newFile = fs.createWriteStream(path.join(self.outDir, "_img", file));
-			var oldFile = fs.createReadStream(path.join(self.themeDir, "img", file));
-
-			oldFile.pipe(newFile);
-
-			oldFile.on("end", function()
+			files.forEach(function(file)
 			{
-				--self.cbs;
+				++self.cbs;
+
+				var newFile = fs.createWriteStream(path.join(self.outDir, "_img", file));
+				var oldFile = fs.createReadStream(path.join(self.themeDir, "img", file));
+
+				oldFile.pipe(newFile);
+
+				oldFile.on("end", function()
+				{
+					--self.cbs;
+				});
 			});
-		});
+		}
 
 		--self.cbs;
 	});
