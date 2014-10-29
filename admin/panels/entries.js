@@ -88,6 +88,7 @@ router.addPanel("entries", function(args)
 
 		function draw()
 		{
+			router.ready();
 			lib.template("editor", entry);
 			window.editor = lib.editor();
 
