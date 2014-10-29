@@ -55,9 +55,8 @@
 
 			gui.on(".mediaSelect .entry .thumbnail", "click", function(element)
 			{
-				var className = element.className.split(/\s+/);
-				var title = className[1];
-				var path = className[2];
+				var title = element.getAttribute("data-title");
+				var path = element.getAttribute("data-path");
 				gui.clearElement(guiElement);
 				cb(path, title);
 			});
