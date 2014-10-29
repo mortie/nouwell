@@ -13,6 +13,8 @@ router.addPanel("update", function()
 
 	function draw()
 	{
+		router.ready();
+
 		var entries = "";
 
 		if (updates)

@@ -14,6 +14,8 @@ router.addPanel("media", function()
 
 	function draw()
 	{
+		router.ready();
+
 		var entries = "";
 		media.forEach(function(entry)
 		{
@@ -33,7 +35,7 @@ router.addPanel("media", function()
 
 		gui.onEditAndPause(".entries .entry .name", function(element)
 		{
-			var id = element.className.split(/\s+/)[0];
+			var id = element.getAttribute("data-id");
 			lib.callAPI("updateMediaTitle",
 			{
 				"id": id,
@@ -47,7 +49,7 @@ router.addPanel("media", function()
 
 		gui.on(".entries .entry .delete", "click", function(element)
 		{
-			var id = element.className.split(/\s+/)[0];
+			var id = element.getAttribute("data-id");
 			lib.callAPI("deleteMedia",
 			{
 				"id": id

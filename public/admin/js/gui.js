@@ -66,7 +66,7 @@
 
 	gui.mediaSelectUpdate = function(element)
 	{
-		gui.removeElement(guiElement);
+		gui.clearElement(guiElement);
 		gui.mediaSelect();
 	}
 

@@ -6,6 +6,8 @@ router.addPanel("new", function(args)
 
 	function draw()
 	{
+		router.ready();
+
 		lib.template("editor");
 
 		window.editor = lib.editor();

@@ -6,6 +6,7 @@
 		this._panel = "";
 		this._element = element;
 		this._enabled = true;
+		this._ready = true;
 
 		this._callbacks = {};
 
@@ -26,7 +27,7 @@
 
 		set path(path)
 		{
-			if (!this._enabled) return false;
+			if (!this._enabled || !this._ready) return false;
 
 			if (path[0] === "/")
 			{
@@ -37,6 +38,8 @@
 				this._panel = path.split("/")[0];
 				location.hash = path;
 			}
+
+			router.load();
 		},
 
 		get element()
@@ -66,21 +69,31 @@
 
 		"load": function(first)
 		{
-			var path = location.hash.substring(1);
+			if (this._ready)
+			{
+				this._ready = false;
 
-			var sections = path.split("/");
-			var panel = sections[0];
+				var path = location.hash.substring(1);
 
-			//prepare element
-			this._element.className = path.replace(/\//g, " ");
-			this._element.innerHTML = "";
+				var sections = path.split("/");
+				var panel = sections[0];
 
-			console.log("loading '"+panel+"'");
+				//prepare element
+				this._element.className = path.replace(/\//g, " ");
+				this._element.innerHTML = "";
 
-			//execute page script
-			this._panels[panel](sections);
+				console.log("loading '"+panel+"'");
 
-			this._emit("load", [first || false]);
+				//execute page script
+				this._panels[panel](sections);
+
+				this._emit("load", [first || false]);
+			}
+		},
+
+		"ready": function()
+		{
+			this._ready = true;
 		},
 
 		"on": function(e, func)

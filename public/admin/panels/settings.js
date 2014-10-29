@@ -14,11 +14,13 @@ router.addPanel("settings", function()
 
 	function draw()
 	{
+		router.ready();
+
 		lib.template("settings", settings);
 
 		gui.onEditAndPause(".settingsEntry", function(element)
 		{
-			var key = element.className.split(/\s+/)[0];
+			var key = element.getAttribute("data-key");
 
 			lib.callAPI("updateSetting",
 			{
@@ -35,14 +37,29 @@ router.addPanel("settings", function()
 		{
 			gui.mediaSelect(function(path, title)
 			{
-				var key = element.className.split(/\s+/)[0];
+				var key = element.getAttribute("data-key");
 
 				lib.callAPI("updateSetting",
 				{
 					"key": key,
 					"val": path
+				}, function()
+				{
+					router.load();
 				});
+			});
+		});
 
+		gui.on(".delete", "click", function(element)
+		{
+			key = element.getAttribute("data-key");
+
+			lib.callAPI("updateSetting",
+			{
+				"key": key,
+				"val": false
+			}, function()
+			{
 				router.load();
 			});
 		});
