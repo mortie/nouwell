@@ -3,9 +3,10 @@ var path = require("path");
 
 module.exports = function(conf)
 {
-	this.outDir = conf.outDir;
-	this.themeDir = conf.themeDir;
-	this.adminDir = conf.adminDir;
+	this.outDir = conf.dir.out;
+	this.themeDir = conf.dir.theme;
+	this.adminDir = conf.dir.admin;
+	this.pluginDir = conf.dir.plugin;
 	this.db = conf.db;
 	this.logger = conf.logger;
 	this.template = conf.template;
@@ -25,6 +26,7 @@ module.exports.prototype =
 		this._series(
 		[
 			require("./prepareDirs.js"),
+			require("./preparePlugins"),
 			require("./prepareDatabase.js"),
 			require("./prepareMedia.js"),
 			require("./prepareTheme.js"),

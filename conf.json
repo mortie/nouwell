@@ -12,7 +12,8 @@
         "log": "log",
         "theme": "theme",
         "out": "public",
-        "admin": "admin"
+        "admin": "admin",
+        "plugin": "plugins"
     },
     "sql": {
         "username": "root",

@@ -1,24 +1,123 @@
 var fs = require("fs");
 var path = require("path");
 
+function Async(count, cb)
+{
+	return function()
+	{
+		--count;
+		if (count == 0)
+			cb();
+	}
+}
+
 module.exports = function(cb)
 {
 	var self = this;
 
-	//css
-	compileToFile(path.join(self.themeDir, "css"), path.join(self.outDir, "style.css"), self);
+	var jsPrefix = "(function(){\n";
+	var jsPostfix = "})();\n\n"
 
-	//js
-	compileToFile(path.join(self.themeDir, "js"), path.join(self.outDir, "script.js"), self,
-		"(function(){\n",
-		"})();\n\n"
-	);
+	//css
+	++self.cbs
+	fs.readdir(self.pluginDir, function(err, plugins)
+	{
+		var cssCompiled = "";
+		var jsCompiled = "";
+
+		//write things after the CSS is compiled
+		++self.cbs;
+		var cssAsync = new Async(plugins.length+1, function()
+		{
+			fs.writeFile(path.join(self.outDir, "style.css"), cssCompiled, function(err)
+			{
+				self.logger.error("Could not write style.css.", err);
+				--self.cbs;
+			});
+		});
+
+		//write things after the JS is compiled
+		++self.cbs;
+		var jsAsync = new Async(plugins.length+2, function()
+		{
+			fs.writeFile(path.join(self.outDir, "script.js"), jsCompiled, function(err)
+			{
+				self.logger.error("Could not write script.js.", err);
+				--self.cbs;
+			});
+		});
+
+		//theme css
+		compile(path.join(self.themeDir, "css"), self, function(res)
+		{
+			cssCompiled += res;
+			cssAsync();
+		});
+
+		//common js
+		compile(path.join("js", "client"), self, function(res)
+		{
+			jsCompiled += res;
+			jsAsync();
+
+			//theme js
+			compile(path.join(self.themeDir, "js"), self, function(res)
+			{
+				jsCompiled += res;
+				jsAsync();
+			}, jsPrefix, jsPostfix);
+
+			//loop over plugins
+			plugins.forEach(function(plugin)
+			{
+				var cssPath = path.join(self.pluginDir, plugin, "css");
+				var jsPath = path.join(self.pluginDir, plugin, "js");
+
+				//css
+				compile(cssPath, self, function(res)
+				{
+					cssCompiled += res;
+					cssAsync();
+				});
+
+				//js
+				compile(jsPath, self, function(res)
+				{
+					jsCompiled += res;
+					jsAsync();
+				}, jsPrefix, jsPostfix);
+			});
+		}, jsPrefix, jsPostfix);
+
+		//loop over plugins
+		plugins.forEach(function(plugin)
+		{
+			var cssPath = path.join(self.pluginDir, plugin, "css");
+			var jsPath = path.join(self.pluginDir, plugin, "js");
+
+			//css
+			compile(cssPath, self, function(res)
+			{
+				cssCompiled += res;
+				cssAsync();
+			});
+
+			//js
+			compile(jsPath, self, function(res)
+			{
+				jsCompiled += res;
+				jsAsync();
+			}, jsPrefix, jsPostfix);
+		});
+		--self.cbs;
+	});
 
 	//img
 	++self.cbs;
 	fs.readdir(path.join(self.themeDir, "img"), function(err, files)
 	{
-		self.logger.notice("Can't read theme dir's 'img' dir.", err);
+		if (err)
+			self.logger.notice("Can't read theme dir's 'img' dir.");
 
 		if (files)
 		{
@@ -44,12 +143,11 @@ module.exports = function(cb)
 	cb();
 }
 
-function compileToFile(from, to, self, prefix, postfix)
+function compile(from, self, cb, prefix, postfix)
 {
 	prefix = prefix || "";
 	postfix = postfix || "";
 
-	++self.cbs;
 	fs.readdir(from, function(err, files)
 	{
 		self.logger.error("Couldn't read theme dir.", err);
@@ -80,15 +178,7 @@ function compileToFile(from, to, self, prefix, postfix)
 			compiled += prefix+str+postfix;
 		});
 
-		//write the contents of the files
-		++self.cbs;
-		fs.writeFile(to, compiled, function(err)
-		{
-			self.logger.error(err);
-
-			--self.cbs;
-		});
-
-		--self.cbs;
+		//return contents of the files
+		cb(compiled);
 	});
 }

@@ -71,9 +71,13 @@ function(err)
 	//create new site builder instance
 	builder = new Builder(
 	{
-		"outDir": conf.dir.out,
-		"adminDir": conf.dir.admin,
-		"themeDir": path.join(conf.dir.theme, conf.theme),
+		"dir":
+		{
+			"out": conf.dir.out,
+			"admin": conf.dir.admin,
+			"theme": path.join(conf.dir.theme, conf.theme),
+			"plugin": conf.dir.plugin
+		},
 		"db": db,
 		"logger": logger,
 		"template": template,

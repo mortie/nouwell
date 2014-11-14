@@ -10,6 +10,7 @@ var dirs =
 	"{outDir}/admin",
 	"{outDir}/_media",
 	"{outDir}/_img",
+	"{outDir}/_plugins",
 	"{themeDir}",
 	"{adminDir}"
 ];
