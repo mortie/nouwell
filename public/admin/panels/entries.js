@@ -25,6 +25,8 @@ router.addPanel("entries", function(args)
 
 		function draw()
 		{
+			router.ready();
+
 			if (!entries.length)
 			{
 				var entriesStr = "No entries.";
@@ -45,7 +47,7 @@ router.addPanel("entries", function(args)
 
 			gui.on(".entry .delete", "click", function(element)
 			{
-				var id = element.className.split(/\s+/)[0];
+				var id = element.getAttribute("data-id");
 
 				lib.callAPI("deleteEntry",
 				{
@@ -59,7 +61,7 @@ router.addPanel("entries", function(args)
 
 			gui.on(".entry .name", "click", function(element)
 			{
-				var id = element.className.split(/\s+/)[0];
+				var id = element.getAttribute("data-id");
 
 				router.path = "entries/edit/"+id;
 			});
@@ -86,6 +88,7 @@ router.addPanel("entries", function(args)
 
 		function draw()
 		{
+			router.ready();
 			lib.template("editor", entry);
 			window.editor = lib.editor();
 

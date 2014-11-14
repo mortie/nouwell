@@ -6,6 +6,7 @@ router.addPanel("login", function()
 
 	function draw()
 	{
+		router.ready();
 		lib.template("login");
 
 		var loginButton = document.getElementById("loginButton");

@@ -7,5 +7,8 @@ router.addPanel("logout", function()
 		router.path = "login";
 		nav.load();
 		router.disable();
+	}, function()
+	{
+		router.ready();
 	});
 });

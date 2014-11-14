@@ -1,20 +1,22 @@
 <dl class="entries">
 	<dt>Title</dt>
-	<dd><input type="text" class="title settingsEntry" value="{title}"></dd>
+	<dd><input type="text" class="settingsEntry" data-key="title" value="{title}"></dd>
 
 	<dt>Theme</dt>
-	<dd><input type="text" class="theme settingsEntry" value="{theme}"></dd>
+	<dd><input type="text" class="settingsEntry" data-key="theme" value="{theme}"></dd>
 
 	<dt>Admin Password</dt>
-	<dd><input type="text" class="adminPassword settingsEntry" value="{adminPassword}"></dd>
+	<dd><input type="text" class="settingsEntry" data-key="adminPassword" value="{adminPassword}"></dd>
 
 	<dt>Favicon</dt>
 	<dd>
-		<img class="favicon mediaSelect thumbnail" src="{favicon}" />
+		<img class="mediaSelect thumbnail" data-key="favicon" src="{favicon}" />
+		<button class="delete" data-key="favicon">X</button>
 	<dd>
 
 	<dt>Header Image</dt>
 	<dd>
-		<img class="headerImage mediaSelect thumbnail" src="{headerImage}" />
+		<img class="mediaSelect thumbnail" data-key="headerImage" src="{headerImage}" />
+		<button type="button" class="delete" data-key="headerImage">X</button>
 	</dd>
 </dl>

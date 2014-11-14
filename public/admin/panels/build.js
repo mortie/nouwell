@@ -6,6 +6,7 @@ router.addPanel("build", function()
 
 	function draw()
 	{
+		router.ready();
 		lib.template("build");
 
 		gui.on("#build", "click", function(element)

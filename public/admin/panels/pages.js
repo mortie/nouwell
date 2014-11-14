@@ -14,6 +14,8 @@ router.addPanel("pages", function()
 
 	function draw()
 	{
+		router.ready();
+
 		var children = [];
 		pages.forEach(function(page)
 		{
@@ -55,7 +57,7 @@ router.addPanel("pages", function()
 
 		gui.onEditAndPause(".entry .name", function(element)
 		{
-			var id = element.className.split(/\s+/)[0];
+			var id = element.getAttribute("data-id");
 			var title = element.value;
 
 			console.log(id, title);
@@ -75,7 +77,7 @@ router.addPanel("pages", function()
 
 		gui.on(".entry .delete", "click", function(element)
 		{
-			var id = element.className.split(/\s+/)[0];
+			var id = element.getAttribute("data-id");
 
 			lib.callAPI("deletePage",
 			{
@@ -100,14 +102,15 @@ router.addPanel("pages", function()
 
 		gui.on(".entry .addChild", "click", function(element)
 		{
-			var id = element.className.split(/\s+/)[0];
+			var id = element.getAttribute("data-id");
 
 			add("New Page", id);
 		});
 
 		gui.on("#add", "click", function(element)
 		{
-			add(element.value);
+			var inputElement = document.getElementById("new");
+			add(inputElement.value);
 		});
 
 		gui.on("#new", "keypress", function(element, e)
