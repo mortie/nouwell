@@ -9,6 +9,8 @@ themes/*
 templates/*
 !templates/default
 
+plugins/*
+
 adminTokens
 
 conf.json

@@ -7131,7 +7131,10 @@ Editor.toolbar = toolbar;
 Editor.markdown = function(text) {
 	if (window.marked) {
 		// use marked as markdown parser
-		return marked(text);
+		return marked(text,
+		{
+			"sanitize": false
+		});
 	}
 };
 

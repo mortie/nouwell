@@ -3,10 +3,32 @@ window.q = function(str, elem)
 	if (str)
 		return new QElementList((elem || document).querySelectorAll(str));
 	else
-		return new QElement(document);
+		return new QElement(window);
 }
 
 window.q.caches = {};
+
+window.q.ajax = function(method, url, content, cb)
+{
+	var xhr = new XMLHttpRequest();
+	xhr.open(method, url);
+	xhr.send(content);
+
+	xhr.onload = function()
+	{
+		cb(xhr.responseText);
+	}
+}
+
+window.q.get = function(url, cb)
+{
+	window.q.ajax("get", url, "", cb);
+}
+
+window.q.post = function(url, content, cb)
+{
+	window.q.ajax("post", url, content, cb);
+}
 
 window.q.widgetify = function(name, cb)
 {
@@ -17,7 +39,7 @@ window.q.widgetify = function(name, cb)
 	{
 		caches.widgets = {};
 
-		var widgets = document.querySelectorAll("x-widget");
+		var widgets = document.getElementsByTagName("x-widget");
 		for (var i in widgets)
 		{
 			var w = widgets[i];
