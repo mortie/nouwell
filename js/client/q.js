@@ -1,6 +1,42 @@
 window.q = function(str, elem)
 {
-	new QElementList((elem || document).querySelectorAll(str));
+	if (str)
+		return new QElementList((elem || document).querySelectorAll(str));
+	else
+		return new QElement(document);
+}
+
+window.q.caches = {};
+
+window.q.widgetify = function(name, cb)
+{
+	caches = window.q.caches;
+
+	//get widgets and cache them if they aren't yet
+	if (!caches.widgets)
+	{
+		caches.widgets = {};
+
+		var widgets = document.querySelectorAll("x-widget");
+		for (var i in widgets)
+		{
+			var w = widgets[i];
+			if (!caches.widgets[w.className])
+				caches.widgets[w.className] = [];
+
+			caches.widgets[w.className].push(w);
+		}
+	}
+
+	caches.widgets[name].forEach(function(w)
+	{
+		vals = w.innerHTML.split(/\s+/g).map(function(v)
+		{
+			return v.trim();
+		});
+
+		cb(w, vals);
+	});
 }
 
 var QElement = function(element)

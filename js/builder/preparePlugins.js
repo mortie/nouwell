@@ -36,7 +36,7 @@ function preparePlugin(plugin, self, cb)
 	{
 		fs.mkdir(pluginDirOut, function(err)
 		{
-			if (err.code !== "EEXIST")
+			if (err.code && err.code !== "EEXIST")
 				self.logger.error("Couldn't create plugin dir.", err);
 
 			files.forEach(function(file)
@@ -55,5 +55,4 @@ function preparePlugin(plugin, self, cb)
 			--self.cbs;
 		});
 	});
-	console.log(plugin);
 }

@@ -12,7 +12,8 @@ var dirs =
 	"{outDir}/_img",
 	"{outDir}/_plugins",
 	"{themeDir}",
-	"{adminDir}"
+	"{adminDir}",
+	"{pluginDir}"
 ];
 
 module.exports = function(cb)
@@ -25,7 +26,8 @@ module.exports = function(cb)
 		//replace placeholders
 		var path = dir.split("{outDir}").join(self.outDir)
 		              .split("{themeDir}").join(self.themeDir)
-		              .split("{adminDir}").join(self.adminDir);
+		              .split("{adminDir}").join(self.adminDir)
+		              .split("{pluginDir}").join(self.pluginDir);
 
 		//create directory
 		try

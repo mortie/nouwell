@@ -150,7 +150,7 @@ function compile(from, self, cb, prefix, postfix)
 
 	fs.readdir(from, function(err, files)
 	{
-		self.logger.error("Couldn't read theme dir.", err);
+		self.logger.error("Couldn't read directory.", err);
 
 		files.sort(function(a, b)
 		{
