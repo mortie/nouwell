@@ -25,6 +25,7 @@
 		["Entries", [], "entries"],
 		["Media", "media"],
 		["Settings", "settings"],
+		["Plugins", "plugins"],
 		["Build", "build"],
 		["Update", "update"],
 		["Log Out", "logout"]

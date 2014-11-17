@@ -19,7 +19,6 @@
 
 	window.Router.prototype =
 	{
-
 		get path()
 		{
 			return location.hash.substring(1);
