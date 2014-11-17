@@ -150,6 +150,13 @@ function compile(from, self, cb, prefix, postfix)
 
 	fs.readdir(from, function(err, files)
 	{
+		if (err && err.code == "ENOENT")
+		{
+			self.logger.notice("Plugin dir "+from+" doesn't exist.");
+			cb();
+			return;
+		}
+
 		self.logger.error("Couldn't read directory.", err);
 
 		files.sort(function(a, b)
