@@ -38,7 +38,7 @@ Repeat step 3 every time you make any changes. It may be a good idea to make a s
 Please note that your web support will likely need to support PHP (with the JSON module) in order to support plugins. Even if your web host supports PHP, you may encounter some plugins which don't work.
 
 ## Legal
-All the files in this repository, with a few exceptions, are copyrighted by me, Martin Dørum Nygaard, and licensed under the GNG GPL V2.
+All the files in this repository, with a few exceptions, are copyrighted by me, Martin Dørum Nygaard, and licensed under the GNU GPL V2.
 
 The exceptions are:
 
