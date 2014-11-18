@@ -29,7 +29,7 @@ git clone https://github.com/mortie/siteBuilder
 ### On a limited web host
 Because siteBuilder generates a directory structure with static HTML files, it can be made to work with even the most limited of web hosts.
 
-1. Set up siteBuilder on a computer (be it your personal one or a VPS or physical server you have access to) according to [the "On a private server" instructions](#on-a-private-server-or-computer).
+1. Set up siteBuilder on a computer (be it your personal one or a VPS or physical server you have access to) according to [the "On a private server" instructions](https://github.com/mortie/siteBuilder#on-a-private-server-or-computer).
 
 2. Make the desired changes.
 
