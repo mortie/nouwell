@@ -17,8 +17,20 @@
 	margin-bottom: 10px;
 }
 
+#panel .link
+{
+	display: inline;
+}
+#panel .link:hover
+{
+	text-decoration: underline;
+	cursor: pointer;
+	cursor: hand;
+}
+
 #panel.new,
-#panel.entries.edit
+#panel.entries.edit,
+#panel.plugins.edit
 {
 	width: 100%;
 }
@@ -27,17 +39,6 @@
 #panel.entries.edit #title
 {
 	width: 100%;
-}
-
-#panel.entries .entry .name
-{
-	display: inline;
-}
-#panel.entries .entry .name:hover
-{
-	text-decoration: underline;
-	cursor: pointer;
-	cursor: hand;
 }
 
 #panel.media .entries
@@ -167,6 +168,15 @@
 #panel.pages .entry .delete:hover
 {
 	background-color: #f11;
+}
+
+#panel.plugins .conf
+{
+	width: 100%;
+	width: calc(100% - 10px);
+	border-width: 1px;
+	padding: 4px;
+	height: 450px;
 }
 
 #panel.settings .entries .thumbnail

@@ -1,33 +1,107 @@
 router.addPanel("plugins", function(args)
 {
-	var async = new lib.Async(2, draw);
+	if (args[1] == "edit")
+		edit();
+	else
+		list();
 
-	var plugins = [];
-
-	lib.template.load(["plugins", "pluginEntry"], async);
-
-	lib.callAPI("getPlugins", {}, function(res)
+	function edit()
 	{
-		plugins = res.plugins;
-		async();
-	});
+		var async = new lib.Async(2, draw);
 
-	function draw()
-	{
-		router.ready();
+		console.log(draw.toString());
 
-		var pluginEntries = "";
-		plugins.forEach(function(plugin)
+		var conf = "";
+
+		lib.template.load(["pluginConfEdit"], async);
+
+		lib.callAPI("getPluginConf",
 		{
-			pluginEntries += lib.template("pluginEntry",
+			"plugin": args[2]
+		}, function(res)
+		{
+			conf = res.conf;
+			console.log(res);
+			async();
+		});
+
+		function draw()
+		{
+			router.ready();
+
+			lib.template("pluginConfEdit",
 			{
-				"name": plugin
-			}, false);
+				"conf": conf
+			});
+
+			gui.onEditAndPause(".conf", function(element)
+			{
+				lib.callAPI("updatePluginConf",
+				{
+					"conf": element.value,
+					"plugin": args[2]
+				});
+			});
+
+			//handle tab key
+			gui.on(".conf", "keydown", function(element, e)
+			{
+				if (e.keyCode == 9)
+				{
+					var start = element.selectionStart;
+					var end = element.selectionEnd;
+
+					element.value = element.value.substring(0, start)+
+					                "\t"+
+					                element.value.substring(end);
+
+					element.selectionStart = element.selectionEnd = start + 1;
+
+					e.preventDefault();
+				}
+			});
+		}
+	}
+
+	function list()
+	{
+		var async = new lib.Async(2, draw);
+
+		var plugins = [];
+
+		lib.template.load(["plugins", "pluginEntry"], async);
+
+		lib.callAPI("getPlugins", {}, function(res)
+		{
+			plugins = res.plugins;
+			async();
 		});
 
-		lib.template("plugins",
+		function draw()
 		{
-			"entries": pluginEntries
-		});
+			router.ready();
+
+			var pluginEntries = "";
+			plugins.forEach(function(plugin)
+			{
+				pluginEntries += lib.template("pluginEntry",
+				{
+					"name": plugin
+				}, false);
+			});
+
+			if (pluginEntries == "")
+				pluginEntries = "You have no plugins.";
+
+			lib.template("plugins",
+			{
+				"entries": pluginEntries
+			});
+
+			gui.on(".entry .name", "click", function(element)
+			{
+				router.path = "plugins/edit/"+element.getAttribute("data-name");
+			});
+		}
 	}
 });

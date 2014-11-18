@@ -22,8 +22,8 @@
 					str = str.split("{"+i+"}").join(args[i]);
 			}
 
-			//remove arguments which aren't provided
-			var str = str.replace(/\{[a-zA-Z0-9]+\}/g, "");
+			//strip unused args
+			str = str.replace(/\{[a-zA-Z0-9]+\}/g, "");
 
 			if (element && modifyElement !== false)
 				element.innerHTML += str;
