@@ -10,7 +10,7 @@ siteBuilder has the following dependencies:
 
 	* PHP 5 (including the MySQL and JSON modules)
 	* Node.js
-	* Some web server
+	* Some web server (Apache, NGINX, etc.)
 	* MySQL
 
 1. Clone this repository into a directory (henceforth referred to as `{installDir}`) that is **not accessible** from the web server:
