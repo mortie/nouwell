@@ -21,6 +21,8 @@ foreach ($properties as $property)
 }
 $keys = substr($keys, 0, -2);
 
+if (!isset($keys)) fail();
+
 $vals = "";
 foreach ($properties as $property)
 {
@@ -31,6 +33,8 @@ foreach ($properties as $property)
 	}
 }
 $vals = substr($vals, 0, -2);
+
+if (!isset($vals)) fail();
 
 $query = "INSERT INTO entries ($keys) VALUES ($vals)";
 
