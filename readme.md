@@ -8,17 +8,15 @@ siteBuilder is a free (both as in beer and as in speech) content management syst
 ### On a private server or computer
 siteBuilder has the following dependencies:
 
-	* PHP 5 (including the MySQL and JSON modules)
+    * PHP 5 (including the MySQL and JSON modules)
 	* Node.js
 	* Some web server (Apache, NGINX, etc.)
 	* MySQL
 
 1. Clone this repository into a directory (henceforth referred to as `{installDir}`) that is **not accessible** from the web server:
 
-```
-cd {installDir}
-git clone https://github.com/mortie/siteBuilder
-```
+        cd {installDir}
+        git clone https://github.com/mortie/siteBuilder.git
 
 2. Edit the configuration file (`{installDir}/conf.json`}, and set the values in `sql` and the `adminPassword` appropriately.
 
