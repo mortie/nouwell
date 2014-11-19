@@ -2,6 +2,9 @@
 if (!$calledCorrectly) die();
 requireToken();
 
+if (!isset($args->key)) fail();
+if (!isset($args->val)) fail();
+
 $key = $args->key;
 $val = $args->val;
 

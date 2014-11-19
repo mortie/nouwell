@@ -2,6 +2,9 @@
 if (!$calledCorrectly) die();
 requireToken();
 
+if (!isset($args->title)) fail();
+if (!isset($args->slug)) fail();
+
 $title = $mysqli->real_escape_string($args->title);
 $slug = $mysqli->real_escape_string($args->slug);
 $parent = $mysqli->real_escape_string($args->parent_page_id);

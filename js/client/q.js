@@ -52,12 +52,12 @@ window.q.widgetify = function(name, cb)
 
 	caches.widgets[name].forEach(function(w)
 	{
-		vals = w.innerHTML.split(/\s+/g).map(function(v)
+		vals = w.innerHTML.split(/\,/g).map(function(v)
 		{
 			return v.trim();
 		});
 
-		cb(w, vals);
+		cb(new QElementList([w]), vals);
 	});
 }
 
@@ -84,10 +84,10 @@ QElement.prototype =
 				shouldTap = false;
 			}, false);
 
-			this.element.addEventListener("touchend", function()
+			this.element.addEventListener("touchend", function(e)
 			{
 				if (shouldTap)
-					cb()
+					cb(e)
 			}, false);
 		}
 		else
@@ -111,11 +111,6 @@ QElement.prototype =
 		this.element[key] = val;
 	},
 
-	"add": function(key, val)
-	{
-		this.element[key] += val;
-	},
-
 	"data": function(key, val)
 	{
 		if (val === undefined)
@@ -132,9 +127,9 @@ QElement.prototype =
 var QElementList = function(elementList)
 {
 	this.elements = [];
-	for (element in elementList)
+	for (var i in elementList)
 	{
-		this.elements.push(new QElement(element));
+		this.elements.push(new QElement(elementList[i]));
 	}
 }
 
@@ -163,11 +158,6 @@ QElementList.prototype =
 	"set": function(key, val)
 	{
 		this.elements.forEach(function(element){ element.set(key, val) });
-	},
-
-	"add": function(key, val)
-	{
-		this.elements.forEach(function(element){ element.add(key, val) });
 	},
 
 	"data": function(key, val)

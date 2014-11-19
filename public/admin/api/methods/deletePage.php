@@ -2,6 +2,8 @@
 if (!$calledCorrectly) die();
 requireToken();
 
+if (!isset($args->id)) fail();
+
 $id = $mysqli->real_escape_string($args->id);
 
 $entriesInPage = $mysqli->query("SELECT id FROM entries WHERE page_id=$id")->fetch_assoc();

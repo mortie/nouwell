@@ -2,6 +2,8 @@
 if (!$calledCorrectly) die();
 requireToken();
 
+if (!isset($args->page_id)) fail();
+
 $page_id = $mysqli->real_escape_string($args->page_id);
 $entries = $mysqli->query("SELECT id, title, sort ".
                           "FROM entries ".

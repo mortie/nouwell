@@ -1,6 +1,8 @@
 <?php
 if (!$calledCorrectly) die();
 
+if (!isset($args->password)) fail();
+
 //wrong password
 if (empty($conf->adminPassword) || $conf->adminPassword !== $args->password)
 {
