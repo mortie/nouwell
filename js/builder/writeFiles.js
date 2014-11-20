@@ -49,9 +49,9 @@ function buildMenu(page, child, self)
 			else
 				var current = "";
 
-			dropdown += self.template("menuEntryDropdown",
+			dropdown += self.template("menuPageDropdown",
 			{
-				"slug": cPage.slug+"/"+cChild.slug,
+				"url": cPage.slug+"/"+cChild.slug,
 				"title": cChild.title,
 				"current": current
 			});
@@ -62,9 +62,9 @@ function buildMenu(page, child, self)
 		else
 			var current = "";
 
-		menuEntries += self.template("menuEntry",
+		menuEntries += self.template("menuPage",
 		{
-			"slug": cPage.slug,
+			"url": cPage.slug,
 			"title": cPage.title,
 			"dropdown": dropdown,
 			"current": current
@@ -73,7 +73,7 @@ function buildMenu(page, child, self)
 
 	return self.template("menu",
 	{
-		"entries": menuEntries,
+		"pages": menuEntries,
 		"headerImage": self.headerImage || ""
 	});
 }
@@ -87,7 +87,7 @@ function buildPage(dirPath, page, menu, self, first)
 		if (url[0] === "/") url = url.substring(1);
 
 		self.logger.info("Building "+entry.title+"...");
-		var e = self.template("entry",
+		var e = self.template("post",
 		{
 			"url": url,
 			"title": entry.title,
@@ -99,7 +99,7 @@ function buildPage(dirPath, page, menu, self, first)
 		var p = self.template("index",
 		{
 			"menu": menu,
-			"entries": e,
+			"posts": e,
 			"postTitle": entry.title,
 			"siteTitle": self.title,
 			"favicon": self.favicon || ""
@@ -111,7 +111,7 @@ function buildPage(dirPath, page, menu, self, first)
 	var p = self.template("index",
 	{
 		"menu": menu,
-		"entries": entries,
+		"posts": entries,
 		"postTitle": page.title,
 		"siteTitle": self.title
 	}, false);
