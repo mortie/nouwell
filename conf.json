@@ -1,5 +1,5 @@
 {
-    "title": "Your Website",
+    "title": "Awesome Site",
     "theme": "default",
     "adminPassword": "password",
     "log": [
@@ -13,14 +13,8 @@
         "theme": "theme",
         "out": "public",
         "admin": "admin",
-        "plugin": "plugins"
-    },
-    "sql": {
-        "username": "root",
-        "password": "",
-        "host": "localhost",
-        "port": 3306,
-        "database": "siteBuilder"
+        "plugin": "plugins",
+        "db": "db"
     },
     "favicon": false,
     "headerImage": false

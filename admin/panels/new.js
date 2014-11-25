@@ -18,7 +18,7 @@ router.addPanel("new", function(args)
 			var html = marked(markdown);
 			var title = editor.title.value;
 			
-			lib.callAPI("addEntry",
+			lib.callAPI("addPost",
 			{
 				"title": title,
 				"raw": markdown,
@@ -30,7 +30,7 @@ router.addPanel("new", function(args)
 			function(result)
 			{
 				console.log(result);
-				router.path = "entries/edit/"+result.id;
+				router.path = "posts/edit/"+result.id;
 			});
 		}
 	}

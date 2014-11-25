@@ -6,10 +6,8 @@ module.exports = function(cb)
 	var self = this;
 
 	++self.cbs
-	self.db.query("getMedia", function(err, result)
+	self.db.getMedia(function(err, result)
 	{
-		self.logger.error("Couldn't get media!", err);
-
 		result.forEach(function(media)
 		{
 			var fileName = path.join(
@@ -20,11 +18,12 @@ module.exports = function(cb)
 
 			self.logger.info("Writing media file '"+media.title+"'...");
 
-			++self.cbs;
-			fs.writeFile(fileName, media.content, function(err)
-			{
-				self.logger.error("Coludn't write media file!", err);
+			var writeStream = fs.createWriteStream(fileName);
+			media.readStream.pipe(writeStream);
 
+			++self.cbs;
+			media.readStream.on("end", function()
+			{
 				--self.cbs;
 			});
 		});

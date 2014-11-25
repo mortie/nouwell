@@ -36,6 +36,7 @@
 				console.log(result);
 				return;
 			}
+
 			var entries = "";
 			result.media.forEach(function(entry)
 			{

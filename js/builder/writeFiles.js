@@ -38,7 +38,7 @@ module.exports = function(cb)
 
 function buildMenu(page, child, self)
 {
-	var menuEntries = "";
+	var menuPages = "";
 	self.tree.forEach(function(cPage)
 	{
 		var dropdown = "";
@@ -62,7 +62,7 @@ function buildMenu(page, child, self)
 		else
 			var current = "";
 
-		menuEntries += self.template("menuPage",
+		menuPages += self.template("menuPage",
 		{
 			"url": cPage.slug,
 			"title": cPage.title,
@@ -73,45 +73,45 @@ function buildMenu(page, child, self)
 
 	return self.template("menu",
 	{
-		"pages": menuEntries,
+		"pages": menuPages,
 		"headerImage": self.headerImage || ""
 	});
 }
 
 function buildPage(dirPath, page, menu, self, first)
 {
-	var entries = "";
-	page.entries.forEach(function(entry)
+	var posts = "";
+	page.posts.forEach(function(post)
 	{
-		var url = dirPath+"/"+entry.slug;
+		var url = dirPath+"/"+post.slug;
 		if (url[0] === "/") url = url.substring(1);
 
-		self.logger.info("Building "+entry.title+"...");
+		self.logger.info("Building "+post.title+"...");
 		var e = self.template("post",
 		{
 			"url": url,
-			"title": entry.title,
-			"content": entry.html
+			"title": post.title,
+			"content": post.html
 		});
 
-		entries += e;
+		posts += e;
 
 		var p = self.template("index",
 		{
 			"menu": menu,
 			"posts": e,
-			"postTitle": entry.title,
+			"postTitle": post.title,
 			"siteTitle": self.title,
 			"favicon": self.favicon || ""
 		}, false);
 
-		write(dirPath+"/"+entry.slug, p, self);
+		write(dirPath+"/"+post.slug, p, self);
 	});
 
 	var p = self.template("index",
 	{
 		"menu": menu,
-		"posts": entries,
+		"posts": posts,
 		"postTitle": page.title,
 		"siteTitle": self.title
 	}, false);

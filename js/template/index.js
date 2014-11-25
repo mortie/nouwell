@@ -17,6 +17,9 @@ module.exports = function(conf)
 			str = str.split("{"+i+"}").join(args[i]);
 		}
 
+		//strip out non-existing args
+		str = str.replace(/\{[a-zA-Z0-9]+\}/g, "");
+
 		return str;
 	}
 }

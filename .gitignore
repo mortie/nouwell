@@ -10,6 +10,7 @@ templates/*
 !templates/default
 
 plugins/*
+db/*
 
 adminTokens
 

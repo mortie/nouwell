@@ -1,75 +1,125 @@
 var fs = require("fs");
-var mysql = require("mysql");
+var path = require("path");
 
-module.exports = function(conf)
+function Async(times, cb)
 {
-	//create connection and connect
-	this._conn = mysql.createConnection(
-	{
-		"host": conf.host,
-		"port": conf.port,
-		"user": conf.username,
-		"password": conf.password,
-		"multipleStatements": true,
-		"charset": "utf8_unicode_ci"
-	});
-	this._conn.connect();
+	if (times == 0)
+		cb();
 
-	this._caches = {};
-	this._templatesPath = __dirname+"/templates/";
+	return function()
+	{
+		--times;
+		if (times == 0)
+			cb();
+	}
+}
+
+module.exports = function(dir)
+{
+	this.dir = dir;
+	this.Async = Async;
 }
 
 module.exports.prototype =
 {
-	"_query": function()
+	"addPage": require("./addPage.js"),
+	"getPosts": require("./getPosts.js"),
+	"getMedia": require("./getMedia.js"),
+	"getPages": require("./getPages.js"),
+	"setup": require("./setup.js"),
+
+	"pushFile": function(dir, content, cb)
 	{
-		//interpret arguments
-		var shouldEscape = arguments[0];
-		var name = arguments[1];
-		if (arguments[3] === undefined)
-		{
-			var args = false;
-			var cb = arguments[2];
-		}
-		else
-		{
-			var args = arguments[2];
-			var cb = arguments[3];
-		}
+		var self = this;
 
-		var str = this._caches[name];
-
-		if (str === undefined)
+		fs.readdir(path.join(self.dir, dir), function(err, files)
 		{
-			str = fs.readFileSync(this._templatesPath+name+".sql", "utf8");
-			this._caches[name] = str;
-		}
-
-		if (args)
-		{
-			var i;
-			if (shouldEscape)
+			if (err)
 			{
-				for (i in args)
-					str = str.split("{"+i+"}").join(this._conn.escape(args[i]));
+				cb(err);
+				return;
 			}
-			else
-			{
-				for (i in args)
-					str = str.split("{"+i+"}").join(args[i]);
-			}
-		}
 
-		this._conn.query(str, cb);
+			files = files.sort(function(x, y)
+			{
+				return parseInt(x) > parseInt(y) ? -1 : 1;
+			});
+
+			var index = ((files[0] || 0)+1).toString();
+
+			fs.writeFile(path.join(self.dir, dir, index), content, cb);
+		});
 	},
 
-	"query": function()
+	"getFiles": function(dir, cb)
 	{
-		this._query(true, arguments[0], arguments[1], arguments[2]);
+		var self = this;
+
+		fs.readdir(path.join(self.dir, dir), function(err, files)
+		{
+			if (err)
+			{
+				cb(err);
+				return;
+			}
+
+			var contents = [];
+
+			var async = new Async(files.length, function()
+			{
+				contents.sort(function(x, y)
+				{
+					return x.id > y.id ? 1 : -1;
+				});
+
+				cb(undefined, contents || []);
+			});
+
+			files.forEach(function(file)
+			{
+				var fileName = path.join(self.dir, dir, file);
+
+				fs.readFile(fileName, "utf8", function(err, content)
+				{
+					if (err)
+					{
+						cb(err);
+						return;
+					}
+
+					var content = JSON.parse(content);
+					content.id = file;
+
+					contents.push(content);
+
+					async();
+				});
+			});
+		});
 	},
-	
-	"queryNoEscape": function()
+
+	"getBlobs": function(dir, cb)
 	{
-		this._query(false, arguments[0], arguments[1], arguments[2]);
+		var blobDir = path.join(this.dir, dir+".blob");
+
+		this.getFiles(dir, function(err, blobs)
+		{
+			if (err)
+			{
+				cb(err);
+				return;
+			}
+
+			var async = new Async(blobs.length, function()
+			{
+				cb(undefined, blobs);
+			});
+
+			blobs.forEach(function(blob)
+			{
+				blob.readStream = fs.createReadStream(path.join(blobDir, blob.id));
+				async();
+			});
+		});
 	}
 }

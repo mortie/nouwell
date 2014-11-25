@@ -8,21 +8,20 @@ $fileNameParts = pathinfo($file['name']);
 $tmpName = $file['tmp_name'];
 $size = $file['size'];
 
-$type = $mysqli->real_escape_string($file['type']);
-$title = $mysqli->real_escape_string($fileNameParts['filename']);
-$extension = $mysqli->real_escape_string($fileNameParts['extension']);
+$type = $file['type'];
+$title = $fileNameParts['filename'];
+$extension = $fileNameParts['extension'];
+$content = file_get_contents($tmpName);
 
-$rawContent = file_get_contents($tmpName);
-$content = $mysqli->real_escape_string($rawContent);
+$id = $db->pushBlob("media", $content,
+[
+	"title"=>$title,
+	"type"=>$type,
+	"extension"=>$extension
+]);
 
-$mysqli->query("INSERT INTO media (title, type, content, extension) ".
-               "VALUES ('$title', '$type', '$content', '$extension')");
-
-$id = $mysqli->insert_id;
 $publicDir = $conf->dir->out;
-
-
-file_put_contents("$root/$publicDir/_media/$id.$extension", $rawContent);
+file_put_contents("$root/$publicDir/_media/$id.$extension", $content);
 
 succeed(
 [

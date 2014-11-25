@@ -29,14 +29,14 @@
 }
 
 #panel.new,
-#panel.entries.edit,
+#panel.posts.edit,
 #panel.plugins.edit
 {
 	width: 100%;
 }
 
 #panel.new #title,
-#panel.entries.edit #title
+#panel.posts.edit #title
 {
 	width: 100%;
 }

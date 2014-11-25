@@ -36,30 +36,10 @@ catch (err)
 logger.log = conf.log;
 logger.dir = conf.dir.log;
 
-//connect to mysql database
-try
-{
-	db = new Database(
-	{
-		"username": conf.sql.username,
-		"password": conf.sql.password,
-		"host": conf.sql.host,
-		"port": conf.sql.port
-	});
-}
-catch (err)
-{
-	logger.error("Couldn't connect to database.", err);
-}
+var db = new Database(conf.dir.db);
 
-db.queryNoEscape("setup",
+db.setup(function()
 {
-	"db": conf.sql.database
-},
-function(err)
-{
-	logger.error("Database error.", err);
-
 	templateDir = path.join(conf.dir.theme, conf.theme, "html");
 
 	template = new Template(

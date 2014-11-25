@@ -22,7 +22,7 @@
 		["Home", "/"],
 		["Pages", "pages"],
 		["New", [], "new"],
-		["Entries", [], "entries"],
+		["Posts", [], "posts"],
 		["Media", "media"],
 		["Settings", "settings"],
 		["Plugins", "plugins"],
@@ -56,7 +56,6 @@
 				drawWithoutDropdown(panel);
 			else
 				drawWithDropdown(panel);
-			
 		});
 	}
 

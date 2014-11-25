@@ -5,21 +5,19 @@ module.exports = function(cb)
 	var callbacks = 2;
 
 	var pages;
-	var entries;
+	var posts;
 
-	self.db.query("getPages", function(err, result)
+	self.db.getPages(function(err, result)
 	{
-		self.logger.error("Could not fetch pages.", err);
 		pages = result;
 
 		--callbacks;
 		if (callbacks === 0) build();
 	});
 
-	self.db.query("getEntries", function(err, result)
+	self.db.getPosts(function(err, result)
 	{
-		self.logger.error("Could not fetch entries.", err);
-		entries = result;
+		posts = result;
 
 		--callbacks;
 		if (callbacks === 0) build();
@@ -44,7 +42,6 @@ module.exports = function(cb)
 		{
 			if (page.parent_page_id)
 			{
-				preparePage(page);
 				tree[page.parent_page_id].children.push(page);
 			}
 		});
@@ -63,12 +60,12 @@ module.exports = function(cb)
 	function preparePage(page)
 	{
 		page.children = [];
-		page.entries = [];
+		page.posts = [];
 
-		entries.forEach(function(entry)
+		posts.forEach(function(post)
 		{
-			if (entry.page_id === page.id)
-				page.entries.push(entry);
+			if (post.page_id === page.id)
+				page.posts.push(post);
 		});
 	}
 }

@@ -1,4 +1,5 @@
 <?php
+require("db.php");
 
 //get requested page, or die trying
 if (!empty($_GET['form']))
@@ -31,15 +32,8 @@ $root = "../../..";
 //configuration file
 $conf = json_decode(file_get_contents("$root/conf.json"));
 
-//mysql connection
-$mysqli = new mysqli(
-	$conf->sql->host,
-	$conf->sql->username,
-	$conf->sql->password,
-	$conf->sql->database,
-	$conf->sql->port
-);
-$mysqli->set_charset("utf8");
+//database
+$db = new Database("$root/".$conf->dir->db);
 
 //check whether token is valid
 function verifyToken($token=false)
@@ -71,6 +65,7 @@ function fail($err="")
 	$arr = [];
 	$arr['success'] = false;
 	$arr['error'] = $err;
+
 	die(json_encode($arr));
 }
 
