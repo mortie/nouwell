@@ -22,10 +22,6 @@ module.exports = function(dir)
 
 module.exports.prototype =
 {
-	"addPage": require("./addPage.js"),
-	"getPosts": require("./getPosts.js"),
-	"getMedia": require("./getMedia.js"),
-	"getPages": require("./getPages.js"),
 	"setup": require("./setup.js"),
 
 	"pushFile": function(dir, content, cb)

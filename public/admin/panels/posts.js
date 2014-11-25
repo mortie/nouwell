@@ -11,7 +11,7 @@ router.addPanel("posts", function(args)
 
 		var async = new lib.Async(2, draw);
 
-		lib.template.load(["posts", "post"], async);
+		lib.template.load(["posts", "postsEntry"], async);
 
 		lib.callAPI("getPosts",
 		{
@@ -36,7 +36,7 @@ router.addPanel("posts", function(args)
 				var postsStr = "";
 				posts.forEach(function(post)
 				{
-					postsStr += lib.template("post", post, false);
+					postsStr += lib.template("postsEntry", post, false);
 				});
 			}
 

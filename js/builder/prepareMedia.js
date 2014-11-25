@@ -6,7 +6,7 @@ module.exports = function(cb)
 	var self = this;
 
 	++self.cbs
-	self.db.getMedia(function(err, result)
+	self.db.getBlobs("media", function(err, result)
 	{
 		result.forEach(function(media)
 		{

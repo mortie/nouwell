@@ -7,7 +7,7 @@ module.exports = function(cb)
 	var pages;
 	var posts;
 
-	self.db.getPages(function(err, result)
+	self.db.getFiles("pages", function(err, result)
 	{
 		pages = result;
 
@@ -15,9 +15,11 @@ module.exports = function(cb)
 		if (callbacks === 0) build();
 	});
 
-	self.db.getPosts(function(err, result)
+	self.db.getFiles("posts", function(err, result)
 	{
 		posts = result;
+
+		console.log(result);
 
 		--callbacks;
 		if (callbacks === 0) build();
