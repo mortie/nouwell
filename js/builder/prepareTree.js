@@ -19,8 +19,6 @@ module.exports = function(cb)
 	{
 		posts = result;
 
-		console.log(result);
-
 		--callbacks;
 		if (callbacks === 0) build();
 	});
@@ -66,7 +64,7 @@ module.exports = function(cb)
 
 		posts.forEach(function(post)
 		{
-			if (post.page_id === page.id)
+			if (post.page_id == page.id)
 				page.posts.push(post);
 		});
 	}
