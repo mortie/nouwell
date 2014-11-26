@@ -9,7 +9,7 @@ $db->pushFile("pages",
 [
 	"title"=>$args->title,
 	"slug"=>$args->slug,
-	"parent_page_id"=>$args->parent
+	"parent_page_id"=>$args->parent_page_id
 ]);
 
 succeed();
