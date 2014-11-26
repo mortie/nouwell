@@ -30,11 +30,9 @@ module.exports = function(cb)
 		//prepare parents
 		pages.forEach(function(page)
 		{
+			preparePage(page);
 			if (!page.parent_page_id)
-			{
-				preparePage(page);
 				tree[page.id] = page;
-			}
 		});
 
 		//prepare children
