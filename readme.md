@@ -8,17 +8,16 @@ Nouwell is a free (both as in beer and as in speech) content management system. 
 ### On a private server or computer
 Nouwell has the following dependencies:
 
-    * PHP 5 (including the MySQL and JSON modules)
+    * PHP 5 (including the JSON module)
 	* Node.js
 	* Some web server (Apache, NGINX, etc.)
-	* MySQL
 
 1. Clone this repository into a directory (henceforth referred to as `installDir`) that is **not accessible** from the web server:
 
         cd installDir
         git clone https://github.com/mortie/nouwell.git
 
-2. Edit the configuration file (`installDir/conf.json`}, and set the values in `sql` and the `adminPassword` appropriately.
+2. Edit the configuration file (`installDir/conf.json`}, and set `adminPassword` to the desired administration password.
 
 3. Set your web server's web root to `installDir/public/`. I suggest using [Apache VirtualHost](https://httpd.apache.org/docs/2.2/vhosts/index.html) or similar if you want to host more websites than one Nouwell instance on the same physical server. Just make sure `installDir/public/` is a web root, and that `installDir` is **not** accessible from the outside.
 
