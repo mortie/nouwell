@@ -43,7 +43,7 @@ module.exports.prototype =
 
 			var index = ((files[0] || 0)+1).toString();
 
-			fs.writeFile(path.join(self.dir, dir, index), content, cb);
+			fs.writeFile(path.join(self.dir, dir, index), JSON.stringify(content), cb);
 		});
 	},
 

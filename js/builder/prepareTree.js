@@ -17,7 +17,7 @@ module.exports = function(cb)
 
 	self.db.getFiles("posts", function(err, result)
 	{
-		posts = result;
+		posts = result.reverse();
 
 		--callbacks;
 		if (callbacks === 0) build();

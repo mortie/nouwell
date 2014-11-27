@@ -28,11 +28,6 @@
 			file_put_contents("$blobDir/$index", $blob);
 		}
 
-		public function rewriteFile($dir, $index, $content)
-		{
-			file_put_contents("$this->dir/$dir/$index", json_encode($content));
-		}
-
 		public function updateFile($dir, $index, $content)
 		{
 			$fileName = "$this->dir/$dir/$index";
@@ -44,6 +39,12 @@
 			}
 
 			file_put_contents($fileName, json_encode($original));
+		}
+
+		public function rewriteFile($dir, $index, $content)
+		{
+			$fileName = "$this->dir/$dir/$index";
+			file_put_contents($fileName, json_encode($content));
 		}
 
 		public function getFiles($dir)

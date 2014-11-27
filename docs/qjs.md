@@ -1,15 +1,18 @@
 # q.js
 
-## Element Interaction
+## q([string [, parent]])
 q.js is a handy library for creators of themes and plugins. Think of it as a glorified document.querySelectorAll. This for example would return all elements with the class "myclass" with a parent whose ID is "myid":
 
 ```
 q("#myid .myclass");
 ```
 
-If no query string is provided, it will return the `window` object.
+If no query string is provided, it will return the `window` object. If both a query string is provided as the first argument and another element is provided as the second argument, q.js will limit the query to the children of the element in the second argument:
 
-Now that we have the elements, we can start doing things with them.
+```
+var root = q("#myid");
+q(".myClass", root);
+```
 
 ### .on(event, callback(event))
 The `.on` method allows us to add event listeners to objects, like so:

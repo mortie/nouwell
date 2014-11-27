@@ -1,7 +1,7 @@
 window.q = function(str, elem)
 {
 	if (str)
-		return new QElementList((elem || document).querySelectorAll(str));
+		return new QElementList((elem.element || document).querySelectorAll(str));
 	else
 		return new QElement(window);
 }

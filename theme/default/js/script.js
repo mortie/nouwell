@@ -1,4 +1,4 @@
-$(".readMore").on("click", function(element)
+q(".readMore").on("click", function(element)
 {
 	var article = element.parentNode;
 	var content = $(article, ".content")[0];
