@@ -4,6 +4,6 @@ requireToken();
 
 if (!isset($args->id)) fail();
 
-$db->deleteFile("media", $args->id);
+$db->deleteBlob("media", $args->id);
 
 succeed();

@@ -27,5 +27,5 @@ succeed(
 [
 	"title"=>$title,
 	"type"=>$type,
-	"extension"=>$extension,
+	"extension"=>$extension
 ]);

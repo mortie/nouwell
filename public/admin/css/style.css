@@ -48,3 +48,25 @@ html, body
 {
 	display: none;
 }
+
+.delete
+{
+	border-radius: 5px;
+	border-style: solid;
+	border-color: black;
+
+	color: white;
+	background-color: #b11;
+
+	font-weight: bold;
+	text-align: center;
+	vertical-align: middle;
+
+	cursor: pointer;
+	cursor: hand;
+}
+
+.delete:hover
+{
+	background-color: #f11;
+}

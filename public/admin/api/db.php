@@ -32,6 +32,8 @@ class Database
 			mkdir($blobDir);
 
 		file_put_contents("$blobDir/$index", $blob);
+
+		return $index;
 	}
 
 	public function updateFile($dir, $index, $content)
@@ -85,5 +87,11 @@ class Database
 	public function deleteFile($dir, $index)
 	{
 		unlink("$this->dir/$dir/$index");
+	}
+
+	public function deleteBlob($dir, $index)
+	{
+		$this->deleteFile($dir, $index);
+		unlink("$this->dir/$dir.blob/$index");
 	}
 }
