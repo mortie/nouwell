@@ -16,7 +16,8 @@ $id = $db->pushFile("posts",
 	"html"=>$args->html,
 	"raw"=>$args->raw,
 	"date_seconds"=>$args->date_seconds,
-	"page_id"=>$args->page_id
+	"page_id"=>$args->page_id,
+	"sort"=>null
 ]);
 
 succeed(

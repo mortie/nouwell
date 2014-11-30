@@ -11,15 +11,15 @@ q(".readMore").on("click", function(element)
 	}, 2000);
 });
 
-var posts = $(".entry .content");
+var posts = q(".entry .content");
 
 posts.forEach(function(element)
 {
-	if (element.offsetHeight < 300 || posts.length <= 1)
+	if (element.get("offsetHeight") < 300 || posts.length <= 1)
 	{
-		element.parentNode.className += " expanded";
+		element.get("parentNode").className += " expanded";
 
 		//hack for safari
-		element.style.minHeight = element.offsetHeight+"px";
+		element.get("style").minHeight = element.get("offsetHeight")+"px";
 	}
 });

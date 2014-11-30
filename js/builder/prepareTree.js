@@ -18,6 +18,10 @@ module.exports = function(cb)
 	self.db.getFiles("posts", function(err, result)
 	{
 		posts = result.reverse();
+		posts.sort(function(x, y)
+		{
+			return x.sort > y.sort ? -1 : 1;
+		});
 
 		--callbacks;
 		if (callbacks === 0) build();
@@ -48,7 +52,11 @@ module.exports = function(cb)
 		self.tree = [];
 		tree.forEach(function(page)
 		{
-			self.tree.push(tree[page.id]);
+			self.tree.push(tree[page.sort]);
+			self.tree[self.tree.length-1].children.sort(function(x, y)
+			{
+				return x.sort > y.sort ? 1 : -1;
+			});
 		});
 
 		//we're done preparing the tree!

@@ -45,6 +45,7 @@ router.addPanel("posts", function(args)
 				"posts": postsStr
 			});
 
+			//delete post on click
 			gui.on(".post .delete", "click", function(element)
 			{
 				var id = element.getAttribute("data-id");
@@ -59,11 +60,56 @@ router.addPanel("posts", function(args)
 				});
 			});
 
+			//go to post on click
 			gui.on(".post .name", "click", function(element)
 			{
 				var id = element.getAttribute("data-id");
 
 				router.path = "posts/edit/"+id;
+			});
+
+			//move post up on click
+			gui.on(".post .arrow-up", "click", function(element)
+			{
+				var id = element.getAttribute("data-id");
+				var prev = element.parentNode.parentNode.previousElementSibling;
+
+				if (!prev || !prev.getAttribute("data-id"))
+					return;
+
+				var prevId = prev.getAttribute("data-id");
+
+				lib.callAPI("swapPosts",
+				{
+					"post1": id,
+					"post2": prevId
+				}, function(result)
+				{
+					router.load();
+					nav.load();
+				});
+			});
+
+			//move post down on click
+			gui.on(".post .arrow-down", "click", function(element)
+			{
+				var id = element.getAttribute("data-id");
+				var next = element.parentNode.parentNode.nextElementSibling;
+
+				if (!next || !next.getAttribute("data-id"))
+					return;
+
+				var nextId = next.getAttribute("data-id");
+
+				lib.callAPI("swapPosts",
+				{
+					"post1": id,
+					"post2": nextId
+				}, function(result)
+				{
+					router.load();
+					nav.load();
+				});
 			});
 		}
 	};

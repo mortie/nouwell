@@ -14,6 +14,11 @@ foreach($posts as $post)
 		array_push($result, $post);
 }
 
+usort($result, function($x, $y)
+{
+	return $y->sort - $x->sort;
+});
+
 succeed(
 [
 	"posts"=>$result

@@ -55,6 +55,7 @@ router.addPanel("pages", function()
 			"entries": entries
 		});
 
+		//update page name on edit
 		gui.onEditAndPause(".entry .name", function(element)
 		{
 			var id = element.getAttribute("data-id");
@@ -75,6 +76,7 @@ router.addPanel("pages", function()
 			});
 		});
 
+		//delete page on click
 		gui.on(".entry .delete", "click", function(element)
 		{
 			var id = element.getAttribute("data-id");
@@ -88,7 +90,7 @@ router.addPanel("pages", function()
 				if (!result.success)
 				{
 					if (result.error == "EENTRIESINPAGE")
-					gui.error("Couldn't delete page because it contains entries.");
+					gui.error("Couldn't delete page because it contains posts.");
 					else if (result.error == "EHASCHILDPAGES")
 					gui.error("Coludn't delete page because it contains child pages.");
 				}
@@ -100,6 +102,51 @@ router.addPanel("pages", function()
 			});
 		});
 
+		//move page up on click
+		gui.on(".entry .arrow-up", "click", function(element)
+		{
+			var id = element.getAttribute("data-id");
+			var prev = element.parentNode.previousElementSibling;
+			
+			if (!prev || !prev.getAttribute("data-id"))
+				return;
+
+			var prevId = prev.getAttribute("data-id");
+
+			lib.callAPI("swapPages",
+			{
+				"page1": id,
+				"page2": prevId
+			}, function(result)
+			{
+				router.load();
+				nav.load();
+			});
+		});
+
+		gui.on(".entry .arrow-down", "click", function(element)
+		{
+			var id = element.getAttribute("data-id");
+			var next = element.parentNode.nextElementSibling;
+			
+			if (!next || !next.getAttribute("data-id"))
+				return;
+
+			var nextId = next.getAttribute("data-id");
+
+			lib.callAPI("swapPages",
+			{
+				"page1": id,
+				"page2": nextId
+			}, function(result)
+			{
+				router.load();
+				nav.load();
+			});
+
+		});
+
+		//add page child on click
 		gui.on(".entry .addChild", "click", function(element)
 		{
 			var id = element.getAttribute("data-id");
@@ -107,12 +154,14 @@ router.addPanel("pages", function()
 			add("New Page", id);
 		});
 
+		//ad page on click
 		gui.on("#add", "click", function(element)
 		{
 			var inputElement = document.getElementById("new");
 			add(inputElement.value);
 		});
 
+		//add page on enter
 		gui.on("#new", "keypress", function(element, e)
 		{
 			if (e.keyCode === 13)

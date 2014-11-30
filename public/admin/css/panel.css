@@ -41,6 +41,21 @@
 	width: 100%;
 }
 
+#panel.posts
+{
+	width: 100%;
+}
+#panel.posts .buttons
+{
+	display: inline;
+	float: right;
+}
+
+#panel.posts .post
+{
+	margin-bottom: 10px;
+}
+
 #panel.media .entries
 {
 	margin-top: 10px;
