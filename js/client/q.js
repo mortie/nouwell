@@ -1,5 +1,6 @@
 window.q = function(str, elem)
 {
+	elem = elem || {};
 	if (str)
 		return new QElementList((elem.element || document).querySelectorAll(str));
 	else
@@ -72,22 +73,23 @@ QElement.prototype =
 	{
 		if (event == "tap")
 		{
-			shouldTap = false;
+			var startX;
+			var startY;
 
-			this.element.addEventListener("touchstart", function()
+			this.element.addEventListener("touchstart", function(e)
 			{
-				shouldTap = true;
+				startX = e.pageX;
+				startY = e.pageY;
 			}, false);
 
-			this.element.addEventListener("touchmove", function()
-			{
-				shouldTap = false;
-			}, false);
 
 			this.element.addEventListener("touchend", function(e)
 			{
-				if (shouldTap)
+				if ((Math.abs(startX - e.pageX) < 32)
+				||  (Math.abs(startY - e.pageY) < 32))
+				{
 					cb(e)
+				}
 			}, false);
 		}
 		else
@@ -127,7 +129,7 @@ QElement.prototype =
 var QElementList = function(elementList)
 {
 	this.elements = [];
-	for (var i in elementList)
+	for (var i=0; i<elementList.length; ++i)
 	{
 		this.elements.push(new QElement(elementList[i]));
 	}
@@ -171,6 +173,11 @@ QElementList.prototype =
 			else
 				return vals;
 		}
+	},
+
+	"forEach": function(cb)
+	{
+		Array.prototype.forEach.call(this.elements, cb);
 	}
 }
 

@@ -39,4 +39,19 @@
 			}
 		});
 	}
+
+	gui.on("#menu-button", "click", function(element)
+	{
+		var navElement = document.getElementById("nav");
+	
+		if (navElement.className == "active")
+			navElement.className = "";
+		else
+			navElement.className = "active";
+	});
+
+	router.on("load", function()
+	{
+		document.getElementById("nav").className = "";
+	});
 })();

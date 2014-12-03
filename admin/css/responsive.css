@@ -1,0 +1,39 @@
+@media screen and (max-width: 550px)
+{
+	#nav
+	{
+		margin-left: -115px;
+		transition: all 0.3s;
+	}
+	#nav.active
+	{
+		margin-left: 0px;
+		transition: all 0.3s;
+	}
+	#nav .arrow
+	{
+		border-right: 10px solid #fff;
+	}
+
+	#panel
+	{
+		margin-left: 5px;
+		margin-top: 5px;
+		width: 100%;
+		max-width: calc(100% - 30px);
+	}
+
+	#menu-button
+	{
+		cursor: pointer;
+		cursor: hand;
+		display: inline-block;
+		float: right;
+		position: relative;
+		z-index: 100;
+		background: url(../img/menu-button.svg);
+		margin: 15px;
+		width: 32px;
+		height: 32px;
+	}
+}

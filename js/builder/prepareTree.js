@@ -52,11 +52,17 @@ module.exports = function(cb)
 		self.tree = [];
 		tree.forEach(function(page)
 		{
-			self.tree.push(tree[page.sort]);
-			self.tree[self.tree.length-1].children.sort(function(x, y)
+			self.tree.push(tree[page.id]);
+
+			var index = self.tree.length-1;
+
+			if (self.tree[index])
 			{
-				return x.sort > y.sort ? 1 : -1;
-			});
+				self.tree[index].children.sort(function(x, y)
+				{
+					return x.sort > y.sort ? 1 : -1;
+				});
+			}
 		});
 
 		//we're done preparing the tree!

@@ -97,8 +97,30 @@
 				{
 					cb(element, e);
 				}, 500);
-			});
+			}, false);
 		})();
+	}
+
+	function onTap(element, cb)
+	{
+		var startX;
+		var startY;
+
+		element.addEventListener("touchstart", function(e)
+		{
+			startX = e.pageX;
+			startY = e.pageY;
+			e.preventDefault();
+		}, false);
+
+		element.addEventListener("touchend", function(e)
+		{
+			if ((Math.abs(startX - e.pageX) < 32)
+			&&  (Math.abs(startY - e.pageY) < 32))
+			{
+				cb(e);
+			}
+		}, false);
 	}
 
 	gui.on = function(query, event, cb)
@@ -109,10 +131,49 @@
 		for (i=0; i<elements.length; ++i) (function()
 		{
 			var element = elements[i];
-			element.addEventListener(event, function(e)
+
+			if (typeof event === "string")
 			{
-				cb(element, e);
-			});
+				addListener(element, event, cb);
+			}
+			else
+			{
+				event.forEach(function(e)
+				{
+					addListener(element, e, cb);
+				});
+			}
 		})();
+
+		function addListener(element, event, cb)
+		{
+			var shouldClick = true;
+
+			if (event === "click" && !("ontouchstart" in document.documentElement))
+			{
+				element.addEventListener(event, function(e)
+				{
+					if (shouldClick)
+						cb(element, e);
+					else
+						shouldClick = true;
+				}, false);
+			}
+			else if (event === "click")
+			{
+				onTap(element, function(e)
+				{
+					shouldClick = false;
+					cb(element, e);
+				});
+			}
+			else
+			{
+				element.addEventListener(event, function(e)
+				{
+					cb(element, e);
+				});
+			}
+		}
 	}
 })();

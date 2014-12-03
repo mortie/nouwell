@@ -1,11 +1,24 @@
+#nav-wrapper
+{
+	width: 135px;
+	height: 100%;
+	position: fixed;
+	overflow-y: auto;
+	direction: rtl;
+}
+#nav-wrapper:active
+{
+	width: 135px;
+}
+
 #nav
 {
 	display: inline-block;
-	height: 100%;
 	width: 115px;
+	height: 100%;
 	background-color: #222;
-	padding-top: 20px;
-	position: fixed;
+	padding-top: 0px;
+	position: absolute;
 
 	user-select: none;
 		-webkit-user-select: none;
@@ -13,6 +26,7 @@
 
 	float: left;
 	left: 0px;
+	direction: ltr;
 }
 
 #nav .navEntry .name

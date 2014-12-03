@@ -19,7 +19,6 @@
 
 	var panels =
 	[
-		["Home", "/"],
 		["Pages", "pages"],
 		["New", [], "new"],
 		["Posts", [], "posts"],
@@ -56,6 +55,13 @@
 				drawWithoutDropdown(panel);
 			else
 				drawWithDropdown(panel);
+		});
+
+		//horrible hack to circumvent CSS limitations
+		var wrapper = document.getElementById("nav-wrapper");
+		gui.on(".navEntry", ["mouseover", "mouseout", "touchstart", "touchend"], function()
+		{
+			wrapper.style.width = navElement.scrollWidth+20+"px";
 		});
 	}
 

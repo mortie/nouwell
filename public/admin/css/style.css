@@ -51,22 +51,71 @@ html, body
 
 .delete
 {
+	background-color: #b11;
+}
+.delete:before
+{
+	content: 'x';
+}
+.delete:hover
+{
+	background-color: #f11;
+}
+
+.arrow-up
+{
+	background-color: #555;
+}
+.arrow-up:before
+{
+	content: '↑';
+}
+.arrow-up:hover
+{
+	background-color: #aaa;
+}
+
+.arrow-down
+{
+	background-color: #555;
+}
+.arrow-down:before
+{
+	content: '↓';
+}
+.arrow-down:hover
+{
+	background-color: #aaa;
+}
+
+.delete, .arrow-up, .arrow-down
+{
 	border-radius: 5px;
 	border-style: solid;
 	border-color: black;
 
 	color: white;
-	background-color: #b11;
 
 	font-weight: bold;
+	font-size: 14px;
 	text-align: center;
 	vertical-align: middle;
 
 	cursor: pointer;
 	cursor: hand;
+	width: 20px;
+	text-align: center;
+	padding: 0px;
+
+	-webkit-appearance: none;
+	box-sizing: none;
+}
+.delete:focus, .arrow-up:focus, .arrow-down:focus
+{
+	outline: 0;
 }
 
-.delete:hover
+#menu-button
 {
-	background-color: #f11;
+	display: none;
 }

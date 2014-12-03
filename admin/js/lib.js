@@ -38,24 +38,34 @@
 
 	lib.getCookie = function(name)
 	{
-		if (document.cookie.length === 0)
-			return false;
-
-		var cookies = document.cookie.split(/\s*;\s*/);
-		var cookie = cookies.filter(function(cookie)
+		if (window.localStorage !== undefined)
 		{
-			return cookie.split("=")[0] === name?true:false
-		});
-
-		if (cookie[0])
-			return cookie[0].split("=")[1];
+			return localStorage.getItem(name);
+		}
 		else
-			return false;
+		{
+			if (document.cookie.length === 0)
+				return false;
+
+			var cookies = document.cookie.split(/\s*;\s*/);
+			var cookie = cookies.filter(function(cookie)
+			{
+				return cookie.split("=")[0] === name?true:false
+			});
+
+			if (cookie[0])
+				return cookie[0].split("=")[1];
+			else
+				return false;
+		}
 	}
 
 	lib.setCookie = function(name, val)
 	{
-		document.cookie = name+"="+val;
+		if (window.localStorage !== undefined)
+			localStorage.setItem(name, val);
+		else
+			document.cookie = name+"="+val;
 	}
 
 	lib.editor = function(element)

@@ -1,12 +1,30 @@
 router.addPanel("login", function()
 {
-	var async = new lib.Async(1, draw);
+	var async = new lib.Async(2, draw);
+
+	var isLoggedIn;
+
+	lib.callAPI("verifyToken",
+	{
+		"token": lib.apiToken
+	}, function(result)
+	{
+		isLoggedIn = result.valid;
+		async();
+	});
 
 	lib.template.load(["login"], async);
 
 	function draw()
 	{
 		router.ready();
+
+		if (isLoggedIn)
+		{
+			router.path = "pages";
+			return;
+		}
+
 		lib.template("login");
 
 		var loginButton = document.getElementById("loginButton");
