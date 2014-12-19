@@ -57,9 +57,9 @@
 			gui.on(".mediaSelect .entry .thumbnail", "click", function(element)
 			{
 				var title = element.getAttribute("data-title");
-				var path = element.getAttribute("data-path");
+				var fileName = element.getAttribute("data-fileName");
 				gui.clearElement(guiElement);
-				cb(path, title);
+				cb(fileName, title);
 			});
 		});
 	}

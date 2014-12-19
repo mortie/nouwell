@@ -1,15 +1,16 @@
-@media screen and (max-width: 550px)
+@media screen and (max-width: 600px)
 {
-	#nav
+	#nav-wrapper
 	{
-		margin-left: -115px;
+		margin-left: -130px;
 		transition: all 0.3s;
 	}
-	#nav.active
+	#nav-wrapper.active
 	{
 		margin-left: 0px;
 		transition: all 0.3s;
 	}
+
 	#nav .arrow
 	{
 		border-right: 10px solid #fff;
@@ -18,7 +19,7 @@
 	#panel
 	{
 		margin-left: 5px;
-		margin-top: 5px;
+		margin-top: 50px;
 		width: 100%;
 		max-width: calc(100% - 30px);
 	}

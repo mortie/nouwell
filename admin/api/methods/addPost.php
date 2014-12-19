@@ -17,8 +17,11 @@ $id = $db->pushFile("posts",
 	"raw"=>$args->raw,
 	"date_seconds"=>$args->date_seconds,
 	"page_id"=>$args->page_id,
-	"sort"=>null
+	"sort"=>$db->getNextIndex("posts")
 ]);
+
+if (!$id)
+	fail();
 
 succeed(
 [

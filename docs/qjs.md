@@ -14,7 +14,7 @@ var root = q("#myid");
 q(".myClass", root);
 ```
 
-### .on(event, callback(event))
+### .on(event, callback(event, element))
 The `.on` method allows us to add event listeners to objects, like so:
 
 ```

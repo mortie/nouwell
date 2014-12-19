@@ -35,14 +35,15 @@ router.addPanel("settings", function()
 
 		gui.on(".mediaSelect", "click", function(element)
 		{
-			gui.mediaSelect(function(path, title)
+			gui.mediaSelect(function(fileName, title)
 			{
+				console.log(arguments);
 				var key = element.getAttribute("data-key");
 
 				lib.callAPI("updateSetting",
 				{
 					"key": key,
-					"val": path
+					"val": fileName
 				}, function()
 				{
 					router.load();

@@ -41,11 +41,20 @@
 	width: 100%;
 }
 
-#panel.posts
+#panel.posts,
+#panel.pages
 {
 	width: 100%;
 }
-#panel.posts .buttons
+#panel.posts .name
+#panel.pages .name
+{
+	max-width: calc(100% - 70px);
+	overflow: hidden;
+	display: inline-block;
+}
+#panel.posts .buttons,
+#panel.pages .buttons
 {
 	display: inline;
 	float: right;
@@ -160,6 +169,10 @@
 #panel.pages .entry .children
 {
 	margin-left: 55px;
+}
+#panel.pages .entry
+{
+	margin-top: 5px;
 	margin-bottom: 5px;
 }
 

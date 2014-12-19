@@ -19,17 +19,18 @@ router.addPanel("pages", function()
 		var children = [];
 		pages.forEach(function(page)
 		{
-			console.log(page);
 			var parentId = page.parent_page_id;
 			if (parentId)
 			{
 				if (children[parentId] === undefined)
 					children[parentId] = "";
 
+				console.log(page);
+
 				children[parentId] += lib.template("pagesEntryChild",
 				{
 					"title": page.title,
-					"id": page.id
+					"id": page.index
 				}, false);
 			}
 		});
@@ -44,7 +45,7 @@ router.addPanel("pages", function()
 				entries += lib.template("pagesEntry",
 				{
 					"title": page.title,
-					"id": page.id,
+					"id": page.index,
 					"children": pageChildren
 				}, false);
 			}
@@ -90,9 +91,9 @@ router.addPanel("pages", function()
 				if (!result.success)
 				{
 					if (result.error == "EENTRIESINPAGE")
-					gui.error("Couldn't delete page because it contains posts.");
+						gui.error("Couldn't delete page because it contains posts.");
 					else if (result.error == "EHASCHILDPAGES")
-					gui.error("Coludn't delete page because it contains child pages.");
+						gui.error("Coludn't delete page because it contains child pages.");
 				}
 				else
 				{
@@ -106,7 +107,7 @@ router.addPanel("pages", function()
 		gui.on(".entry .arrow-up", "click", function(element)
 		{
 			var id = element.getAttribute("data-id");
-			var prev = element.parentNode.previousElementSibling;
+			var prev = element.parentNode.parentNode.previousElementSibling;
 			
 			if (!prev || !prev.getAttribute("data-id"))
 				return;
@@ -127,7 +128,9 @@ router.addPanel("pages", function()
 		gui.on(".entry .arrow-down", "click", function(element)
 		{
 			var id = element.getAttribute("data-id");
-			var next = element.parentNode.nextElementSibling;
+			var next = element.parentNode.parentNode.nextElementSibling;
+
+			console.log(next);
 			
 			if (!next || !next.getAttribute("data-id"))
 				return;

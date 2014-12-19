@@ -36,7 +36,11 @@ router.addPanel("posts", function(args)
 				var postsStr = "";
 				posts.forEach(function(post)
 				{
-					postsStr += lib.template("postsEntry", post, false);
+					postsStr += lib.template("postsEntry",
+					{
+						"id": post.index,
+						"title": post.title
+					}, false);
 				});
 			}
 

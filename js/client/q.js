@@ -69,9 +69,9 @@ var QElement = function(element)
 
 QElement.prototype =
 {
-	"on": function(event, cb)
+	"on": function(evt, cb)
 	{
-		if (event == "tap")
+		if (evt == "tap")
 		{
 			var startX;
 			var startY;
@@ -88,13 +88,13 @@ QElement.prototype =
 				if ((Math.abs(startX - e.pageX) < 32)
 				||  (Math.abs(startY - e.pageY) < 32))
 				{
-					cb(e)
+					cb(e);
 				}
 			}, false);
 		}
 		else
 		{
-			this.element.addEventListener(event, cb, false);
+			this.element.addEventListener(evt, cb, false);
 		}
 	},
 
@@ -137,9 +137,14 @@ var QElementList = function(elementList)
 
 QElementList.prototype =
 {
-	"on": function(e, cb)
+	"on": function(evt, cb)
 	{
-		this.elements.forEach(function(element){ element.on(e, cb) });
+		this.elements.forEach(function(element){
+			element.on(evt, function(e)
+			{
+				cb(e, element);
+			});
+		});
 	},
 
 	"delete": function()

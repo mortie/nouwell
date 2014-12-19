@@ -16,6 +16,6 @@
         "plugin": "plugins",
         "db": "db"
     },
-    "favicon": "\/_media\/1.jpg",
+    "favicon": "2.ico",
     "headerImage": false
 }

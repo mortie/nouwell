@@ -36,46 +36,50 @@ catch (err)
 logger.log = conf.log;
 logger.dir = conf.dir.log;
 
-var db = new Database(conf.dir.db);
-
-db.setup(function()
+try
 {
-	templateDir = path.join(conf.dir.theme, conf.theme, "html");
+	var db = new Database(conf.dir.db);
+}
+catch (e)
+{
+	logger.error("Couldn't parse database schema file.", e);
+}
 
-	template = new Template(
+templateDir = path.join(conf.dir.theme, conf.theme, "html");
+
+template = new Template(
+{
+	"suffix": ".html",
+	"path": templateDir
+});
+
+//create new site builder instance
+builder = new Builder(
+{
+	"dir":
 	{
-		"suffix": ".html",
-		"path": templateDir
-	});
+		"out": conf.dir.out,
+		"admin": conf.dir.admin,
+		"theme": path.join(conf.dir.theme, conf.theme),
+		"plugin": conf.dir.plugin
+	},
+	"db": db,
+	"logger": logger,
+	"template": template,
+	"title": conf.title,
+	"headerImage": conf.headerImage,
+	"favicon": conf.favicon
+});
 
-	//create new site builder instance
-	builder = new Builder(
+//actually build site
+builder.build(function()
+{
+	var endTime = new Date();
+
+	var elapsed = endTime.getTime() - startTime.getTime();
+
+	logger.info("Done in "+elapsed+" milliseconds.", function()
 	{
-		"dir":
-		{
-			"out": conf.dir.out,
-			"admin": conf.dir.admin,
-			"theme": path.join(conf.dir.theme, conf.theme),
-			"plugin": conf.dir.plugin
-		},
-		"db": db,
-		"logger": logger,
-		"template": template,
-		"title": conf.title,
-		"headerImage": conf.headerImage,
-		"favicon": conf.favicon
-	});
-
-	//actually build site
-	builder.build(function()
-	{
-		var endTime = new Date();
-
-		var elapsed = endTime.getTime() - startTime.getTime();
-
-		logger.info("Done in "+elapsed+" milliseconds.", function()
-		{
-			process.exit();
-		});
+		process.exit();
 	});
 });

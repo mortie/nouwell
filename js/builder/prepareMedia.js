@@ -10,25 +10,37 @@ module.exports = function(cb)
 	{
 		result.forEach(function(media)
 		{
-			var fileName = path.join(
+			var outFile = path.join(
 				self.outDir,
 				"_media",
 				media.id+"."+media.extension
 			);
 
 			self.logger.info("Writing media file '"+media.title+"'...");
+	
+			writeMedia(media, outFile, self);
 
-			var writeStream = fs.createWriteStream(fileName);
-			media.readStream.pipe(writeStream);
-
-			++self.cbs;
-			media.readStream.on("end", function()
+			//favicon
+			if ((media.extension == "ico")
+			&&  (media.id+"."+media.extension === self.favicon))
 			{
-				--self.cbs;
-			});
+				writeMedia(media, path.join(self.outDir, "favicon.ico"), self);
+			}
 		});
 		--self.cbs;
 	});
 
 	cb();
+}
+
+function writeMedia(media, outFile, self)
+{
+	var writeStream = fs.createWriteStream(outFile);
+	media.readStream.pipe(writeStream);
+
+	++self.cbs;
+	media.readStream.on("end", function()
+	{
+		--self.cbs;
+	});
 }

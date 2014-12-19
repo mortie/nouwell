@@ -102,7 +102,6 @@ function buildPage(dirPath, page, menu, self, first)
 			"posts": e,
 			"postTitle": post.title,
 			"siteTitle": self.title,
-			"favicon": self.favicon || ""
 		}, false);
 
 		write(dirPath+"/"+post.slug, p, self);

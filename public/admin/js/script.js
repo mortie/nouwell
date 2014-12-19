@@ -42,7 +42,7 @@
 
 	gui.on("#menu-button", "click", function(element)
 	{
-		var navElement = document.getElementById("nav");
+		var navElement = document.getElementById("nav-wrapper");
 	
 		if (navElement.className == "active")
 			navElement.className = "";
@@ -52,6 +52,17 @@
 
 	router.on("load", function()
 	{
-		document.getElementById("nav").className = "";
+		document.getElementById("nav-wrapper").className = "";
+		document.getElementById("panel").innerHTML = "<img src='img/loading.gif' />";
+	});
+
+	router.on("loaded", function()
+	{
+		gui.clearElement(document.getElementById("panel"));
+	});
+
+	lib.callAPI("getSettings", {}, function(result)
+	{
+		document.title = result.settings.title+" Admin";
 	});
 })();

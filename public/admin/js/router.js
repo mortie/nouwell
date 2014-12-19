@@ -10,11 +10,11 @@
 
 		this._callbacks = {};
 
-		window.onpopstate = function()
+		window.addEventListener("load", function(e)
 		{
 			if (this._enabled)
 				this.load();
-		}.bind(this);
+		}.bind(this));
 	}
 
 	window.Router.prototype =
@@ -92,6 +92,7 @@
 
 		"ready": function()
 		{
+			this._emit("loaded");
 			this._ready = true;
 		},
 

@@ -1,8 +1,10 @@
 router.addPanel("build", function()
 {
-	var async = new lib.Async(1, draw);
+	var async = new lib.Async(2, draw);
 
 	lib.template.load(["build"], async);
+
+	setTimeout(async, 50);
 
 	function draw()
 	{

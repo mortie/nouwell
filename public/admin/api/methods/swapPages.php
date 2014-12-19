@@ -18,5 +18,4 @@ $db->updateFile("pages", $args->page2,
 	"sort"=>$page1->sort
 ]);
 
-
 succeed();

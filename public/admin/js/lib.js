@@ -25,9 +25,17 @@
 		{
 			if (xhr.responseText && cb)
 			{
-				var obj = JSON.parse(xhr.responseText);
-				cb(obj);
-				if (!obj.success) console.log(obj.error);
+				try
+				{
+					var obj = JSON.parse(xhr.responseText);
+					if (!obj.success)
+						console.log("Error!", xhr.responseText);
+					cb(obj);
+				}
+				catch (e)
+				{
+					console.log(e, xhr.responseText);
+				}
 			}
 			else if (cb)
 			{
@@ -91,9 +99,9 @@
 				{name: 'link', action: Editor.drawLink},
 				{name: 'image', action: function()
 				{
-					gui.mediaSelect(function(path, title)
+					gui.mediaSelect(function(fileName, title)
 					{
-						editor.codemirror.doc.replaceSelection("!["+title+"]("+path+")");
+						editor.codemirror.doc.replaceSelection("!["+title+"](/_media/"+fileName+")");
 					});
 				}},
 				'|',

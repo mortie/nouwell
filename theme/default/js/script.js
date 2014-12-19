@@ -1,7 +1,8 @@
-q(".readMore").on("click", function(element)
+q(".readMore").on("click", function(e, element)
 {
-	var article = element.parentNode;
-	var content = $(article, ".content")[0];
+	console.log(element);
+	var article = element.get("parentNode");
+	var content = article.querySelector(".content");
 	var baseClass = article.className;
 
 	article.className = baseClass+" expand";

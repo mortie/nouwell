@@ -29,13 +29,22 @@ html, body
 	display: inline-block;
 	border-radius: 10px;
 }
+
 .button:hover
 {
-	background-color: #000;
 	cursor: pointer;
 	cursor: hand;
-	color: #2ea2cc
 }
+@media screen and (min-width: 600px)
+{
+	.button:hover
+	{
+		background-color: #000;
+		color: #2ea2cc
+	}
+}
+
+
 .button.current,
 .button.current:hover,
 .button:active
@@ -68,7 +77,7 @@ html, body
 }
 .arrow-up:before
 {
-	content: '↑';
+	content: '\21D1';
 }
 .arrow-up:hover
 {
@@ -81,7 +90,7 @@ html, body
 }
 .arrow-down:before
 {
-	content: '↓';
+	content: '\21D3';
 }
 .arrow-down:hover
 {
