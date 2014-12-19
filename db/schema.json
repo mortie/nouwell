@@ -1,0 +1,28 @@
+{
+	"tables":
+	{
+		"pages":
+		[
+			"title",
+			"slug",
+			"parent_page_id"
+		],
+
+		"posts":
+		[
+			"title",
+			"slug",
+			"html",
+			"raw",
+			"date_seconds",
+			"page_id"
+		],
+
+		"media":
+		[
+			"title",
+			"type",
+			"extension"
+		]
+	}
+}

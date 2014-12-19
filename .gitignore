@@ -11,6 +11,7 @@ templates/*
 
 plugins/*
 db/*
+!db/schema.json
 
 adminTokens
 
