@@ -30,7 +30,7 @@ router.addPanel("pages", function()
 				children[parentId] += lib.template("pagesEntryChild",
 				{
 					"title": page.title,
-					"id": page.index
+					"id": page.id
 				}, false);
 			}
 		});
@@ -45,7 +45,7 @@ router.addPanel("pages", function()
 				entries += lib.template("pagesEntry",
 				{
 					"title": page.title,
-					"id": page.index,
+					"id": page.id,
 					"children": pageChildren
 				}, false);
 			}

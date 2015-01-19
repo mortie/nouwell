@@ -15,6 +15,8 @@ module.exports = function(cb)
 {
 	var self = this;
 
+	self.logger.debug("Preparing theme");
+
 	var jsPrefix = "(function(){\n";
 	var jsPostfix = "})();\n\n"
 

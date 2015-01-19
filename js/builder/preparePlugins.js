@@ -5,6 +5,8 @@ module.exports = function(cb)
 {
 	var self = this;
 
+	self.logger.debug("Preparing plugins");
+
 	++self.cbs;
 	fs.readdir(self.pluginDir, function(err, plugins)
 	{

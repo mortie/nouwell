@@ -5,6 +5,8 @@ module.exports = function(cb)
 {
 	var self = this;
 
+	self.logger.debug("Preparing media");
+
 	++self.cbs
 	self.db.getBlobs("media", function(err, result)
 	{

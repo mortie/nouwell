@@ -20,6 +20,8 @@ module.exports = function(cb)
 {
 	var self = this;
 
+	self.logger.debug("Preparing dirs");
+
 	//loop through desired dirs, creating them
 	dirs.forEach(function(dir)
 	{

@@ -17,15 +17,16 @@ router.addPanel("media", function()
 		router.ready();
 
 		var entries = "";
-		media.forEach(function(entry)
+		for (var i in media)
 		{
+			var entry = media[i];
 			entries += lib.template("mediaEntry",
 			{
 				"title": entry.title,
 				"id": entry.id,
 				"extension": entry.extension
 			}, false);
-		});
+		};
 
 		lib.template("media",
 		{

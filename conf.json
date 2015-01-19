@@ -1,10 +1,9 @@
 {
-    "title": "Awesome Site",
+    "title": "Your Site",
     "theme": "default",
     "adminPassword": "password",
     "log": [
         "info",
-        "notice",
         "warning",
         "error"
     ],
@@ -16,6 +15,6 @@
         "plugin": "plugins",
         "db": "db"
     },
-    "favicon": "2.ico",
+    "favicon": false,
     "headerImage": false
 }

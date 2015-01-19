@@ -15,13 +15,6 @@ var db;
 var builder;
 var template;
 
-//create logger instance
-logger = new Logger(
-{
-	"log": false,
-	"dir": null
-});
-
 //parse and read conf file
 try
 {
@@ -29,13 +22,18 @@ try
 }
 catch (err)
 {
-	logger.error("Couldn't parse config file.", err);
+	console.log("Couldn't parse config file.", err);
+	process.exit();
 }
 
-//set logger's settings appropriately according to conf file
-logger.log = conf.log;
-logger.dir = conf.dir.log;
+//create logger instance
+logger = new Logger(
+{
+	"log": conf.log,
+	"dir": conf.dir.log
+});
 
+//create database instance
 try
 {
 	var db = new Database(conf.dir.db);

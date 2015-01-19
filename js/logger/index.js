@@ -12,6 +12,7 @@ module.exports = function(conf)
 
 var errorStrings =
 {
+	"debug":   "Debug:   ",
 	"info":    "Info:    ",
 	"notice":  "Notice:  ",
 	"warning": "Warning: ",
@@ -25,6 +26,11 @@ module.exports.prototype =
 		this._dir = dir;
 		if (!fs.existsSync(dir))
 			fs.mkdirSync(dir);
+	},
+
+	"debug": function(msg, cb)
+	{
+		this._log("debug", msg, true, cb);
 	},
 
 	"info": function(msg, cb)
@@ -49,6 +55,10 @@ module.exports.prototype =
 
 	"_log": function(type, msg, err, cb)
 	{
+		//do nothing if this log type shouldn't be logged
+		if (this._logLevel.indexOf(type) === -1)
+			return false;
+
 		//do nothing if there's no error
 		if (!err)
 			return false;
@@ -60,16 +70,11 @@ module.exports.prototype =
 		//add prefix
 		msg = errorStrings[type]+msg;
 
-		//write to console regardless of configuration
+		//write to console
 		console.log(msg);
-
-		//don't proceed if this log type shouldn't be logged
-		if (this._logLevel && this._logLevel.indexOf(type) !== -1)
-			return false;
 
 		//create time strings
 		var date = new Date();
-
 		var month = makeTwoDigits(date.getMonth());
 		var day = makeTwoDigits(date.getDay());
 		var hour = makeTwoDigits(date.getHours());

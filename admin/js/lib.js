@@ -30,7 +30,8 @@
 					var obj = JSON.parse(xhr.responseText);
 					if (!obj.success)
 						console.log("Error!", xhr.responseText);
-					cb(obj);
+					if (cb)
+						cb(obj);
 				}
 				catch (e)
 				{

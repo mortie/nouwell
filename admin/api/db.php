@@ -7,15 +7,13 @@ class Database
 		{
 			if (!isset($content[$field]))
 			{
-				die("Doesn't have ".$field."!");
+				die("Entry doesn't have field $field!");
 				return false;
 			}
 		}
 
 		return true;
 	}
-
-	private $nextIndex = [];
 
 	public function __construct($root)
 	{
@@ -29,21 +27,24 @@ class Database
 			if (!file_exists($dir))
 			{
 				mkdir("$root/$table");
-				file_put_contents("$dir/index", "1");
+				file_put_contents("$dir/id", "1");
 			}
 
 			if (!file_exists("$dir.blob"))
 			{
 				mkdir ("$dir.blob");
 			}
-
-			$this->nextIndex[$table] = file_get_contents("$dir/index");
 		}
 	}
 
-	public function getNextIndex($table)
+	private function setNextId($table, $id)
 	{
-		return $this->nextIndex[$table];
+		file_put_contents("$this->root/$table/id", $id);
+	}
+
+	public function getNextId($table)
+	{
+		return file_get_contents("$this->root/$table/id");
 	}
 
 	public function pushFile($table, $content)
@@ -51,55 +52,57 @@ class Database
 		if (!$this->verify($this->schema->tables->$table, $content))
 			return false;
 
-		$index = $this->nextIndex[$table]++;
+		$id = $this->getNextId($table);
+		$this->setNextId($table, $id+1);
 
-		file_put_contents("$this->root/$table/$index", json_encode($content));
-		file_put_contents("$this->root/$table/index", $index+1);
+		file_put_contents("$this->root/$table/$id", json_encode($content));
 
-		return $index;
+		return $id;
 	}
 
 	public function pushBlob($table, $blob, $content)
 	{
-		$index = $this->pushFile($table, $blob, $content);
+		$id = $this->pushFile($table, $content);
 
 		$blobDir = "$this->root/$table.blob";
-		file_put_contents("$blobDir/$index");
+		file_put_contents("$blobDir/$id", $blob);
 
-		return $index;
+		return $id;
 	}
 
-	public function getFile($table, $index)
+	public function getFile($table, $id)
 	{
-		$fileName = "$this->root/$table/$index";
+		$fileName = "$this->root/$table/$id";
 		$file = json_decode(file_get_contents($fileName));
-		$file->index = $index;
+		$file->id = intval($id);
 
 		return $file;
 	}
 
 	public function getFiles($table)
 	{
-		$indexes = scandir("$this->root/$table");
+		$files = scandir("$this->root/$table");
 
 		$result = [];
 
-		foreach ($indexes as $index)
+		foreach ($files as $id)
 		{
-			if (!is_numeric($index))
+			if (!is_numeric($id))
 				continue;
 
-			$file = $this->getFile($table, $index);
-			$result[$index] = $file;
+			$id = intval($id);
+
+			$file = $this->getFile($table, $id);
+			$result[$id] = $file;
 		}
 
 		return $result;
 	}
 
-	public function getBlob($table, $index)
+	public function getBlob($table, $id)
 	{
-		$result = $this->getFile($table, $index);
-		$fileName = "$this->root/$table.blob/$index";
+		$result = $this->getFile($table, $id);
+		$fileName = "$this->root/$table.blob/$id";
 
 		$result->content = file_get_contents($fileName);
 
@@ -119,9 +122,9 @@ class Database
 		return $files;
 	}
 
-	public function updateFile($table, $index, $content)
+	public function updateFile($table, $id, $content)
 	{
-		$fileName = "$this->root/$table/$index";
+		$fileName = "$this->root/$table/$id";
 		$original = json_decode(file_get_contents($fileName));
 
 		foreach($content as $key=>$val)
@@ -132,14 +135,14 @@ class Database
 		file_put_contents($fileName, json_encode($original));
 	}
 
-	public function deleteFile($table, $index)
+	public function deleteFile($table, $id)
 	{
-		unlink("$this->root/$table/$index");
+		unlink("$this->root/$table/$id");
 	}
 
-	public function deleteBlob($table, $index)
+	public function deleteBlob($table, $id)
 	{
-		$this->deleteFile($table, $index);
-		unlink("$this->root/$table/$index");
+		$this->deleteFile($table, $id);
+		unlink("$this->root/$table/$id");
 	}
 }

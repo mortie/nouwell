@@ -2,7 +2,8 @@ module.exports = function(cb)
 {
 	var self = this;
 
-	++self.cbs;
+	self.logger.debug("Preparing database");
+
 	self.db.getFiles("pages", function(err, result)
 	{
 		self.logger.error("Couldn't get pages!", err);
@@ -13,12 +14,16 @@ module.exports = function(cb)
 			self.db.pushFile("pages",
 			{
 				"title": "Home",
-				"slug": "home"
+				"slug": "home",
+				"sort": self.db.getNextId("pages")
+			}, function()
+			{
+				cb();
 			});
 		}
-
-		--self.cbs;
+		else
+		{
+			cb();
+		}
 	});
-
-	cb();
 }

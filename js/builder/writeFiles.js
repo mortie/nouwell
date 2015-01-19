@@ -6,6 +6,8 @@ module.exports = function(cb)
 {
 	var self = this;
 
+	self.logger.debug("Writing files");
+
 	var first = true;
 
 	self.tree.forEach(function(page)

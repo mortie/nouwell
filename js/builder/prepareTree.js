@@ -2,6 +2,8 @@ module.exports = function(cb)
 {
 	var self = this;
 
+	self.logger.debug("Preparing tree");
+
 	var callbacks = 2;
 
 	var pages;
@@ -48,7 +50,7 @@ module.exports = function(cb)
 			}
 		});
 
-		//sort
+		//sort children
 		self.tree = [];
 		tree.forEach(function(page)
 		{
@@ -63,6 +65,12 @@ module.exports = function(cb)
 					return x.sort > y.sort ? 1 : -1;
 				});
 			}
+		});
+
+		//sort parents
+		self.tree.sort(function(x, y)
+		{
+			return x.sort > y.sort ? 1 : -1;
 		});
 
 		//we're done preparing the tree!

@@ -10,7 +10,7 @@ $id = $db->pushFile("pages",
 	"title"=>$args->title,
 	"slug"=>$args->slug,
 	"parent_page_id"=>$args->parent_page_id,
-	"sort"=>$db->getNextIndex("pages")
+	"sort"=>$db->getNextId("pages")
 ]);
 
 if (!$id)

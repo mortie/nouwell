@@ -38,15 +38,17 @@
 			}
 
 			var entries = "";
-			result.media.forEach(function(entry)
+			for (var i in result.media)
 			{
+				var entry = result.media[i];
+
 				entries += template("mediaSelectEntry",
 				{
 					"title": entry.title,
 					"id": entry.id,
 					"extension": entry.extension
 				}, false);
-			});
+			}
 
 			template("mediaSelect",
 			{
