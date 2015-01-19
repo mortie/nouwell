@@ -13,10 +13,11 @@ q(".readMore").on("click", function(e, element)
 });
 
 var posts = q(".entry .content");
+console.log(posts);
 
 posts.forEach(function(element)
 {
-	if (element.get("offsetHeight") < 300 || posts.length <= 1)
+	if (element.get("offsetHeight") < 300 || posts.elements.length <= 1)
 	{
 		element.get("parentNode").className += " expanded";
 

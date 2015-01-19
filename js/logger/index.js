@@ -6,8 +6,8 @@ module.exports = function(conf)
 	this._logLevel = conf.log;
 	this._dir = conf.dir;
 
-	if (this.dir && fs.existsSync(dir))
-		fs.mkdirSync(this.dir);
+	if (!fs.existsSync(this._dir))
+		fs.mkdirSync(this._dir);
 }
 
 var errorStrings =
@@ -21,13 +21,6 @@ var errorStrings =
 
 module.exports.prototype =
 {
-	set dir(dir)
-	{
-		this._dir = dir;
-		if (!fs.existsSync(dir))
-			fs.mkdirSync(dir);
-	},
-
 	"debug": function(msg, cb)
 	{
 		this._log("debug", msg, true, cb);
@@ -83,10 +76,10 @@ module.exports.prototype =
 		//prepare message string
 		var msg = hour+":"+minute+" "+msg+" ("+err+")";
 
-		//prepare file name
+		//prepare file names
 		var fileName = month+"."+day+".log";
 
-		//finally write to file
+		//append to file
 		fs.appendFile(path.join(this._dir, fileName), msg+"\n", function(err)
 		{
 			if (err)
