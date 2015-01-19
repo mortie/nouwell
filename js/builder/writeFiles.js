@@ -73,10 +73,22 @@ function buildMenu(page, child, self)
 		});
 	});
 
+	if (self.headerImage)
+	{
+		var headerImage = self.template("menuHeaderImage",
+		{
+			"url": "/_media/"+self.headerImage
+		});
+	}
+	else
+	{
+		var headerImage = "";
+	}
+
 	return self.template("menu",
 	{
 		"pages": menuPages,
-		"headerImage": "/_media/"+self.headerImage || ""
+		"headerImage": headerImage
 	});
 }
 
