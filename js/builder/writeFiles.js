@@ -76,7 +76,7 @@ function buildMenu(page, child, self)
 	return self.template("menu",
 	{
 		"pages": menuPages,
-		"headerImage": "_media/"+self.headerImage || ""
+		"headerImage": "/_media/"+self.headerImage || ""
 	});
 }
 
