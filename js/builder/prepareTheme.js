@@ -11,7 +11,7 @@ function Async(count, cb)
 	}
 }
 
-module.exports = function(cb)
+module.exports = function prepareTheme(cb)
 {
 	var self = this;
 
@@ -22,16 +22,16 @@ module.exports = function(cb)
 
 	//css
 	++self.cbs
-	fs.readdir(self.pluginDir, function(err, plugins)
+	fs.readdir(self.pluginDir, function gotPluginDir(err, plugins)
 	{
 		var cssCompiled = "";
 		var jsCompiled = "";
 
 		//write things after the CSS is compiled
 		++self.cbs;
-		var cssAsync = new Async(plugins.length+1, function()
+		var cssAsync = new Async(plugins.length+1, function cssReady()
 		{
-			fs.writeFile(path.join(self.outDir, "style.css"), cssCompiled, function(err)
+			fs.writeFile(path.join(self.outDir, "style.css"), cssCompiled, function cssFileWritten(err)
 			{
 				self.logger.error("Could not write style.css.", err);
 				--self.cbs;
@@ -40,9 +40,9 @@ module.exports = function(cb)
 
 		//write things after the JS is compiled
 		++self.cbs;
-		var jsAsync = new Async(plugins.length+2, function()
+		var jsAsync = new Async(plugins.length+2, function jsReady()
 		{
-			fs.writeFile(path.join(self.outDir, "script.js"), jsCompiled, function(err)
+			fs.writeFile(path.join(self.outDir, "script.js"), jsCompiled, function jsFileWritten(err)
 			{
 				self.logger.error("Could not write script.js.", err);
 				--self.cbs;
@@ -50,27 +50,27 @@ module.exports = function(cb)
 		});
 
 		//theme css
-		compile(path.join(self.themeDir, "css"), self, function(res)
+		compile(path.join(self.themeDir, "css"), self, function cssReady(res)
 		{
 			cssCompiled += res;
 			cssAsync();
 		});
 
 		//common js
-		compile(path.join("js", "client"), self, function(res)
+		compile(path.join("js", "client"), self, function jsReady(res)
 		{
 			jsCompiled += res;
 			jsAsync();
 
 			//theme js
-			compile(path.join(self.themeDir, "js"), self, function(res)
+			compile(path.join(self.themeDir, "js"), self, function (res)
 			{
 				jsCompiled += res;
 				jsAsync();
 			}, jsPrefix, jsPostfix);
 
 			//loop over plugins
-			plugins.forEach(function(plugin)
+			plugins.forEach(function loopPlugins(plugin)
 			{
 				var cssPath = path.join(self.pluginDir, plugin, "css");
 				var jsPath = path.join(self.pluginDir, plugin, "js");
@@ -92,7 +92,7 @@ module.exports = function(cb)
 		}, jsPrefix, jsPostfix);
 
 		//loop over plugins
-		plugins.forEach(function(plugin)
+		plugins.forEach(function loopPlugins(plugin)
 		{
 			var cssPath = path.join(self.pluginDir, plugin, "css");
 			var jsPath = path.join(self.pluginDir, plugin, "js");
@@ -116,14 +116,14 @@ module.exports = function(cb)
 
 	//img
 	++self.cbs;
-	fs.readdir(path.join(self.themeDir, "img"), function(err, files)
+	fs.readdir(path.join(self.themeDir, "img"), function gotImgDir(err, files)
 	{
 		if (err)
 			self.logger.notice("Can't read theme dir's 'img' dir.");
 
 		if (files)
 		{
-			files.forEach(function(file)
+			files.forEach(function loopImgFiles(file)
 			{
 				++self.cbs;
 

@@ -1,10 +1,10 @@
-module.exports = function(cb)
+module.exports = function prepareDatabase(cb)
 {
 	var self = this;
 
 	self.logger.debug("Preparing database");
 
-	self.db.getFiles("pages", function(err, result)
+	self.db.getFiles("pages", function gotFiles(err, result)
 	{
 		self.logger.error("Couldn't get pages!", err);
 
@@ -16,10 +16,7 @@ module.exports = function(cb)
 				"title": "Home",
 				"slug": "home",
 				"sort": self.db.getNextId("pages")
-			}, function()
-			{
-				cb();
-			});
+			}, cb);
 		}
 		else
 		{

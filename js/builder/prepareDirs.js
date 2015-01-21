@@ -16,14 +16,14 @@ var dirs =
 	"{pluginDir}"
 ];
 
-module.exports = function(cb)
+module.exports = function prepareDirs(cb)
 {
 	var self = this;
 
 	self.logger.debug("Preparing dirs");
 
 	//loop through desired dirs, creating them
-	dirs.forEach(function(dir)
+	dirs.forEach(function createDir(dir)
 	{
 		//replace placeholders
 		var path = dir.split("{outDir}").join(self.outDir)
@@ -45,7 +45,7 @@ module.exports = function(cb)
 
 	//copy admin dir to {outDir}/admin asynchronously.
 	++self.cbs;
-	ncp(self.adminDir, self.outDir+"/admin", function(err)
+	ncp(self.adminDir, self.outDir+"/admin", function copyAdminDir(err)
 	{
 		self.logger.error("Could not copy admin dir.", err);
 

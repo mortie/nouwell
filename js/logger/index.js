@@ -21,32 +21,32 @@ var errorStrings =
 
 module.exports.prototype =
 {
-	"debug": function(msg, cb)
+	"debug": function debug(msg, cb)
 	{
 		this._log("debug", msg, true, cb);
 	},
 
-	"info": function(msg, cb)
+	"info": function info(msg, cb)
 	{
 		this._log("info", msg, true, cb);
 	},
 
-	"notice": function(msg, cb)
+	"notice": function notice(msg, cb)
 	{
 		this._log("notice", msg, true, cb);
 	},
 
-	"warning": function(msg, cb)
+	"warning": function warning(msg, cb)
 	{
 		this._log("warning", msg, true, cb);
 	},
 
-	"error": function(msg, err)
+	"error": function error(msg, err)
 	{
 		this._log("error", msg, err);
 	},
 
-	"_log": function(type, msg, err, cb)
+	"_log": function log(type, msg, err, cb)
 	{
 		//do nothing if this log type shouldn't be logged
 		if (this._logLevel.indexOf(type) === -1)
@@ -80,7 +80,7 @@ module.exports.prototype =
 		var fileName = month+"."+day+".log";
 
 		//append to file
-		fs.appendFile(path.join(this._dir, fileName), msg+"\n", function(err)
+		fs.appendFile(path.join(this._dir, fileName), msg+"\n", function appendedFile(err)
 		{
 			if (err)
 				throw new Error("Could not write to log dir! "+err);

@@ -1,16 +1,16 @@
 var path = require("path");
 var fs = require("fs");
 
-module.exports = function(cb)
+module.exports = function prepareMedia(cb)
 {
 	var self = this;
 
 	self.logger.debug("Preparing media");
 
 	++self.cbs
-	self.db.getBlobs("media", function(err, result)
+	self.db.getBlobs("media", function gotBlobs(err, result)
 	{
-		result.forEach(function(media)
+		result.forEach(function prepareMediaFile(media)
 		{
 			var outFile = path.join(
 				self.outDir,
@@ -41,7 +41,7 @@ function writeMedia(media, outFile, self)
 	media.readStream.pipe(writeStream);
 
 	++self.cbs;
-	media.readStream.on("end", function()
+	media.readStream.on("end", function mediaWriteComplete()
 	{
 		--self.cbs;
 	});

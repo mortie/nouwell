@@ -47,17 +47,17 @@ module.exports = function(root)
 
 module.exports.prototype =
 {
-	"getNextId": function(table)
+	"getNextId": function getNextId(table)
 	{
 		return parseInt(fs.readFileSync(path.join(this.root, table, "id")));
 	},
 
-	"_setNextId": function(table, id)
+	"_setNextId": function setNextId(table, id)
 	{
 		fs.writeFileSync(path.join(this.root, table, "id"), id);
 	},
 
-	"pushFile": function(table, content, cb)
+	"pushFile": function pushFile(table, content, cb)
 	{
 		var self = this;
 
@@ -70,35 +70,35 @@ module.exports.prototype =
 		var dir = path.join(self.root, table);
 		var stringified = JSON.stringify(content);
 
-		fs.writeFile(path.join(dir, id.toString()), stringified, function(err)
+		fs.writeFile(path.join(dir, id.toString()), stringified, function fileWritten(err)
 		{
 			cb(err, id);
 		});
 	},
 
-	"pushBlob": function(table, content, readStream, cb)
+	"pushBlob": function pushBlob(table, content, readStream, cb)
 	{
 		var self = this;
 
-		self.pushFile(table, content, function(err, id)
+		self.pushFile(table, content, function filePushed(err, id)
 		{
 			var dir = path.join(self.root, table+".blob");
 
 			var writeStream = fs.createWriteStream(path.join(dir, id));
 			readStream.pipe(writeStream);
 
-			readStream.on("end", function()
+			readStream.on("end", function blobFileWritten()
 			{
 				cb(false, id);
 			});
 		});
 	},
 
-	"getFile": function(table, id, cb)
+	"getFile": function getFile(table, id, cb)
 	{
 		var self = this;
 
-		fs.readFile(path.join(self.root, table, id), function(err, content)
+		fs.readFile(path.join(self.root, table, id), function gotFile(err, content)
 		{
 			if (err)
 				return cb(err);
@@ -110,11 +110,11 @@ module.exports.prototype =
 		});
 	},
 
-	"getFiles": function(table, cb)
+	"getFiles": function getFiles(table, cb)
 	{
 		var self = this;
 
-		fs.readdir(path.join(self.root, table), function(err, files)
+		fs.readdir(path.join(self.root, table), function gotDir(err, files)
 		{
 			if (err)
 				return cb(err);
@@ -124,18 +124,18 @@ module.exports.prototype =
 
 			var async = new Async(files.length, function()
 			{
-				cb(error, arr.sort(function(x, y)
+				cb(error, arr.sort(function sortFiles(x, y)
 				{
 					return x.sort > y.sort ? 1 : -1;
 				}));
 			});
 
-			files.forEach(function(id)
+			files.forEach(function loopFiles(id)
 			{
 				if (isNaN(parseInt(id)))
 					return;
 
-				self.getFile(table, id, function(err, result)
+				self.getFile(table, id, function gotFile(err, result)
 				{
 					if (err)
 						return error = err;
@@ -149,11 +149,11 @@ module.exports.prototype =
 		});
 	},
 
-	"getBlob": function(table, id, cb)
+	"getBlob": function getBlob(table, id, cb)
 	{
 		var self = this;
 
-		self.getFile(table, id, function(err, result)
+		self.getFile(table, id, function gotFile(err, result)
 		{
 			if (err)
 				return cb(err);
@@ -165,13 +165,13 @@ module.exports.prototype =
 		});
 	},
 
-	"getBlobs": function(table, cb)
+	"getBlobs": function getBlobs(table, cb)
 	{
 		var self = this;
 
-		self.getFiles(table, function(err, result)
+		self.getFiles(table, function gotFiles(err, result)
 		{
-			result.forEach(function(file)
+			result.forEach(function loopFiles(file)
 			{
 				var dir = path.join(self.root, table+".blob");
 				file.readStream = fs.createReadStream(path.join(dir, file.id));
@@ -181,13 +181,13 @@ module.exports.prototype =
 		});
 	},
 
-	"updateFile": function(table, id, content, cb)
+	"updateFile": function updateFile(table, id, content, cb)
 	{
 		var self = this;
 
 		var fileName = path.join(self.root, table, id);
 
-		fs.readFile(fileName, function(err, file)
+		fs.readFile(fileName, function gotFile(err, file)
 		{
 			if (err)
 				return cb(err);
@@ -199,7 +199,7 @@ module.exports.prototype =
 				original[i] = content[i];
 			}
 
-			fs.writeFile(fileName, JSON.stringify(original), function(err)
+			fs.writeFile(fileName, JSON.stringify(original), function writtenFile(err)
 			{
 				if (err)
 					return cb(err);
@@ -209,12 +209,12 @@ module.exports.prototype =
 		});
 	},
 
-	"deleteFile": function(table, id, cb)
+	"deleteFile": function deleteFile(table, id, cb)
 	{
 		var self = this;
 
 		var dir = path.join(self.root, table);
-		fs.unlink(path.join(dir, id), function(err)
+		fs.unlink(path.join(dir, id), function unlinkedFile(err)
 		{
 			if (err)
 				return cb(err);
@@ -223,17 +223,17 @@ module.exports.prototype =
 		});
 	},
 
-	"deleteBlob": function(table, id, cb)
+	"deleteBlob": function deleteBlob(table, id, cb)
 	{
 		var self = this;
 
-		self.deleteFile(table, id, function(err)
+		self.deleteFile(table, id, function deletedFile(err)
 		{
 			if (err)
 				return cb(err);
 
 			var dir = path.join(self.root, table+".blob");
-			fs.unlink(path.join(dir, id), function(err)
+			fs.unlink(path.join(dir, id), function unlinkedBlob(err)
 			{
 				if (err)
 					return cb(err);

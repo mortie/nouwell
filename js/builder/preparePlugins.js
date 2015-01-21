@@ -1,14 +1,14 @@
 var fs = require("fs");
 var path = require("path");
 
-module.exports = function(cb)
+module.exports = function preparePlegins(cb)
 {
 	var self = this;
 
 	self.logger.debug("Preparing plugins");
 
 	++self.cbs;
-	fs.readdir(self.pluginDir, function(err, plugins)
+	fs.readdir(self.pluginDir, function gotDir(err, plugins)
 	{
 		if (err)
 		{
@@ -36,7 +36,7 @@ function preparePlugin(plugin, self, cb)
 	++self.cbs;
 	fs.readdir(path.join(pluginDir, "php"), function(err, files)
 	{
-		fs.mkdir(pluginDirOut, function(err)
+		fs.mkdir(pluginDirOut, function madePluginDir(err)
 		{
 			if (err.code && err.code !== "EEXIST")
 				self.logger.error("Couldn't create plugin dir.", err);
@@ -48,7 +48,7 @@ function preparePlugin(plugin, self, cb)
 				return;
 			}
 
-			files.forEach(function(file)
+			files.forEach(function createPluginFile(file)
 			{
 				writePluginFile(path.join(pluginDir, "conf.json"),
 				                path.join(pluginDir, "php", file),
@@ -68,7 +68,7 @@ function writePluginFile(confFile, inFile, outFile, self)
 	var confContent;
 	var inContent;
 
-	fs.readFile(confFile, "utf8", function(err, content)
+	fs.readFile(confFile, "utf8", function gotPluginFile(err, content)
 	{
 		if (err && err.code == "ENOENT")
 			self.logger.notice("No plugin config file "+confFile+".");
@@ -79,7 +79,7 @@ function writePluginFile(confFile, inFile, outFile, self)
 		if (inContent !== undefined) write();
 	});
 
-	fs.readFile(inFile, "utf8", function(err, content)
+	fs.readFile(inFile, "utf8", function readPluginFile(err, content)
 	{
 		self.logger.error("Could not read plugin file "+inFile+".", err);
 
@@ -96,7 +96,7 @@ function writePluginFile(confFile, inFile, outFile, self)
 		var prefix = "<?php $conf = json_decode(\"\n"+confEscaped+"\"); ?>\n";
 		var content = prefix+inContent;
 
-		fs.writeFile(outFile, content, function(err)
+		fs.writeFile(outFile, content, function writtenPluginFile(err)
 		{
 			self.logger.error("Could not write plugin file "+outFile+".", err);
 			--self.cbs;

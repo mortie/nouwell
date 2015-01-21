@@ -70,13 +70,13 @@ builder = new Builder(
 });
 
 //actually build site
-builder.build(function()
+builder.build(function buildComplete()
 {
 	var endTime = new Date();
 
 	var elapsed = endTime.getTime() - startTime.getTime();
 
-	logger.info("Done in "+elapsed+" milliseconds.", function()
+	logger.info("Done in "+elapsed+" milliseconds.", function lastLogComplete()
 	{
 		process.exit();
 	});

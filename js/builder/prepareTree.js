@@ -1,4 +1,4 @@
-module.exports = function(cb)
+module.exports = function prepareTree(cb)
 {
 	var self = this;
 
@@ -9,7 +9,7 @@ module.exports = function(cb)
 	var pages;
 	var posts;
 
-	self.db.getFiles("pages", function(err, result)
+	self.db.getFiles("pages", function gotPages(err, result)
 	{
 		pages = result;
 
@@ -17,7 +17,7 @@ module.exports = function(cb)
 		if (callbacks === 0) build();
 	});
 
-	self.db.getFiles("posts", function(err, result)
+	self.db.getFiles("posts", function gotPosts(err, result)
 	{
 		posts = result.reverse();
 		posts.sort(function(x, y)
@@ -34,7 +34,7 @@ module.exports = function(cb)
 		var tree = [];
 
 		//prepare parents
-		pages.forEach(function(page)
+		pages.forEach(function prepareParents(page)
 		{
 			preparePage(page);
 			if (!page.parent_page_id)
@@ -42,7 +42,7 @@ module.exports = function(cb)
 		});
 
 		//prepare children
-		pages.forEach(function(page)
+		pages.forEach(function prepareChildren(page)
 		{
 			if (page.parent_page_id)
 			{
@@ -52,7 +52,7 @@ module.exports = function(cb)
 
 		//sort children
 		self.tree = [];
-		tree.forEach(function(page)
+		tree.forEach(function sortChildren(page)
 		{
 			self.tree.push(tree[page.id]);
 
@@ -68,7 +68,7 @@ module.exports = function(cb)
 		});
 
 		//sort parents
-		self.tree.sort(function(x, y)
+		self.tree.sort(function sortParents(x, y)
 		{
 			return x.sort > y.sort ? 1 : -1;
 		});
@@ -82,7 +82,7 @@ module.exports = function(cb)
 		page.children = [];
 		page.posts = [];
 
-		posts.forEach(function(post)
+		posts.forEach(function loopPosts(post)
 		{
 			if (post.page_id == page.id)
 				page.posts.push(post);

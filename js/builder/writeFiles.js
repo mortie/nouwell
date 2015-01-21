@@ -2,7 +2,7 @@ var fs = require("fs");
 var path = require("path");
 var mkdirp = require("mkdirp");
 
-module.exports = function(cb)
+module.exports = function writeFiles(cb)
 {
 	var self = this;
 
@@ -10,11 +10,11 @@ module.exports = function(cb)
 
 	var first = true;
 
-	self.tree.forEach(function(page)
+	self.tree.forEach(function loopParents(page)
 	{
 		if (page.children.length)
 		{
-			page.children.forEach(function(child)
+			page.children.forEach(function loopChildren(child)
 			{
 				var menu = buildMenu(page, child, self);
 				buildPage(page.slug+"/"+child.slug, child, menu, self, first);
@@ -41,10 +41,10 @@ module.exports = function(cb)
 function buildMenu(page, child, self)
 {
 	var menuPages = "";
-	self.tree.forEach(function(cPage)
+	self.tree.forEach(function menuLoopParents(cPage)
 	{
 		var dropdown = "";
-		cPage.children.forEach(function(cChild)
+		cPage.children.forEach(function menuLoopChildren(cChild)
 		{
 			if (child === cChild)
 				var current = "current";
@@ -95,7 +95,7 @@ function buildMenu(page, child, self)
 function buildPage(dirPath, page, menu, self, first)
 {
 	var posts = "";
-	page.posts.forEach(function(post)
+	page.posts.forEach(function buildLoopParents(post)
 	{
 		var url = dirPath+"/"+post.slug;
 		if (url[0] === "/") url = url.substring(1);
@@ -150,7 +150,7 @@ function write(dirPath, content, self)
 	var fileName = path.join(dirPath, "index.html");
 
 	++self.cbs;
-	fs.writeFile(fileName, content, function(err)
+	fs.writeFile(fileName, content, function fileWritten(err)
 	{
 		self.logger.error("Couldn't write file.", err);
 

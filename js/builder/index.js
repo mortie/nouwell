@@ -19,7 +19,7 @@ module.exports = function(conf)
 
 module.exports.prototype =
 {
-	"build": function(cb)
+	"build": function build(cb)
 	{
 		var self = this;
 
@@ -40,7 +40,7 @@ module.exports.prototype =
 		});
 	},
 
-	"_end": function(cb)
+	"_end": function end(cb)
 	{
 		var self = this;
 

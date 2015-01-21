@@ -1,12 +1,12 @@
 var path = require("path");
 var fs = require("fs");
 
-module.exports = function(conf)
+module.exports = function Template(conf)
 {
 	var suffix = conf.suffix;
 	var templateDir = conf.path;
 
-	return function(name, args)
+	return function template(name, args)
 	{
 		var fileName = path.join(templateDir, name+suffix);
 
