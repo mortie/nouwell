@@ -30,6 +30,8 @@
 		["Log Out", "logout"]
 	]
 
+	var wrapper = document.getElementById("nav-wrapper");
+
 	var async = new lib.Async(3, draw);
 
 	populateDropdowns(async);
@@ -58,11 +60,12 @@
 		});
 
 		//horrible hack to circumvent CSS limitations
-		var wrapper = document.getElementById("nav-wrapper");
 		gui.on(".navEntry", ["mouseover", "mouseout", "touchstart", "touchend"], function()
 		{
 			wrapper.style.width = navElement.scrollWidth+20+"px";
 		});
+
+		wrapper.style.width = navElement.scrollWidth+20+"px";
 	}
 
 	function drawWithoutDropdown(panel)

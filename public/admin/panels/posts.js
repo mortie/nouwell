@@ -156,6 +156,12 @@ router.addPanel("posts", function(args)
 					"raw": markdown,
 					"html": html,
 					"id": args[2]
+				}, function(result)
+				{
+					if (result.success)
+						gui.notify("Post updated!");
+					else
+						gui.error("An error occurred. Post not updated.");
 				});
 			}
 		}

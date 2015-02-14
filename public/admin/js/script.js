@@ -54,6 +54,7 @@
 	{
 		document.getElementById("nav-wrapper").className = "";
 		document.getElementById("panel").innerHTML = "<img src='img/loading.gif' />";
+		nav.load();
 	});
 
 	router.on("loaded", function()

@@ -30,7 +30,15 @@ router.addPanel("new", function(args)
 			function(result)
 			{
 				console.log(result);
-				router.path = "posts/edit/"+result.id;
+				if (result.success)
+				{
+					gui.notify("Post created!");
+					router.path = "posts/edit/"+result.id;
+				}
+				else
+				{
+					gui.error("Could not create post.");
+				}
 			});
 		}
 	}

@@ -15,6 +15,12 @@
 			if (this._enabled)
 				this.load();
 		}.bind(this));
+
+		window.addEventListener("hashchange", function(e)
+		{
+			this.load();
+			this._panel = this.path.split("/")[0];
+		}.bind(this));
 	}
 
 	window.Router.prototype =
@@ -37,8 +43,6 @@
 				this._panel = path.split("/")[0];
 				location.hash = path;
 			}
-
-			router.load();
 		},
 
 		get element()
@@ -82,11 +86,10 @@
 				this._element.innerHTML = "";
 
 				console.log("loading '"+panel+"'");
+				this._emit("load", [first || false]);
 
 				//execute page script
 				this._panels[panel](sections);
-
-				this._emit("load", [first || false]);
 			}
 		},
 
