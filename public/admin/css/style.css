@@ -128,3 +128,10 @@ html, body
 {
 	display: none;
 }
+
+#ios-status-bar
+{
+	height: 20px;
+	width: 100%;
+	background-color: #000;
+}

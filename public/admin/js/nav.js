@@ -66,6 +66,13 @@
 		});
 
 		wrapper.style.width = navElement.scrollWidth+20+"px";
+
+		gui.on("#nav .navLink", "click", function(elem)
+		{
+			var targetPath = elem.getAttribute("data-targetPath");
+			if (targetPath)
+				router.path = targetPath;
+		});
 	}
 
 	function drawWithoutDropdown(panel)
@@ -79,7 +86,7 @@
 		{
 			"name": panel[0],
 			"current": current,
-			"onclick": "router.path = '"+panel[1]+"'",
+			"targetPath": panel[1]
 		});
 	}
 
@@ -114,7 +121,7 @@
 					{
 						"name": p.title,
 						"current": current,
-						"onclick": "router.path = '"+panel[2]+"/"+p.id+"'"
+						"targetPath": panel[2]+"/"+p.id
 					}, false);
 				}
 			});
@@ -132,7 +139,7 @@
 					{
 						"name": p.title,
 						"current": current,
-						"onclick": "router.path = '"+panel[2]+"/"+p.id+"'",
+						"targetPath": panel[2]+"/"+p.id
 					}, false);
 
 					dropdown += children[p.id] || "";

@@ -66,4 +66,9 @@
 	{
 		document.title = result.settings.title+" Admin";
 	});
+
+	if (navigator.userAgent.match(/(iPad|iPhone|iPod)/g))
+	{
+		document.getElementById("ios-status-bar").className = "";
+	}
 })();
